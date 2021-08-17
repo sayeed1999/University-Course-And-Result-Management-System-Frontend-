@@ -11,6 +11,7 @@ import { DepartmentsComponent } from './home/departments/departments.component';
 import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CourseFormComponent } from './home/course-form/course-form.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     DepartmentsComponent,
     DepartmentFormComponent,
+    CourseFormComponent,
   ],
   imports: [
     BrowserModule,

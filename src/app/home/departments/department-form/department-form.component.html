@@ -1,5 +1,5 @@
 <h1>{{ title }}</h1>
-<form #form="ngForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; width: 300px;">
+<form #form="ngForm" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="fill">
     <mat-label>Department Code</mat-label>
     <input matInput [(ngModel)]="code" name="code" id="code" required>
