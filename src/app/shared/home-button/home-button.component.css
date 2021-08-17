@@ -1,0 +1,9 @@
+button {
+    background-color: yellow;
+    height: 100px;
+    width: 160px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: large;
+    margin: 10px;
+}
