@@ -29,6 +29,11 @@ export class DepartmentFormComponent implements OnInit {
       },
       error => {
         console.log(error);
+      },
+      () => {
+        // complete
+        this.code = '';
+        this.name = '';
       }
     );
   }
