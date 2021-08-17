@@ -12,6 +12,7 @@ import { DepartmentFormComponent } from './home/departments/department-form/depa
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
+import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CourseFormComponent } from './home/course-form/course-form.component';
     DepartmentsComponent,
     DepartmentFormComponent,
     CourseFormComponent,
+    TeacherFormComponent,
   ],
   imports: [
     BrowserModule,
