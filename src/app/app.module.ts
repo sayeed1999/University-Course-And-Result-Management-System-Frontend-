@@ -7,18 +7,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HomeButtonComponent } from './shared/home-button/home-button.component';
 import { HomeComponent } from './home/home.component';
+import { DepartmentsComponent } from './home/departments/departments.component';
+import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeButtonComponent,
     HomeComponent,
+    DepartmentsComponent,
+    DepartmentFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
