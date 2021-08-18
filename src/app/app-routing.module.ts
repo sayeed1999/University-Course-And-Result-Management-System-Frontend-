@@ -5,6 +5,7 @@ import { CourseFormComponent } from './home/course-form/course-form.component';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
 import { DepartmentsComponent } from './home/departments/departments.component';
+import { EnrollStudentInCourseComponent } from './home/enroll-student-in-course/enroll-student-in-course.component';
 import { HomeComponent } from './home/home.component';
 import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
   { path: 'view-course-statistics', component: CourseStatisticsComponent },
   { path: 'student-registration', component: StudentRegistrationComponent },
+  { path: 'enroll-student-in-course', component: EnrollStudentInCourseComponent },
   { path: '', component: HomeComponent }
 ];
 

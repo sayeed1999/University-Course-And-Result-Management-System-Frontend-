@@ -57,6 +57,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
 
   onChanges(): void {
     this.department.valueChanges.subscribe((val:Department) => {
+      console.log(val);
       this.courses = val.courses ?? [];
       this.teachers = val.teachers ?? [];
       this.form.controls.departmentId.setValue(val.id);
