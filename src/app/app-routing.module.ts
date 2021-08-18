@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
 import { DepartmentsComponent } from './home/departments/departments.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'departments', component: DepartmentsComponent },
   { path: 'course-form', component: CourseFormComponent },
   { path: 'teacher-form', component: TeacherFormComponent },
+  { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
   { path: '', component: HomeComponent }
 ];
 
