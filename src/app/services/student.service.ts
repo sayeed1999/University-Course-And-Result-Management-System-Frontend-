@@ -22,4 +22,11 @@ export class StudentService extends RepositoryService {
       data
     );
   }
+
+  SaveResult(data: StudentEnrollOrPublishResultInCourse) {
+    return this.http.post<ServiceResponse>(
+      `${this.url}/save-result`,
+      data
+    );
+  }
 }
