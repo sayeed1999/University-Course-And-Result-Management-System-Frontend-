@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
+import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/
     CourseFormComponent,
     TeacherFormComponent,
     CourseAssignToTeacherComponent,
+    CourseStatisticsComponent,
   ],
   imports: [
     BrowserModule,
