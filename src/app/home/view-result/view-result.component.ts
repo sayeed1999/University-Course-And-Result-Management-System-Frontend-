@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from 'src/app/models/Student.model';
 import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
 import { StudentService } from 'src/app/services/student.service';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-view-result',
@@ -46,7 +48,20 @@ export class ViewResultComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  exportHtmlToPDF() {
     // make pdf
+    let data = document.getElementById('body') ?? document.createElement('div');
+    html2canvas(data).then(canvas => {
+    
+      let fileWidth = 208;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
+      
+      const FILEURI = canvas.toDataURL('image/png')
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+      
+      PDF.save('angular-demo.pdf');
+    });     
   }
 }
