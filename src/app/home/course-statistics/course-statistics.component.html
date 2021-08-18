@@ -1,0 +1,47 @@
+<div style="display: flex; flex-wrap: wrap;">
+    <h1 style="display: 4">View Course Statistics:-</h1>
+
+    <mat-form-field style="margin: 0 auto" appearance="fill">
+        <mat-label>Select Department</mat-label>
+        <mat-select [formControl]="department" name="department" id="department">
+            <mat-option  *ngFor="let dept of departments" [value]="dept">
+                {{dept.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error> Please select a department </mat-error>
+    </mat-form-field>
+  
+</div>
+  
+  <table mat-table [dataSource]="courses" class="mat-elevation-z8">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name/Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Semister Column -->
+      <ng-container matColumnDef="semister">
+        <th mat-header-cell *matHeaderCellDef> Semister </th>
+        <td mat-cell *matCellDef="let element"> {{element.semister?.name}} </td>
+      </ng-container>
+
+      <!-- AssignedTo Column -->
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef> Assigned To </th>
+        <td mat-cell *matCellDef="let element"> {{ element.teacher?.name ?? "Not Assigned Yet" }} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>  

@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
+import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/cours
     TeacherFormComponent,
     CourseAssignToTeacherComponent,
     ConfirmationDialog,
+    CourseStatisticsComponent,
+    StudentRegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,7 @@ import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/cours
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
