@@ -18,6 +18,7 @@ import { StudentRegistrationComponent } from './home/student-registration/studen
 import { MatNativeDateModule } from '@angular/material/core';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-publish-result/student-enroll-or-publish-result.component';
+import { ViewResultComponent } from './home/view-result/view-result.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-
     CourseStatisticsComponent,
     StudentRegistrationComponent,
     StudentEnrollOrPublishResultComponent,
+    ViewResultComponent,
   ],
   imports: [
     BrowserModule,

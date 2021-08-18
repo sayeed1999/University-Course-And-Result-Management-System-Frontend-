@@ -29,4 +29,7 @@ export class StudentService extends RepositoryService {
       data
     );
   }
+
+  // GET: Students/Results
+  ViewResults = () : Observable<ServiceResponse> => this.http.get<ServiceResponse>(`${this.url}/results`);
 }

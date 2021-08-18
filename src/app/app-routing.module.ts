@@ -9,6 +9,7 @@ import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-
 import { HomeComponent } from './home/home.component';
 import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
+import { ViewResultComponent } from './home/view-result/view-result.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'registration', component: StudentRegistrationComponent },
     { path: 'enroll-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' } },
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' } },
+    { path: 'view-result', component: ViewResultComponent },
   ] },
   { path: '', component: HomeComponent }
 ];
