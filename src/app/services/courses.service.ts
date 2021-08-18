@@ -19,9 +19,9 @@ export class CoursesService extends RepositoryService {
     return this.http.post<ServiceResponse>(
       `${this.url}/CourseAssignToTeacher`,
       {
-        departmentId: departmentId,
-        teacherId: teacherId,
-        courseCode: courseCode
+        departmentId,
+        teacherId,
+        courseCode
       }
     );
   }

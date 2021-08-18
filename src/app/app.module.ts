@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
-import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
+import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/
     CourseFormComponent,
     TeacherFormComponent,
     CourseAssignToTeacherComponent,
+    ConfirmationDialog,
   ],
   imports: [
     BrowserModule,
