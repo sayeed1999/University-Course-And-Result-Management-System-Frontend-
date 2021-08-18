@@ -17,6 +17,7 @@ import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/cours
 import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
+import { EnrollStudentInCourseComponent } from './home/enroll-student-in-course/enroll-student-in-course.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CourseStatisticsComponent } from './home/course-statistics/course-stati
     ConfirmationDialog,
     CourseStatisticsComponent,
     StudentRegistrationComponent,
+    EnrollStudentInCourseComponent,
   ],
   imports: [
     BrowserModule,
