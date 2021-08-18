@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ServiceResponse } from '../models/ServiceResponse.model';
 import { RepositoryService } from './repository.service';
 
 @Injectable({
@@ -11,5 +13,16 @@ export class CoursesService extends RepositoryService {
     super(http);
     this.endpoint = 'courses';
     this.url += this.endpoint;
+  }
+
+  courseAssignToTeacher(departmentId: number, teacherId: number, courseCode: string) : Observable<ServiceResponse> {
+    return this.http.post<ServiceResponse>(
+      `${this.url}/CourseAssignToTeacher`,
+      {
+        departmentId: departmentId,
+        teacherId: teacherId,
+        courseCode: courseCode
+      }
+    );
   }
 }
