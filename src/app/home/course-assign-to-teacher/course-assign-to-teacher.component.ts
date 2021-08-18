@@ -17,11 +17,16 @@ export class CourseAssignToTeacherComponent implements OnInit {
   departments: Department[] = [];
   teachers: Teacher[] = [];
   courses: Course[] = [];
+  department = new FormControl();
 
   form = new FormGroup({
     departmentId: new FormControl(0, Validators.required),
-    teacherId: new FormControl('', Validators.required),
-    courseCode: new FormControl('', Validators.required),
+    teacherId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
+    creditToBeTaken: new FormControl(''),
+    remainingCredit: new FormControl(''),
+    courseCode: new FormControl(null, Validators.required),
+    courseName: new FormControl(''),
+    courseCredit: new FormControl(''),
   });
 
   constructor(
@@ -47,11 +52,27 @@ export class CourseAssignToTeacherComponent implements OnInit {
   }
 
   onChanges(): void {
-    this.form.get('departmentId')?.valueChanges.subscribe(val => {
-      const dept = this.departments.find(x => x.id == val);
-      console.log(dept);
-      this.courses = dept?.courses ?? [];
-      this.teachers = dept?.teachers ?? [];
+    this.department.valueChanges.subscribe((val:Department) => {
+      this.courses = val.courses ?? [];
+      this.teachers = val.teachers ?? [];
+
+      this.form.patchValue({
+        departmentId: new FormControl(val.id, Validators.required),
+        teacherId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
+        courseCode: new FormControl(null, [Validators.required]),
+      })
+    });
+
+    this.form.get('teacherId')?.valueChanges.subscribe(val => {
+      const teacher = this.teachers.find(x => x.id == val);
+      this.form.controls.creditToBeTaken.setValue(teacher?.creditToBeTaken ?? '');
+      this.form.controls.remainingCredit.setValue(teacher?.remainingCredit ?? '');
+    });
+
+    this.form.get('courseCode')?.valueChanges.subscribe(val => {
+      const course = this.courses.find(x => x.code == val);
+      this.form.controls.courseName.setValue(course?.name ?? '');
+      this.form.controls.courseCredit.setValue(course?.credit ?? '');
     });
   }
   onSubmit() {
