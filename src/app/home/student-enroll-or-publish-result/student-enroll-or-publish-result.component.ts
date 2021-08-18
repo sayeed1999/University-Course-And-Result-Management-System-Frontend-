@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/Course.model';
+import { GradeLetter } from 'src/app/models/GradeLetter.model';
 import { Student } from 'src/app/models/Student.model';
 import { StudentEnrollOrPublishResultInCourse } from 'src/app/models/StudentEnrollOrPublishResult.model';
 import { CoursesService } from 'src/app/services/courses.service';
+import { GradesService } from 'src/app/services/grades.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -18,6 +20,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   title = "";
   students: Student[] = [];
   courses: Course[] = [];
+  grades: GradeLetter[] = [];
 
   student = new FormControl();
 
@@ -27,19 +30,20 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     email: new FormControl(''),
     deptCode: new FormControl(''),
     courseCode: new FormControl('', Validators.required),
-    // date: new FormControl(new Date(), Validators.required)
   });
 
   constructor(
     private studentService: StudentService,
     private courseService: CoursesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private gradesService: GradesService
   ) { }
 
   ngOnInit(): void {
     this.fetchStudents();
     this.onStudentChange();
     this.onDepartmentChange();
+    this.fetchGrades();
 
     this.activatedRoute.data.subscribe(data => {
       switch(data.kind) {
@@ -57,10 +61,6 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
           break;
       }
     });
-
-    // this.form.controls.courseCode.valueChanges.subscribe(res => { // debugging
-    //   console.log(this.form)
-    // })
   }
 
   fetchStudents() {
@@ -87,14 +87,25 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     );
   }
 
+  fetchGrades() {
+    this.gradesService.GetAll().subscribe(
+      res => {
+        this.grades = res.data;
+        console.log('asd', this.grades)
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   onSubmit() {
-    // console.log(this.form.value);
-    // console.log(this.student);
     var data = new StudentEnrollOrPublishResultInCourse(
       this.student.value.departmentId,
       this.form.value.courseCode,
       this.student.value.id,
-      this.form.value.date
+      this.form.value.date,
+      this.form.value?.grade
     );
     if(this.mode == 'enroll') {
       this.studentService.EnrollInCourse(data).subscribe(
@@ -106,14 +117,20 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
       );
     }
     else if(this.mode == 'publish') {
-
+      this.studentService.SaveResult(data).subscribe(
+        res => {
+          this.form.reset();
+          this.student.reset();
+        },
+        error => console.log(error)
+      );
     }
   }
 
   onStudentChange() {
 
     this.student.valueChanges.subscribe((val:Student) => {
-      console.log(val);
+      // console.log(val);
       if(val as Student) {
         this.form.controls.reg.setValue(val.registrationNumber);
         this.form.controls.name.setValue(val.name);

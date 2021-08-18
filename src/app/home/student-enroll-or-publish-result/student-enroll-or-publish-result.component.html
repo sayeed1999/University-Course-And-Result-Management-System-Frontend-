@@ -37,15 +37,15 @@
         <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
     <ng-template #elseblock>
-        <!-- <mat-form-field>
+        <mat-form-field>
           <mat-label>Select Grade Letter</mat-label>
             <mat-select formControlName="grade" name="grade" id="grade" required>
                 <mat-option *ngFor="let g of grades" [value]="g.grade">
                     {{ g.grade }}
                 </mat-option>
             </mat-select>
-            <mat-error> Please select a course </mat-error>
-          </mat-form-field>       -->
+            <mat-error> Please select a grade </mat-error>
+          </mat-form-field>      
     </ng-template>
   <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
 </form>
