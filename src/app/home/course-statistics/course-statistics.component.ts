@@ -28,9 +28,9 @@ export class CourseStatisticsComponent implements OnInit {
   fetchAll() {
     this.departmentService.getAllDepartmentsWithCoursesAndTeachers().subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.departments = res.data;
-        console.log("data", this.departments);
+        // console.log("data", this.departments);
       },
       error => {
         console.log(error);

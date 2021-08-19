@@ -62,10 +62,10 @@ export class TeacherFormComponent implements OnInit {
     var teacher = this.form.value;
     this.teacherService.Add(teacher).subscribe(
       res => {
-        console.log(res);
+        alert("Successfully saved!");
       },
       error => {
-        console.log(error);
+        alert("Error Occurred. Try providing the right data");
       },
       () => {
         // complete

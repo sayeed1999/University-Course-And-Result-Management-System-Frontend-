@@ -25,10 +25,10 @@ export class DepartmentFormComponent implements OnInit {
     console.log(department);
     this.departmentService.Add(department).subscribe(
       res => {
-        console.log(res);
+        alert(res.message);
       },
       error => {
-        console.log(error);
+        alert("Some error occured. Don't try to save duplicate data")
       },
       () => {
         // complete
