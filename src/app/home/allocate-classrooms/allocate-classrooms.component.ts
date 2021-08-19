@@ -110,10 +110,13 @@ export class AllocateClassroomsComponent implements OnInit {
         //success
       },
       error => {
-        console.log("Some error occured. May be you are overlapping classes or assigning the assigned course");
+        console.log(error);
       },
       () => {
         this.form.reset();
+        this.day.reset();
+        this.room.reset();
+        this.department.reset();
       }
     );
   }
