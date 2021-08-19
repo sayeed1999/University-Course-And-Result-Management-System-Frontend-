@@ -20,6 +20,7 @@ import { CourseStatisticsComponent } from './home/course-statistics/course-stati
 import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-publish-result/student-enroll-or-publish-result.component';
 import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
+import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate
     StudentEnrollOrPublishResultComponent,
     ViewResultComponent,
     AllocateClassroomsComponent,
+    ViewClassScheduleComponent,
   ],
   imports: [
     BrowserModule,

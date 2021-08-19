@@ -11,6 +11,7 @@ import { StudentRegistrationComponent } from './home/student-registration/studen
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
+import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'view-result', component: ViewResultComponent },
   ] },
   { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
+  { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: '', component: HomeComponent }
 ];
 
