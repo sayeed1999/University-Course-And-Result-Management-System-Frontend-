@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course.model';
 import { Department } from 'src/app/models/Department.model';
 import { Semister } from 'src/app/models/Semister.model';
@@ -17,11 +19,11 @@ export class CourseFormComponent implements OnInit {
   title = "Save Course"
   form = new FormGroup({
     code: new FormControl('', [ Validators.required, Validators.minLength(2), Validators.maxLength(7) ]),
-    name: new FormControl('', [ Validators.required ]),
+    name: new FormControl('', Validators.required),
     credit: new FormControl('', [ Validators.required, Validators.min(0.5), Validators.max(5) ]),
-    description: new FormControl('', [ Validators.required, Validators.minLength(50) ]),
-    departmentId: new FormControl(0, Validators.required),
-    semisterId: new FormControl(0, Validators.required)
+    description: new FormControl('', [ Validators.required, Validators.minLength(30) ]),
+    departmentId: new FormControl(null, Validators.required),
+    semisterId: new FormControl(null, Validators.required)
   });
 
   departments: Department[] = [];
@@ -31,6 +33,8 @@ export class CourseFormComponent implements OnInit {
     private coursesService: CoursesService,
     private semisterService: SemistersService,
     private departmentService: DepartmentService,
+    private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -41,36 +45,39 @@ export class CourseFormComponent implements OnInit {
   fetchDepartments() {
     this.departmentService.GetAll().subscribe(
       res => this.departments = res.data,
-      error => {
-        console.log(error);
-      }
+      error => this.snackbar.open('Failed! ' + error.message, 'Close'),
     );
   }
 
   fetchSemisters() {
     this.semisterService.GetAll().subscribe(
       res => this.semisters = res.data,
-      error => {
-        console.log(error);
-      }
+      error => this.snackbar.open('Failed! ' + error.message, 'Close')
     );
   }
     
   onSubmit() {
-    // i assume what data will come will match course model.
     var course = this.form.value;
+    // console.log(course);
     this.coursesService.Add(course).subscribe(
       res => {
-        alert(res.message);
+        this.router.navigate(['../']);
+        this.snackbar.open('Success! ' + res.message, 'Close');
+        this.reset();
       },
       error => {
-        alert("Some error occured. May be this course is saved earlier. Try with right data");
-      },
-      () => {
-        // complete
-        this.form.reset();
+        this.snackbar.open('Failed! ' + error.message, 'Close');
+        // this.reset();
       }
     );
+  }
+
+
+  reset() {
+    this.form.reset();
+    // this.form.markAsPristine();
+    // this.form.markAsUntouched();
+    // console.log(this.form.value);
   }
 
 }
