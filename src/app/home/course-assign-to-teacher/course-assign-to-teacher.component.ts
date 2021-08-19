@@ -81,6 +81,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
   }
 
   onChanges(): void {
+
     this.department.valueChanges.subscribe(val => 
     {  
       if(val == undefined) return;
@@ -90,7 +91,6 @@ export class CourseAssignToTeacherComponent implements OnInit {
       this.fetchTeachers(val.id);
       this.form.controls.teacherId.setValue(0);
       this.form.controls.courseCode.setValue('');
-      // console.log(this.form)
     });
 
     this.teacher.valueChanges.subscribe(

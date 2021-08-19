@@ -31,4 +31,10 @@ export class CoursesService extends RepositoryService {
       }
     );
   }
+
+  getCoursesByDepartmentCode(departmentCode: string) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${departmentCode}`
+    );
+  }
 }
