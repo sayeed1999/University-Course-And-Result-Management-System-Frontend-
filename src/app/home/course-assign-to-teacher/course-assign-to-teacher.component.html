@@ -18,7 +18,7 @@
         </mat-select>
     </mat-form-field>
     <p class="error-text" *ngIf="teacher.touched && form.get('departmentId')?.invalid"> Please select a department first </p>
-    <p class="error-text" *ngIf="teacher.touched && form.get('departmentId')?.valid"> Please select a teacher </p>
+    <p class="error-text" *ngIf="teacher.touched && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
     <mat-form-field>
         <mat-label>Credit To Be Taken</mat-label>
         <input matInput readonly formControlName="creditToBeTaken" [value]="" name="creditToBeTaken" id="creditToBeTaken"> 
@@ -36,7 +36,7 @@
         </mat-select>
     </mat-form-field>
     <p class="error-text" *ngIf="course.touched && form.get('departmentId')?.invalid"> Please select a department first </p>
-    <p class="error-text" *ngIf="course.touched && form.get('departmentId')?.valid"> Please select a course </p>
+    <p class="error-text" *ngIf="course.touched && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
     <mat-form-field>
         <mat-label>Course Name</mat-label>
         <input matInput readonly formControlName="courseName" name="courseName" id="courseName"> 

@@ -8,6 +8,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class CourseAssignToTeacherComponent implements OnInit {
     private departmentService: DepartmentService,
     private teacherService: TeacherService,
     private courseService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
         this.departments = res.data;
       },
       error => {
-        console.log(error);
+        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
       }
     );
   }
@@ -63,7 +65,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
         this.courses = res.data;
       },
       error => {
-        console.log(error);
+        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
       }
     );
   }
@@ -73,7 +75,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
         this.teachers = res.data;
       },
       error => {
-        console.log(error);
+        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
       }
     );
   }
@@ -115,10 +117,10 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.courseService.courseAssignToTeacher(this.form.value.departmentId, this.form.value.teacherId, this.form.value.courseCode)
       .subscribe(
         res => {
-          this.reset();
+          this.snackbar.open(`Success!\n${res.message}`, 'Close');
         },
         error => {
-          console.log(error);
+          this.snackbar.open(`Failed!\n${error.message}`, 'Close');
           this.reset();
         }
       );
@@ -133,8 +135,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
       if(permission == true) {
         this.onSubmit();
       } else {
-        this.form.reset();
-        this.department.reset();
+        this.snackbar.open(`Cancelled!`, 'Close');
       }
     });
   }
@@ -145,6 +146,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.department.reset();
     
     this.form.reset();
+    // this.snackbar.open(`The form is reset.`, 'Close');
   }
 }
 
