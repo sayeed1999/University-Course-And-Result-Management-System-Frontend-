@@ -21,4 +21,11 @@ export class DepartmentService extends RepositoryService {
       `${this.url}/all`
     );
   }
+
+  // path: departments/courses
+  getAllDepartmentsWithCourses(): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/courses`
+    );
+  }
 }
