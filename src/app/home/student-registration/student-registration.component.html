@@ -1,14 +1,9 @@
 <h1>{{ title }}</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <mat-label>Teacher Name</mat-label>
+    <mat-label>Name</mat-label>
     <input matInput formControlName="name" name="name" id="name" required>
     <mat-error> Name is required with a minimum length of 3 characters </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label> Address </mat-label>
-    <input matInput formControlName="address" name="address" id="address" required> 
-    <mat-error> Address is required </mat-error>  
   </mat-form-field>
   <mat-form-field>
     <mat-label> Email </mat-label>
@@ -21,13 +16,14 @@
     <mat-error> Contact should have length between 6-14 </mat-error>  
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Select Designation</mat-label>
-    <mat-select formControlName="designationId" name="designationId" id="designationId">
-        <mat-option *ngFor="let des of designations" [value]="des.id">
-            {{ des.name }}
-        </mat-option>
-    </mat-select>
-    <mat-error> Please select a designation </mat-error>
+    <input matInput [matDatepicker]="picker1" formControlName="date" name="date" placeholder="Pick a Date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Address </mat-label>
+    <input matInput formControlName="address" name="address" id="address" required> 
+    <mat-error> Address is required </mat-error>  
   </mat-form-field>
   <mat-form-field>
       <mat-label>Select Department</mat-label>
@@ -37,11 +33,6 @@
           </mat-option>
       </mat-select>
       <mat-error> Please select a department </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label> Credit To Be Taken </mat-label>
-    <input matInput type="number" formControlName="creditToBeTaken" name="creditToBeTaken" id="creditToBeTaken" required> 
-    <mat-error> Credit must be provided & should be non-negative </mat-error>  
   </mat-form-field>
   <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
 </form>
