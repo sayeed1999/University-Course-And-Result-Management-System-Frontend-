@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Course } from 'src/app/models/Course.model';
 import { Department } from 'src/app/models/Department.model';
 import { Semister } from 'src/app/models/Semister.model';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -33,8 +31,7 @@ export class CourseFormComponent implements OnInit {
     private coursesService: CoursesService,
     private semisterService: SemistersService,
     private departmentService: DepartmentService,
-    private snackbar: MatSnackBar,
-    // private router: Router
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -58,16 +55,14 @@ export class CourseFormComponent implements OnInit {
     
   onSubmit() {
     var course = this.form.value;
-    // console.log(course);
     this.coursesService.Add(course).subscribe(
       res => {
-        // this.router.navigate(['../']);
         this.snackbar.open('Success! ' + res.message, 'Close');
         this.reset();
       },
       error => {
         this.snackbar.open('Failed! ' + error.message, 'Close');
-        // this.reset();
+        this.reset();
       }
     );
   }
@@ -75,9 +70,6 @@ export class CourseFormComponent implements OnInit {
 
   reset() {
     this.form.reset();
-    // this.form.markAsPristine();
-    // this.form.markAsUntouched();
-    // console.log(this.form.value);
   }
 
 }
