@@ -114,7 +114,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
           this.student.reset();
           alert("Enrolled successfully!");
         },
-        error => alert("Some error occured. Don't enroll twice.");
+        error => alert("Some error occured. Don't enroll twice."),
       );
     }
     else if(this.mode == 'publish') {

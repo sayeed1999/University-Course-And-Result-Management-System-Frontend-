@@ -50,14 +50,14 @@ export class AllocateClassroomsComponent implements OnInit {
   }
 
   fetchDepartmentsWithCourses() {
-    // this.departmentService.getAllDepartmentsWithCourses().subscribe(
-    //   res => {
-    //     this.departments = res.data;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    this.departmentService.getAllDepartmentsWithCourses().subscribe(
+      res => {
+        this.departments = res.data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   fetchRooms() {
