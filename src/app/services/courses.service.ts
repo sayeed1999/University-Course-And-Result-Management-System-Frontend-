@@ -19,10 +19,16 @@ export class CoursesService extends RepositoryService {
     return this.http.post<ServiceResponse>(
       `${this.url}/CourseAssignToTeacher`,
       {
-        departmentId: departmentId,
-        teacherId: teacherId,
-        courseCode: courseCode
+        departmentId,
+        teacherId,
+        courseCode
       }
+    );
+  }
+
+  getCoursesByDepartmentCode(departmentCode: string) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${departmentCode}`
     );
   }
 }

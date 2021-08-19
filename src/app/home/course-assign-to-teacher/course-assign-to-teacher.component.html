@@ -1,9 +1,9 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="form.value.remainingCredit < form.value.courseCredit ? openDialog() : onSubmit()">
     <mat-form-field>
         <mat-label>Select Department</mat-label>
-        <mat-select formControlName="departmentId" name="departmentId" id="departmentId">
-            <mat-option *ngFor="let dept of departments" [value]="dept.id">
+        <mat-select [formControl]="department" name="department" id="department" required>
+            <mat-option *ngFor="let dept of departments" [value]="dept">
                 {{ dept.name }}
             </mat-option>
         </mat-select>
@@ -11,7 +11,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Select Teacher</mat-label>
-        <mat-select formControlName="teacherId" name="teacherId" id="teacherId">
+        <mat-select formControlName="teacherId" name="teacherId" id="teacherId" required>
             <mat-option *ngFor="let teacher of teachers" [value]="teacher.id">
                 {{ teacher.name }}
             </mat-option>
@@ -19,14 +19,29 @@
         <mat-error> Please select a teacher </mat-error>
     </mat-form-field>
     <mat-form-field>
+        <mat-label>Credit To Be Taken</mat-label>
+        <input matInput readonly formControlName="creditToBeTaken" [value]="" name="creditToBeTaken" id="creditToBeTaken"> 
+    </mat-form-field>  
+    <mat-form-field>
+        <mat-label>Remaining Credit</mat-label>
+        <input matInput readonly formControlName="remainingCredit" name="remainingCredit" id="remainingCredit"> 
+    </mat-form-field>          
+    <mat-form-field>
         <mat-label>Select Course</mat-label>
-        <mat-select formControlName="courseCode" name="courseCode" id="courseCode">
+        <mat-select formControlName="courseCode" name="courseCode" id="courseCode" required>
             <mat-option *ngFor="let course of courses" [value]="course.code">
-                {{ course.name }}
+                {{ course.code }}
             </mat-option>
         </mat-select>
         <mat-error> Please select a course </mat-error>
     </mat-form-field>
-    
+    <mat-form-field>
+        <mat-label>Course Name</mat-label>
+        <input matInput readonly formControlName="courseName" name="courseName" id="courseName"> 
+    </mat-form-field>          
+    <mat-form-field>
+        <mat-label>Course Credit</mat-label>
+        <input matInput readonly formControlName="courseCredit" name="courseCredit" id="courseCredit"> 
+    </mat-form-field>    
   <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
 </form>
