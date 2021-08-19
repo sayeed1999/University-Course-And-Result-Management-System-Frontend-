@@ -34,7 +34,7 @@ export class CourseFormComponent implements OnInit {
     private semisterService: SemistersService,
     private departmentService: DepartmentService,
     private snackbar: MatSnackBar,
-    private router: Router
+    // private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class CourseFormComponent implements OnInit {
     // console.log(course);
     this.coursesService.Add(course).subscribe(
       res => {
-        this.router.navigate(['../']);
+        // this.router.navigate(['../']);
         this.snackbar.open('Success! ' + res.message, 'Close');
         this.reset();
       },
