@@ -57,13 +57,13 @@ export class CourseAssignToTeacherComponent implements OnInit {
 
   onChanges(): void {
     this.department.valueChanges.subscribe((val:Department) => {
-      console.log(val);
+      // console.log(val);
       this.courses = val.courses ?? [];
       this.teachers = val.teachers ?? [];
       this.form.controls.departmentId.setValue(val.id);
       this.form.controls.teacherId.setValue(null);
       this.form.controls.courseCode.setValue(null);
-      console.log(this.form)
+      // console.log(this.form)
     });
 
     this.form.get('teacherId')?.valueChanges.subscribe(val => {
@@ -84,10 +84,12 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.courseService.courseAssignToTeacher(this.form.value.departmentId, this.form.value.teacherId, this.form.value.courseCode)
       .subscribe(
         res => {
-          console.log(res.message);
+          // console.log(res.message);
+          alert(res.message);
         },
         error => {
-          console.log(error);
+          // console.log(error);
+          alert("Some error occurred. May be you are assigning the assigned course or providing some wrong data.")
         },
         () => {
           this.form.reset();
