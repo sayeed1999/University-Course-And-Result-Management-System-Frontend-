@@ -1,13 +1,13 @@
 <h1>{{ title }}</h1>
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <mat-form-field>
-    <mat-label>Department Code *</mat-label>
+    <mat-label>Department Code</mat-label>
     <input matInput [(ngModel)]="code" name="code" id="code" required>
   </mat-form-field>
   <p class="error-text" *ngIf="form.touched && form.controls.code?.invalid"> Code must be unique & between 2-7characters long </p>
 
   <mat-form-field>
-    <mat-label>Department Name *</mat-label>
+    <mat-label>Department Name</mat-label>
     <input matInput [(ngModel)]="name" name="name" id="name" required>
   </mat-form-field>
   <p class="error-text" *ngIf="form.touched && form.controls.name.invalid"> Department Name must be provided </p>
