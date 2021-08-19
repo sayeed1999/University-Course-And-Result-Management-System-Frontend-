@@ -146,7 +146,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.department.reset();
     
     this.form.reset();
-    // this.snackbar.open(`The form is reset.`, 'Close');
+    this.snackbar.open(`The form is reset.`, 'Close');
   }
 }
 
