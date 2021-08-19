@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ViewResultComponent } from './home/view-result/view-result.component';
+import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' } },
     { path: 'view-result', component: ViewResultComponent },
   ] },
+  { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
   { path: '', component: HomeComponent }
 ];
 
