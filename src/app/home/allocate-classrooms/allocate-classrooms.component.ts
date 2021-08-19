@@ -114,9 +114,9 @@ export class AllocateClassroomsComponent implements OnInit {
       },
       () => {
         this.form.reset();
-        this.day.reset();
-        this.room.reset();
-        this.department.reset();
+        this.day.setValue('');
+        this.room.setValue('');
+        this.department.setValue('');
       }
     );
   }
