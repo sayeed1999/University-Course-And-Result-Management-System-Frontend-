@@ -26,8 +26,8 @@ export class CourseFormComponent implements OnInit {
     semisterId: new FormControl(null, Validators.required)
   });
 
-  departments: Department[] = [ new Department(1,'asd','asdsad'), new Department(2, 'zxc', 'zxccxz') ];
-  semisters: Semister[] = [ new Semister(7, 'seventh') ];
+  departments: Department[] = [];
+  semisters: Semister[] = [];
 
   constructor(
     private coursesService: CoursesService,
