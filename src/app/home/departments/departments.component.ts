@@ -9,7 +9,6 @@ import { DepartmentService } from 'src/app/services/department.service';
 })
 export class DepartmentsComponent implements OnInit {
 
-  
   displayedColumns: string[] = [ 'code', 'name' ];
   dataSource: Department[] = [];
 

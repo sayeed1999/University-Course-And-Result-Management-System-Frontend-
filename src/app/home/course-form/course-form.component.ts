@@ -57,15 +57,14 @@ export class CourseFormComponent implements OnInit {
   }
     
   onSubmit() {
-    // console.log(this.form);
     // i assume what data will come will match course model.
     var course = this.form.value;
     this.coursesService.Add(course).subscribe(
       res => {
-        console.log(res);
+        alert(res.message);
       },
       error => {
-        console.log(error);
+        alert("Some error occured. May be this course is saved earlier. Try with right data");
       },
       () => {
         // complete
