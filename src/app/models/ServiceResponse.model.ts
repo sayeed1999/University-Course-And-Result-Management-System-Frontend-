@@ -1,7 +1,7 @@
 export class ServiceResponse {
     constructor(
-        public Data: any,
-        public Message: string,
-        public Success: boolean
+        public data: any,
+        public message: string,
+        public success: boolean
     ) {}
 }

@@ -1,11 +1,11 @@
 <h1>{{ title }}</h1>
-<form #form="ngForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; width: 300px;">
-  <mat-form-field appearance="fill">
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
     <mat-label>Department Code</mat-label>
     <input matInput [(ngModel)]="code" name="code" id="code" required>
     <mat-error> Code must be unique and between 2-7characters long </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>Department Name</mat-label>
     <input matInput [(ngModel)]="name" name="name" id="name" required>
     <mat-error> Name is required </mat-error>  
