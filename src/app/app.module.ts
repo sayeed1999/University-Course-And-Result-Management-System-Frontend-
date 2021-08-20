@@ -21,6 +21,7 @@ import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-
 import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ViewClassScheduleComponent } from './home/view-class-schedule/view-clas
     ViewResultComponent,
     AllocateClassroomsComponent,
     ViewClassScheduleComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

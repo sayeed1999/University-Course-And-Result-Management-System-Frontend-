@@ -37,6 +37,10 @@ export class CourseAssignToTeacherComponent implements OnInit {
     courseCredit: new FormControl(),
   });
 
+  fetchingDepartments = false;
+  fetchingTeachers = false;
+  fetchingCourses = false;
+
   constructor(
     private departmentService: DepartmentService,
     private teacherService: TeacherService,
@@ -51,33 +55,41 @@ export class CourseAssignToTeacherComponent implements OnInit {
   }
 
   fetchDepartments() {
+    this.fetchingDepartments = true;
     this.departmentService.GetAll().subscribe(
       res => {
         this.departments = res.data;
-        console.log(this.departments)
+        this.fetchingDepartments = false;
       },
       error => {
-        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingDepartments = false;
       }
     );
   }
   fetchCourses(departmentId: number) {
+    this.fetchingCourses = true;
     this.courseService.GetCoursesByDepartment(departmentId).subscribe(
       res => {
         this.courses = res.data;
+        this.fetchingCourses = false;
       },
       error => {
-        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingCourses = false;
       }
     );
   }
   fetchTeachers(departmentId: number) {
+    this.fetchingTeachers = true;
     this.teacherService.GetTeachersByDepartment(departmentId).subscribe(
       res => {
         this.teachers = res.data;
+        this.fetchingTeachers = false;
       },
       error => {
-        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingTeachers = false;
       }
     );
   }
