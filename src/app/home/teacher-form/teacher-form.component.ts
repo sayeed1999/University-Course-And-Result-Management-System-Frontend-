@@ -15,8 +15,8 @@ export class TeacherFormComponent implements OnInit {
 
   title = "Save Teacher"
   form = new FormGroup({
-    name: new FormControl('', [ Validators.required, Validators.minLength(3) ]),
-    address: new FormControl('', [ Validators.required, Validators.minLength(6) ]),
+    name: new FormControl('', [ Validators.required ]),
+    address: new FormControl('', [ Validators.required ]),
     email: new FormControl('', [ Validators.required, Validators.email ]),
     contact: new FormControl(0, [ Validators.required, Validators.min(1), Validators.minLength(6), Validators.maxLength(14) ]),
     designationId: new FormControl(0, Validators.required),
