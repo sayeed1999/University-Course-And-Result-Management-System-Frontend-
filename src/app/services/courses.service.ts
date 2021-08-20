@@ -15,9 +15,15 @@ export class CoursesService extends RepositoryService {
     this.url += this.endpoint;
   }
 
+  GetCoursesByDepartmentIncludingTeachers(departmentId: number) {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/IncludeTeachers/Department/${departmentId}`
+    );
+  }
+
   GetCoursesByDepartment(departmentId: number) {
     return this.http.get<ServiceResponse>(
-      `${this.url}/${departmentId}`
+      `${this.url}/Department/${departmentId}`
     );
   }
 
