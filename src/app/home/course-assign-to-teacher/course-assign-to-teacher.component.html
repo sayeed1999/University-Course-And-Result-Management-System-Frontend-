@@ -1,16 +1,16 @@
 <h1>{{ title }}</h1>
-<form class="row col-12 col-sm-9 col-md-7 col-lg-5" (ngSubmit)="form.value.remainingCredit < form.value.courseCredit ? openDialog() : onSubmit()">
+<form class="row col-12 col-sm-9 col-md-7 col-lg-5" [formGroup]="form" (ngSubmit)="form.value.remainingCredit < form.value.courseCredit ? openDialog() : onSubmit()">
     <div class="row">
         <div class="col-3">
             <label class="form-label">Select Department * </label>
         </div>
         <div class="col-9">
-            <select class="form-control" [formControl]="department" name="department" id="department">
-                <option *ngFor="let dept of departments" [value]="dept">
+            <select class="form-control" formControlName="departmentId" name="departmentId" id="departmentId">
+                <option *ngFor="let dept of departments" [value]="dept.id">
                     {{ dept.name }}
                 </option>
             </select>
-            <p class="error-text" *ngIf="department.touched && form.get('departmentId')?.invalid"> Please select a department </p>
+            <p class="error-text" *ngIf="(form.controls.departmentId.dirty || form.controls.departmentId.touched) && form.get('departmentId')?.invalid"> Please select a department </p>
         </div>
     </div>
 
@@ -19,13 +19,13 @@
             <label class="form-label">Select Teacher * </label>
         </div>
         <div class="col-9">
-            <select class="form-control" [formControl]="teacher" name="teacher" id="teacher">
-                <option *ngFor="let teacher of teachers" [value]="teacher">
-                    {{ teacher.name }}
+            <select class="form-control" formControlName="teacherId" name="teacherId" id="teacherId">
+                <option *ngFor="let t of teachers" [value]="t.id">
+                    {{ t?.name }}
                 </option>
             </select>
-            <p class="error-text" *ngIf="teacher.touched && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="teacher.touched && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
+            <p class="error-text" *ngIf="(teacher.touched || teacher.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(teacher.touched || teacher.dirty) && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
         </div>
     </div>
 
@@ -52,13 +52,13 @@
             <label class="form-label">Select Course * </label>
         </div>
         <div class="col-9">
-            <select class="form-control" [formControl]="course" name="course" id="course">
-                <option *ngFor="let course of courses" [value]="course">
-                    {{ course.code }}
+            <select class="form-control" formControlName="courseCode" name="courseCode" id="courseCode">
+                <option *ngFor="let course of courses" [value]="course.code">
+                    {{ course?.code }}
                 </option>
             </select>
-            <p class="error-text" *ngIf="course.touched && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="course.touched && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
+            <p class="error-text" *ngIf="(course.touched || course.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(course.touched || course.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
         </div>
     </div>
 

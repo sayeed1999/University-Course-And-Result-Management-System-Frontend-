@@ -53,7 +53,7 @@ export class TeacherFormComponent implements OnInit {
     this.designationService.GetAll().subscribe(
       res => this.designations = res.data,
       error => {
-        this.snackBar.open('Failed! ' + error.message, 'Close');
+        this.snackBar.open('Failed! Possible Errors:- 1. Email cannot be duplicate. 2. Internet Connection Error.', 'Close');
       }
     );
   }
@@ -68,7 +68,7 @@ export class TeacherFormComponent implements OnInit {
         this.reset();
       },
       error => {
-        this.snackBar.open('Failed! ' + error.message, 'Close');
+        this.snackBar.open('Failed! Check your internet connection. If your internet connection is okay, may be you are sending duplicate email address!', 'Close');
         this.reset();
       }
     );

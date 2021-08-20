@@ -61,7 +61,7 @@ export class CourseFormComponent implements OnInit {
         this.reset();
       },
       error => {
-        this.snackbar.open('Failed! ' + error.message, 'Close');
+        this.snackbar.open('Failed! Possible errors:- 1. Code or Name is found duplicate in the Department. 2. Internet Connection Error.', 'Close');
         this.reset();
       }
     );

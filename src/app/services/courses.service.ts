@@ -15,6 +15,12 @@ export class CoursesService extends RepositoryService {
     this.url += this.endpoint;
   }
 
+  GetCoursesByDepartmentIncludingTeachersAndSemisters(departmentId: number) {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/IncludeTeachersAndSemisters/Department/${departmentId}`
+    );
+  }
+
   GetCoursesByDepartmentIncludingTeachers(departmentId: number) {
     return this.http.get<ServiceResponse>(
       `${this.url}/IncludeTeachers/Department/${departmentId}`
@@ -28,6 +34,7 @@ export class CoursesService extends RepositoryService {
   }
 
   courseAssignToTeacher(departmentId: number, teacherId: number, courseCode: string) : Observable<ServiceResponse> {
+    // console.log(departmentId, teacherId, courseCode)
     return this.http.post<ServiceResponse>(
       `${this.url}/CourseAssignToTeacher`,
       {

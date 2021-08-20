@@ -35,17 +35,17 @@ export class CourseStatisticsComponent implements OnInit {
         this.departments = res.data;
       },
       error => {
-        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
+        this.snackbar.open(`Departments fetching failed. Please check your internet connection. :(`, 'Close');
       }
     );
   }
   fetchCourses(departmentId: number) {
-    this.courseService.GetCoursesByDepartmentIncludingTeachers(departmentId).subscribe(
+    this.courseService.GetCoursesByDepartmentIncludingTeachersAndSemisters(departmentId).subscribe(
       res => {
         this.courses = res.data;
       },
       error => {
-        this.snackbar.open(`Failed!\n${error.message}`, 'Close');
+        this.snackbar.open(`Courses fetching failed. Please check your internet connection. :(`, 'Close');
       }
     );
   }
