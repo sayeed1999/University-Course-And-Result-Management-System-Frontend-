@@ -6,7 +6,7 @@
     </div>
     <div class="col-9">
       <input class="form-control" [(ngModel)]="code" name="code" id="code" required minlength="2" maxlength="7">
-      <p class="error-text form-text" *ngIf="form.touched && form.controls.code?.invalid"> Code must be unique & between 2-7characters long </p>
+      <p class="error-text form-text" *ngIf="(form.controls.code?.touched || form.controls.code?.dirty) && form.controls.code?.invalid"> Code must be unique & between 2-7characters long </p>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
     </div>
     <div class="col-9">
       <input class="form-control" [(ngModel)]="name" name="name" id="name" required>
-      <p class="error-text form-text" *ngIf="form.touched && form.controls.name.invalid"> Department Name must be provided </p>
+      <p class="error-text form-text" *ngIf="(form.controls.name?.touched || form.controls.name?.dirty) && form.controls.name?.invalid"> Department Name must be provided </p>
     </div>
   </div>
   
