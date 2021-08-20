@@ -118,6 +118,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
       .subscribe(
         res => {
           this.snackbar.open(`Success!\n${res.message}`, 'Close');
+          this.reset();
         },
         error => {
           this.snackbar.open(`Failed!\n${error.message}`, 'Close');
@@ -144,7 +145,6 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.course.reset();
     this.teacher.reset();
     this.department.reset();
-    
     this.form.reset();
     this.snackbar.open(`The form is reset.`, 'Close');
   }
