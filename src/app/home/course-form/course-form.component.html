@@ -1,42 +1,77 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Course Code</mat-label>
-    <input matInput formControlName="code" name="code" id="code" required>
-    <mat-error> Code must be unique and between 2-7 characters long </mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Course Name</mat-label>
-    <input matInput formControlName="name" name="name" id="name" required> 
-    <mat-error> Name is required </mat-error>  
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Course Credit</mat-label>
-    <input matInput type="number" formControlName="credit" name="credit" id="credit" required> 
-    <mat-error> Credit have to be between 0.5 and 5.0 </mat-error>  
-  </mat-form-field>  
-  <mat-form-field appearance="fill">
-    <mat-label>Course Description</mat-label>
-    <textarea matInput formControlName="description" name="description" id="description" required></textarea>
-    <mat-error> Description should be minimum 50 characters </mat-error>  
-  </mat-form-field>
-  <mat-form-field>
-      <mat-label>Select Department</mat-label>
-      <mat-select formControlName="departmentId" name="departmentId" id="departmentId">
-          <mat-option *ngFor="let dept of departments" [value]="dept.id">
+<form class="row col-12 col-sm-9 col-md-7 col-lg-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Code * </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="code" name="code">
+      <p class="error-text form-text" *ngIf="(form.controls.code?.dirty || form.controls.code?.touched) && form.controls.code?.invalid"> Code must be unique and between 2-7 characters long </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Name * </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="name" name="name"> 
+      <p class="error-text form-text" *ngIf="(form.controls.name?.dirty || form.controls.name?.touched) && form.controls.name?.invalid"> Course name must be unique in the respective department </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Credit * </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" type="number" formControlName="credit" name="credit"> 
+      <p class="error-text" *ngIf="(form.controls.credit.dirty || form.controls.credit.touched) && form.controls.credit?.invalid"> Credit must to be between 0.5 and 5.0 </p>
+    </div>
+  </div>  
+  
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Description * </label>
+    </div>
+    <div class="col-9">
+     <textarea class="form-control" formControlName="description" name="description"></textarea>
+     <p class="error-text form-text" *ngIf="(form.controls.description.dirty || form.controls.description.touched) && form.controls.description?.invalid"> Description should be minimum 30 characters </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">  
+      <label class="form-label">Department * </label>
+    </div>
+    <div class="col-9">
+      <select class="form-control" formControlName="departmentId" name="departmentId">
+          <option *ngFor="let dept of departments" [value]="dept.id">
               {{ dept.name }}
-          </mat-option>
-      </mat-select>
-      <mat-error> Please select a department </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Select Semister</mat-label>
-    <mat-select formControlName="semisterId" name="semisterId" id="semisterId">
-        <mat-option *ngFor="let sem of semisters" [value]="sem.id">
+          </option>
+      </select>
+      <p class="error-text" *ngIf="(form.controls.departmentId.dirty || form.controls.departmentId.touched) && form.controls.departmentId?.invalid"> Department must be chosen </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Select Semister * </label>
+    </div>
+    <div class="col-9">
+      <select class="form-control" formControlName="semisterId" name="semisterId">
+        <option *ngFor="let sem of semisters" [value]="sem.id">
             {{ sem.name }}
-        </mat-option>
-    </mat-select>
-    <mat-error> Please select a semister </mat-error>
-  </mat-form-field>
-  <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
+        </option>
+      </select>
+      <p class="error-text" *ngIf="(form.controls.semisterId.dirty || form.controls.semisterId.touched) && form.controls.semisterId?.invalid"> Semister must be chosen </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-9 col-md-10"></div>
+    <div class="col-3 col-md-2">
+      <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+    </div>
+  </div>
 </form>

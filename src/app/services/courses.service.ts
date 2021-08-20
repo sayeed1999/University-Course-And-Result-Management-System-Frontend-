@@ -15,14 +15,26 @@ export class CoursesService extends RepositoryService {
     this.url += this.endpoint;
   }
 
+  GetCoursesByDepartment(departmentId: number) {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${departmentId}`
+    );
+  }
+
   courseAssignToTeacher(departmentId: number, teacherId: number, courseCode: string) : Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
       `${this.url}/CourseAssignToTeacher`,
       {
-        departmentId: departmentId,
-        teacherId: teacherId,
-        courseCode: courseCode
+        departmentId,
+        teacherId,
+        courseCode
       }
+    );
+  }
+
+  getCoursesByDepartmentCode(departmentCode: string) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${departmentCode}`
     );
   }
 }
