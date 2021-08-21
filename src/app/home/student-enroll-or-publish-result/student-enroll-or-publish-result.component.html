@@ -1,51 +1,92 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-        <mat-label>Student Registration Number</mat-label>
-        <mat-select [formControl]="student" name="student" id="student" required>
-            <mat-option *ngFor="let s of students" [value]="s">
+<form class="row col-12 col-sm-9 col-md-7 col-lg-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label">Student Reg. No.</label>
+      </div>
+      <div class="col-9">
+        <select class="form-control" formControlName="reg" name="reg">
+            <option *ngFor="let s of students" [value]="s.registrationNumber">
                 {{ s.registrationNumber }}
-            </mat-option>
-        </mat-select>
-        <mat-error> Please select a student </mat-error>
-    </mat-form-field>  
-    <mat-form-field>
-        <mat-label> Name </mat-label>
-        <input matInput readonly formControlName="name" name="name" id="name"> 
-    </mat-form-field>    
-    <mat-form-field>
-        <mat-label> Email </mat-label>
-        <input matInput readonly formControlName="email" name="email" id="email"> 
-        <mat-error> Email should be provided in valid format </mat-error>  
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label> Department </mat-label>
-        <input matInput readonly formControlName="deptCode" name="deptCode" id="deptCode"> 
-    </mat-form-field>    
-    <mat-form-field>
-      <mat-label>Select Course</mat-label>
-      <mat-select formControlName="courseCode" name="courseCode" id="courseCode" required>
-          <mat-option *ngFor="let c of courses" [value]="c.code">
+            </option>
+        </select>
+        <p class="error-text" *ngIf="(form.controls.reg.dirty || form.controls.reg.touched) && form.controls.reg.invalid"> Please select a student registration number </p>
+      </div>
+    </div>  
+
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label"> Name </label>
+      </div>
+      <div class="col-9">
+        <input class="form-control" readonly formControlName="name" name="name"> 
+      </div>
+    </div>    
+  
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label"> Email </label>
+      </div>
+      <div class="col-9">
+        <input class="form-control" readonly formControlName="email" name="email"> 
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label"> Department </label>
+      </div>
+      <div class="col-9">
+        <input class="form-control" readonly formControlName="deptCode" name="deptCode"> 
+      </div>
+    </div>    
+  
+    <div class="row">
+      <div class="col-3">
+        <label class="form-label">Select Course</label>
+      </div>
+      <div class="col-9">
+        <select class="form-control" formControlName="courseCode" name="courseCode">
+          <option *ngFor="let c of courses" [value]="c.code">
               {{ c.code }}
-          </mat-option>
-      </mat-select>
-      <mat-error *ngIf="!form.controls?.reg?.valid"> Select student registration number first </mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="this.mode=='enroll' else elseblock">
-        <input matInput [matDatepicker]="picker1" formControlName="date" name="date" placeholder="Pick a Date" required>
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
+          </option>
+        </select>
+        <p class="error-text" *ngIf="(form.controls.courseCode.dirty || form.controls.courseCode.touched) && form.controls.courseCode.invalid"> Please select a Course </p>
+      </div>
+    </div>
+  
+    <div class="row" *ngIf="this.mode=='enroll' else elseblock">
+        <div class="col-3">
+            <label class="form-label">Date</label>
+        </div>
+        <div class="col-9" style="display: flex;">
+            <input class="form-control" [matDatepicker]="picker1" formControlName="date" name="date">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </div>
+    </div>
     <ng-template #elseblock>
-        <mat-form-field>
-          <mat-label>Select Grade Letter</mat-label>
-            <mat-select formControlName="grade" name="grade" id="grade" required>
-                <mat-option *ngFor="let g of grades" [value]="g.grade">
+        <div class="row">
+          <div class="col-3">
+            <label class="form-label">Select Grade Letter</label>
+          </div>
+          <div class="col-9">
+            <select class="form-control" formControlName="grade" name="grade" id="grade">
+                <option *ngFor="let g of grades" [value]="g.grade">
                     {{ g.grade }}
-                </mat-option>
-            </mat-select>
-            <mat-error> Please select a grade </mat-error>
-          </mat-form-field>      
+                </option>
+            </select>
+            <!-- <p class="error-text" *ngIf="(form.controls.grade.dirty || form.controls.courseCode.touched) && form.controls.courseCode.invalid"> Please select a Course </p>             -->
+          </div>
+        </div>
     </ng-template>
-  <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
+
+    <div class="row">
+        <div class="col-9 col-md-10"></div>
+        <div class="col-3 col-md-2">
+            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+        </div>
+    </div>
+
 </form>

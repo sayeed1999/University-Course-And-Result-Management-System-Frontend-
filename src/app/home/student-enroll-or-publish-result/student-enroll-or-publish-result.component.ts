@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/Course.model';
 import { GradeLetter } from 'src/app/models/GradeLetter.model';
@@ -22,10 +23,8 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   courses: Course[] = [];
   grades: GradeLetter[] = [];
 
-  student = new FormControl();
-
   form = new FormGroup({
-    reg: new FormControl('', Validators.required),
+    reg: new FormControl('', [ Validators.required, Validators.minLength(11) ]),
     name: new FormControl(''),
     email: new FormControl(''),
     deptCode: new FormControl(''),
@@ -36,7 +35,8 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     private studentService: StudentService,
     private courseService: CoursesService,
     private activatedRoute: ActivatedRoute,
-    private gradesService: GradesService
+    private gradesService: GradesService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -69,20 +69,20 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         this.students = res.data;
       },
       error => {
-        console.log(error);
+        this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
       }
     );
   }
 
   fetchCourses(departmentCode: string) {
-    if(departmentCode == undefined || departmentCode=='') this.courses = [];
+    if(departmentCode == undefined || departmentCode == null || departmentCode=='') this.courses = [];
 
     else this.courseService.getCoursesByDepartmentCode(departmentCode).subscribe(
       res => {
         this.courses = res.data;
       },
       error => {
-        console.log(error);
+        this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
       }
     );
   }
@@ -91,41 +91,44 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     this.gradesService.GetAll().subscribe(
       res => {
         this.grades = res.data;
-        console.log('asd', this.grades)
       },
       error => {
-        console.log(error);
+        this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
       }
     );
   }
 
   onSubmit() {
+    const student = this.students.find(x => x.registrationNumber == this.form.value.reg);
+    
     var data = new StudentEnrollOrPublishResultInCourse(
-      this.student.value.departmentId,
+      student?.departmentId ?? 0,
       this.form.value.courseCode,
-      this.student.value.id,
+      student?.id ?? 0,
       this.form.value.date,
       this.form.value?.grade
     );
     if(this.mode == 'enroll') {
       this.studentService.EnrollInCourse(data).subscribe(
         res => {
-          this.form.reset();
-          this.student.reset();
-          alert("Enrolled successfully!");
+          this.snackbar.open('Success! Enrolled succesfully', 'Close');
+          this.reset();
         },
-        error => alert("Some error occured. Don't enroll twice."),
+        error => {
+          this.snackbar.open(`Failed! A student can be enrolled only once. If you are not enrolling twice, then check your internet connection.`, 'Close');
+          this.reset();
+        }
       );
     }
     else if(this.mode == 'publish') {
       this.studentService.SaveResult(data).subscribe(
         res => {
-          alert("Result saved successfully");
+          this.snackbar.open('Success! Enrolled succesfully', 'Close');
+          this.reset();
         },
-        error => alert("Some error occured. Don't provide wrong data"),
-        () => {
-          this.form.reset();
-          this.student.reset();
+        error => {
+          this.snackbar.open(`Failed! ${ error.error.message ?? 'Please check your internet connection' }`, 'Close');
+          this.reset();
         }
       );
     }
@@ -133,23 +136,24 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
 
   onStudentChange() {
 
-    this.student.valueChanges.subscribe((val:Student) => {
-      // console.log(val);
-      if(val as Student) {
-        this.form.controls.reg.setValue(val.registrationNumber);
-        this.form.controls.name.setValue(val.name);
-        this.form.controls.email.setValue(val.email);
-        this.form.controls.deptCode.setValue(val.department?.code);
+    this.form.controls.reg.valueChanges.subscribe(val => {
+        if(val == undefined || val == null || val == '') return;
+        const student = this.students.find(x => x.registrationNumber == val);
+        this.form.controls.name.setValue(student?.name);
+        this.form.controls.email.setValue(student?.email);
+        this.form.controls.deptCode.setValue(student?.department?.code);
         this.form.controls.courseCode.setValue('');
-      }
     });
-    // console.log(this.student)
-    // console.log(this.form)
   }
 
   onDepartmentChange() {
     this.form.controls.deptCode.valueChanges.subscribe((val:string) => {
       this.fetchCourses(val);
     });
+  }
+
+
+  reset() {
+    this.form.reset();
   }
 }
