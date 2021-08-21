@@ -50,4 +50,10 @@ export class CoursesService extends RepositoryService {
       `${this.url}/${departmentCode}`
     );
   }
+
+  GetCoursesWithAllocatedRooms(departmentId: number) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/Department/${departmentId}/AllocatedRooms`
+    );
+  }
 }

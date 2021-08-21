@@ -1,3 +1,4 @@
+import { AllocateClassroom } from "./AllocateClassroom.model";
 import { Department } from "./Department.model";
 import { Semister } from "./Semister.model";
 
@@ -10,6 +11,7 @@ export class Course {
         public departmentId: number,
         public semisterId: number,
         public department?: Department,
-        public semister?: Semister
+        public semister?: Semister,
+        public allocateClassrooms?: AllocateClassroom[],
     ) {}
 }
