@@ -31,7 +31,7 @@ export class CourseFormComponent implements OnInit {
     private coursesService: CoursesService,
     private semisterService: SemistersService,
     private departmentService: DepartmentService,
-    private snackbar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -42,26 +42,27 @@ export class CourseFormComponent implements OnInit {
   fetchDepartments() {
     this.departmentService.GetAll().subscribe(
       res => this.departments = res.data,
-      error => this.snackbar.open('Failed! ' + error.message, 'Close'),
-    );
+      error => this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close')
+      );
   }
 
   fetchSemisters() {
     this.semisterService.GetAll().subscribe(
       res => this.semisters = res.data,
-      error => this.snackbar.open('Failed! ' + error.message, 'Close')
-    );
+      error => this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close')
+      );
   }
     
   onSubmit() {
     var course = this.form.value;
     this.coursesService.Add(course).subscribe(
       res => {
-        this.snackbar.open('Success! ' + res.message, 'Close');
+        this.snackBar.open('Success! ' + res.message, 'Close');
         this.reset();
       },
       error => {
-        this.snackbar.open('Failed! Possible errors:- 1. Code or Name is found duplicate in the Department. 2. Internet Connection Error.', 'Close');
+        // this.snackbar.open('Failed! Possible errors:- 1. Code or Name is found duplicate in the Department. 2. Internet Connection Error.', 'Close');
+        this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
         this.reset();
       }
     );

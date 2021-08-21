@@ -19,9 +19,9 @@ export class TeacherFormComponent implements OnInit {
     name: new FormControl('', [ Validators.required ]),
     address: new FormControl('', [ Validators.required ]),
     email: new FormControl('', [ Validators.required, Validators.email ]),
-    contact: new FormControl(0, [ Validators.required, Validators.min(1), Validators.minLength(6), Validators.maxLength(14) ]),
-    designationId: new FormControl(0, Validators.required),
-    departmentId: new FormControl(0, Validators.required),
+    contact: new FormControl(0, [ Validators.required, Validators.min(100000), Validators.max(10000000000000) ]),
+    designationId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
+    departmentId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
     creditToBeTaken: new FormControl(0, [ Validators.required, Validators.min(0) ])
   });
 
@@ -44,7 +44,7 @@ export class TeacherFormComponent implements OnInit {
     this.departmentService.GetAll().subscribe(
       res => this.departments = res.data,
       error => {
-        this.snackBar.open('Failed! ' + error.message, 'Close');
+        this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close');
       }
     );
   }
@@ -53,10 +53,13 @@ export class TeacherFormComponent implements OnInit {
     this.designationService.GetAll().subscribe(
       res => this.designations = res.data,
       error => {
-        this.snackBar.open('Failed! Possible Errors:- 1. Email cannot be duplicate. 2. Internet Connection Error.', 'Close');
+        this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close');
+        // this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
       }
     );
   }
+
+  debug = () => console.log(this.form);
     
   onSubmit() {
     // console.log(this.form);
@@ -68,7 +71,8 @@ export class TeacherFormComponent implements OnInit {
         this.reset();
       },
       error => {
-        this.snackBar.open('Failed! Check your internet connection. If your internet connection is okay, may be you are sending duplicate email address!', 'Close');
+        this.snackBar.open('Failed! If your internet connection is okay, may be you are sending duplicate email address!', 'Close');
+        // this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
         this.reset();
       }
     );

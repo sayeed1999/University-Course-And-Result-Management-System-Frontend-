@@ -33,7 +33,8 @@ export class DepartmentFormComponent implements OnInit {
         this.reset(form);
       },
       error => {
-        this.snackbar.open('Failed! Check you internet connection. Don\'t send any duplicate data that are already in the database', 'Close');
+        this.snackbar.open('Failed! Check you internet connection. Don\'t send any duplicate data that are already saved', 'Close');
+        // this.snackbar.open(`Failed! ${error.error.message ?? 'Please checkyour internet connection.'}`, 'Close');
         this.reset(form);
       }
     );

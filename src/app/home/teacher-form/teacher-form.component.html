@@ -36,8 +36,8 @@
       <label class="form-label"> Contact No. * </label>
     </div>
     <div class="col-9">
-      <input class="form-control" type="number" formControlName="contact" name="contact" id="contact" required> 
-      <p class="error-text form-text" *ngIf="(form.controls.contact?.dirty || form.controls.contact?.touched) && form.controls.contact?.invalid"> Contact No. is required </p>
+      <input class="form-control" type="number" (change)="debug()" formControlName="contact" name="contact" id="contact"> 
+      <p class="error-text form-text" *ngIf="(form.controls.contact.dirty || form.controls.contact.touched) && form.controls.contact.invalid"> Contact No. is required and between length 6-14 </p>
     </div>
   </div>
   <div class="row">
@@ -71,8 +71,8 @@
       <label class="form-label"> Credit to be taken * </label>
     </div>
     <div class="col-9">
-      <input class="form-control" type="number" formControlName="creditToBeTaken" name="creditToBeTaken" id="creditToBeTaken" required> 
-      <p class="error-text form-text" *ngIf="(form.controls.credit?.dirty || form.controls.credit?.touched) && form.controls.credit?.invalid"> Credit must contain a non-negative value </p>
+      <input class="form-control" type="number" formControlName="creditToBeTaken" name="creditToBeTaken" id="creditToBeTaken"> 
+      <p class="error-text form-text" *ngIf="(form.controls.creditToBeTaken.dirty || form.controls.creditToBeTaken.touched) && form.controls.creditToBeTaken.invalid"> Credit must contain a non-negative value </p>
     </div>  
   </div>
 
