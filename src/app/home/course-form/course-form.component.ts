@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Course } from 'src/app/models/Course.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Department } from 'src/app/models/Department.model';
 import { Semister } from 'src/app/models/Semister.model';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -17,11 +17,11 @@ export class CourseFormComponent implements OnInit {
   title = "Save Course"
   form = new FormGroup({
     code: new FormControl('', [ Validators.required, Validators.minLength(2), Validators.maxLength(7) ]),
-    name: new FormControl('', [ Validators.required ]),
+    name: new FormControl('', Validators.required),
     credit: new FormControl('', [ Validators.required, Validators.min(0.5), Validators.max(5) ]),
-    description: new FormControl('', [ Validators.required, Validators.minLength(50) ]),
-    departmentId: new FormControl(0, Validators.required),
-    semisterId: new FormControl(0, Validators.required)
+    description: new FormControl('', [ Validators.required, Validators.minLength(30) ]),
+    departmentId: new FormControl(null, Validators.required),
+    semisterId: new FormControl(null, Validators.required)
   });
 
   departments: Department[] = [];
@@ -31,6 +31,7 @@ export class CourseFormComponent implements OnInit {
     private coursesService: CoursesService,
     private semisterService: SemistersService,
     private departmentService: DepartmentService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -41,37 +42,35 @@ export class CourseFormComponent implements OnInit {
   fetchDepartments() {
     this.departmentService.GetAll().subscribe(
       res => this.departments = res.data,
-      error => {
-        console.log(error);
-      }
-    );
+      error => this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close')
+      );
   }
 
   fetchSemisters() {
     this.semisterService.GetAll().subscribe(
       res => this.semisters = res.data,
-      error => {
-        console.log(error);
-      }
-    );
+      error => this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close')
+      );
   }
     
   onSubmit() {
-    // console.log(this.form);
-    // i assume what data will come will match course model.
     var course = this.form.value;
     this.coursesService.Add(course).subscribe(
       res => {
-        console.log(res);
+        this.snackBar.open('Success! ' + res.message, 'Close');
+        this.reset();
       },
       error => {
-        console.log(error);
-      },
-      () => {
-        // complete
-        this.form.reset();
+        // this.snackbar.open('Failed! Possible errors:- 1. Code or Name is found duplicate in the Department. 2. Internet Connection Error.', 'Close');
+        this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
+        this.reset();
       }
     );
+  }
+
+
+  reset() {
+    this.form.reset();
   }
 
 }

@@ -44,8 +44,8 @@ export class StudentRegistrationComponent implements OnInit {
 
   onSubmit() {
     this.studentService.Add(this.form.value).subscribe(
-      res => console.log(res),
-      error => console.log(error),
+      res => alert("Successfully registered"),
+      error => alert("Some error occured. Don't provide wrong data or attempt duplicate registration"),
       () => this.form.reset()
     );
   }
