@@ -30,6 +30,7 @@
       <th mat-header-cell *matHeaderCellDef> Schedule Info </th>
       <td mat-cell *matCellDef="let element">
           <p *ngFor="let s of element.allocateClassrooms"> R. No : {{ s.roomId }}, {{ s.dayId }}, {{ parseDate(s.from) }} - {{ parseDate(s.to) }} </p>
+          <p *ngIf="element.allocateClassrooms.length == 0"> Not Scheduled Yet </p>
       </td>
     </ng-container>
 
