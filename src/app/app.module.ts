@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
-import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
+import { RegisteredStudentDialog, StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-publish-result/student-enroll-or-publish-result.component';
@@ -41,6 +41,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
     AllocateClassroomsComponent,
     ViewClassScheduleComponent,
     LoadingComponent,
+    RegisteredStudentDialog,
   ],
   imports: [
     BrowserModule,

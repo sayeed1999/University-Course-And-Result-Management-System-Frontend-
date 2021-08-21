@@ -1,0 +1,63 @@
+<h1 display="4">Registered Student Details:-</h1>
+
+<div class="row">
+
+    <div class="row"> 
+    <div class="col-5">
+        Name
+    </div>
+    <div class="col-7">
+        : {{ data.name }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+        Email
+    </div>
+    <div class="col-7">
+        : {{ data.email }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+        Contact No.
+    </div>
+    <div class="col-7">
+        : {{ data.contact }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+        Address
+    </div>
+    <div class="col-7">
+        : {{ data.address }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+        Department
+    </div>
+    <div class="col-7">
+        : {{ data.department?.name }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+        Registration Num
+    </div>
+    <div class="col-7">
+        : {{ data.registrationNumber }}
+    </div>
+  </div>
+    
+</div>
+
+<div mat-dialog-actions>
+    <button style="margin-left: auto" mat-flat-button mat-dialog-close>Close</button>
+</div>
