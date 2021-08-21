@@ -14,12 +14,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
-import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
+import { RegisteredStudentDialog, StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
 import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-publish-result/student-enroll-or-publish-result.component';
 import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
+import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,9 @@ import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate
     StudentEnrollOrPublishResultComponent,
     ViewResultComponent,
     AllocateClassroomsComponent,
+    ViewClassScheduleComponent,
+    LoadingComponent,
+    RegisteredStudentDialog,
   ],
   imports: [
     BrowserModule,

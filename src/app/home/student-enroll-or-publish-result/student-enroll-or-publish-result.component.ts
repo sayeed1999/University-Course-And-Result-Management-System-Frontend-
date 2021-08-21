@@ -112,17 +112,21 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         res => {
           this.form.reset();
           this.student.reset();
+          alert("Enrolled successfully!");
         },
-        error => console.log(error)
+        error => alert("Some error occured. Don't enroll twice."),
       );
     }
     else if(this.mode == 'publish') {
       this.studentService.SaveResult(data).subscribe(
         res => {
+          alert("Result saved successfully");
+        },
+        error => alert("Some error occured. Don't provide wrong data"),
+        () => {
           this.form.reset();
           this.student.reset();
-        },
-        error => console.log(error)
+        }
       );
     }
   }

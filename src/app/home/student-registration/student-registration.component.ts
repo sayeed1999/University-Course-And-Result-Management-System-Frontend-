@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Department } from 'src/app/models/Department.model';
+import { Student } from 'src/app/models/Student.model';
 import { DepartmentService } from 'src/app/services/department.service';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -27,6 +30,8 @@ export class StudentRegistrationComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private departmentService: DepartmentService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -37,16 +42,62 @@ export class StudentRegistrationComponent implements OnInit {
     this.departmentService.GetAll().subscribe(
       res => this.departments = res.data,
       error => {
-        console.log(error);
+        this.snackBar.open(`Data fetching error! Please check your internet connection.`, 'Close');
       }
     );
   }
 
   onSubmit() {
     this.studentService.Add(this.form.value).subscribe(
-      res => console.log(res),
-      error => console.log(error),
-      () => this.form.reset()
+      res => {
+        this.reset();
+        console.log(res.data);
+        this.openDialog(res.data);
+      },
+      error => {
+        this.reset();
+        this.snackBar.open(`Failed! If your internet connection is okay, then may be duplicate data found. Some other student may be using the same email.`, 'Close');
+      }
     );
   }
+
+  openDialog(student: Student): void {
+    this.dialog.open(RegisteredStudentDialog, {
+      width: '400px',
+      data: student
+    });
+  }
+
+  reset() {
+    this.form.reset();
+  }
+}
+
+
+
+@Component({
+  selector: 'registered-student-dialog',
+  templateUrl: 'registered-student-dialog.component.html',
+  styles: [`
+    .col-4 {
+      font-weight: bold;
+    }
+    .row {
+      margin: 4px 0;
+    }
+  `],
+})
+export class RegisteredStudentDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<RegisteredStudentDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+      // console.log(data);
+    }
+    
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

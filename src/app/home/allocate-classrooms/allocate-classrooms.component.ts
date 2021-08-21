@@ -98,7 +98,7 @@ export class AllocateClassroomsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    // console.log(this.form.value);
 
     if(new Date(this.form.value.from) >= new Date(this.form.value.to)) {
       alert("Class duration cannot be 0 or less than 0 minutes!");
@@ -108,15 +108,17 @@ export class AllocateClassroomsComponent implements OnInit {
     this.roomsService.AllocateClassRoom(this.form.value).subscribe(
       res => {
         //success
+        alert(res.message);
       },
       error => {
-        console.log(error);
+        // console.log(error);
+        alert("Some error occurred. May be you are trying to overlap class hours or pushing some wrong data");
       },
       () => {
         this.form.reset();
-        this.day.reset();
-        this.room.reset();
-        this.department.reset();
+        this.day.setValue('');
+        this.room.setValue('');
+        this.department.setValue('');
       }
     );
   }

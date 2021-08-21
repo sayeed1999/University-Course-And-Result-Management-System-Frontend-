@@ -1,38 +1,76 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" name="name" id="name" required>
-    <mat-error> Name is required with a minimum length of 3 characters </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label> Email </mat-label>
-    <input matInput formControlName="email" name="email" id="email" email required> 
-    <mat-error> Email should be provided in valid format </mat-error>  
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label> Contact No. </mat-label>
-    <input matInput type="number" formControlName="contact" name="contact" id="contact" required> 
-    <mat-error> Contact should have length between 6-14 </mat-error>  
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker1" formControlName="date" name="date" placeholder="Pick a Date" required>
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label> Address </mat-label>
-    <input matInput formControlName="address" name="address" id="address" required> 
-    <mat-error> Address is required </mat-error>  
-  </mat-form-field>
-  <mat-form-field>
-      <mat-label>Select Department</mat-label>
-      <mat-select formControlName="departmentId" name="departmentId" id="departmentId">
-          <mat-option *ngFor="let dept of departments" [value]="dept.id">
-              {{ dept.name }}
-          </mat-option>
-      </mat-select>
-      <mat-error> Please select a department </mat-error>
-  </mat-form-field>
-  <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
+<form class="row col-12 col-sm-9 col-md-7 col-lg-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Name</label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="name" name="name" id="name">
+      <p class="error-text form-text" *ngIf="(form.controls.name.dirty || form.controls.name.touched) && form.controls.name.invalid"> Name is required </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label"> Email </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="email" name="email" id="email" email> 
+      <p class="error-text form-text" *ngIf="(form.controls.email.dirty || form.controls.email.touched) && form.controls.email.invalid"> Email should be valid & unique </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label"> Contact No. </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" type="number" formControlName="contact" name="contact" id="contact"> 
+      <p class="error-text form-text" *ngIf="(form.controls.contact.dirty || form.controls.contact.touched) && form.controls.contact.invalid"> Contact is required </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label"> Date </label>
+    </div>
+    <div class="col-9" style="display: flex">
+        <input class="form-control" [matDatepicker]="picker1" formControlName="date" name="date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label"> Address </label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="address" name="address" id="address"> 
+      <p class="error-text form-text" *ngIf="(form.controls.address.dirty || form.controls.address.touched) && form.controls.address.invalid"> Address is required </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-3">
+        <label class="form-label">Select Department</label>
+    </div>
+    <div class="col-9">
+      <select class="form-control" formControlName="departmentId" name="departmentId" id="departmentId">
+        <option *ngFor="let dept of departments" [value]="dept.id">
+          {{ dept.name }}
+        </option>
+      </select>
+      <p class="error-text form-text" *ngIf="(form.controls.departmentId.dirty || form.controls.departmentId.touched) && form.controls.departmentId.invalid"> Department must be chosen </p>
+    </div>  
+  </div>
+
+  <div class="row">
+    <div class="col-9 col-md-10"></div>
+    <div class="col-3 col-md-2">
+      <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+    </div>
+  </div>
+
 </form>
