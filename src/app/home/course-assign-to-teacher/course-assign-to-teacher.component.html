@@ -26,8 +26,8 @@
                 </option>
             </select>
             <loading *ngIf="fetchingTeachers"></loading>
-            <p class="error-text" *ngIf="(teacher.touched || teacher.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="(teacher.touched || teacher.dirty) && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
+            <p class="error-text" *ngIf="(form.controls.teacherId.touched || form.controls.teacherId.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(form.controls.teacherId.touched || form.controls.teacherId.dirty) && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
         </div>
     </div>
 
@@ -60,8 +60,8 @@
                 </option>
             </select>
             <loading *ngIf="fetchingCourses"></loading>
-            <p class="error-text" *ngIf="(course.touched || course.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="(course.touched || course.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
+            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
         </div>
     </div>
 
