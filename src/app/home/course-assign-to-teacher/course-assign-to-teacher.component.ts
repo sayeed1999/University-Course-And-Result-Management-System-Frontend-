@@ -7,6 +7,9 @@ import { CoursesService } from 'src/app/services/courses.service';
 import { DepartmentService } from 'src/app/services/department.service';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { TeacherService } from 'src/app/services/teacher.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,79 +24,126 @@ export class CourseAssignToTeacherComponent implements OnInit {
   teachers: Teacher[] = [];
   courses: Course[] = [];
   department = new FormControl();
+  teacher = new FormControl();
+  course = new FormControl();
 
   form = new FormGroup({
-    departmentId: new FormControl(0, Validators.required),
-    teacherId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
-    creditToBeTaken: new FormControl(''),
-    remainingCredit: new FormControl(''),
-    courseCode: new FormControl(null, Validators.required),
-    courseName: new FormControl(''),
-    courseCredit: new FormControl(''),
+    departmentId: new FormControl(0, [Validators.required,Validators.min(1)]),
+    teacherId: new FormControl(0, [Validators.required,Validators.min(1)]),
+    creditToBeTaken: new FormControl(),
+    remainingCredit: new FormControl(),
+    courseCode: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(7)]),
+    courseName: new FormControl(),
+    courseCredit: new FormControl(),
   });
+
+  fetchingDepartments = false;
+  fetchingTeachers = false;
+  fetchingCourses = false;
 
   constructor(
     private departmentService: DepartmentService,
+    private teacherService: TeacherService,
     private courseService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
-    this.fetchDepartmentsWithAll();
+    this.fetchDepartments();
     this.onChanges();
   }
 
-  fetchDepartmentsWithAll() {
-    this.departmentService.getAllDepartmentsWithCoursesAndTeachers().subscribe(
+  fetchDepartments() {
+    this.fetchingDepartments = true;
+    this.departmentService.GetAll().subscribe(
       res => {
         this.departments = res.data;
-        console.log(this.departments);
+        this.fetchingDepartments = false;
       },
       error => {
-        console.log(error);
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingDepartments = false;
+      }
+    );
+  }
+  fetchCourses(departmentId: number) {
+    this.fetchingCourses = true;
+    this.courseService.GetCoursesByDepartment(departmentId).subscribe(
+      res => {
+        this.courses = res.data;
+        this.fetchingCourses = false;
+      },
+      error => {
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingCourses = false;
+      }
+    );
+  }
+  fetchTeachers(departmentId: number) {
+    this.fetchingTeachers = true;
+    this.teacherService.GetTeachersByDepartment(departmentId).subscribe(
+      res => {
+        this.teachers = res.data;
+        this.fetchingTeachers = false;
+      },
+      error => {
+        this.snackbar.open(`Failed!\n${error.error.message ?? "Please check your internet connection."}`, 'Close');
+        this.fetchingTeachers = false;
       }
     );
   }
 
   onChanges(): void {
-    this.department.valueChanges.subscribe((val:Department) => {
+
+    this.form.get('departmentId')?.valueChanges.subscribe(val => 
+    {
       // console.log(val);
-      this.courses = val.courses ?? [];
-      this.teachers = val.teachers ?? [];
-      this.form.controls.departmentId.setValue(val.id);
       this.form.controls.teacherId.setValue(null);
       this.form.controls.courseCode.setValue(null);
-      // console.log(this.form)
+      this.teachers = [];
+      this.courses = [];
+
+      if(val == undefined || val == null || val == 0) return;
+
+      this.fetchCourses(val);
+      this.fetchTeachers(val);
     });
 
-    this.form.get('teacherId')?.valueChanges.subscribe(val => {
+    this.form.controls.teacherId.valueChanges.subscribe(
+      val => {
+      // console.log(val);
+
+      if(val == undefined || val == null || val == 0) return;
+
       const teacher = this.teachers.find(x => x.id == val);
-      this.form.controls.creditToBeTaken.setValue(teacher?.creditToBeTaken ?? '');
-      this.form.controls.remainingCredit.setValue(teacher?.remainingCredit ?? '');
+      this.form.controls.creditToBeTaken.setValue(teacher?.creditToBeTaken);
+      this.form.controls.remainingCredit.setValue(teacher?.remainingCredit);
     });
 
-    this.form.get('courseCode')?.valueChanges.subscribe(val => {
+    this.form.controls.courseCode.valueChanges.subscribe(
+      val => {
+      // console.log(val);
+
+      if(val == undefined || val == null || val == '') return;
+
       const course = this.courses.find(x => x.code == val);
-      this.form.controls.courseName.setValue(course?.name ?? '');
-      this.form.controls.courseCredit.setValue(course?.credit ?? '');
+      this.form.controls.courseName.setValue(course?.name);
+      this.form.controls.courseCredit.setValue(course?.credit);
     });
   }
   onSubmit() {
-    console.log('lala', this.form);
-    // return;
-    this.courseService.courseAssignToTeacher(this.form.value.departmentId, this.form.value.teacherId, this.form.value.courseCode)
+    this.courseService.courseAssignToTeacher(+this.form.value.departmentId, +this.form.value.teacherId, this.form.value.courseCode)
       .subscribe(
         res => {
-          // console.log(res.message);
-          alert(res.message);
+          // console.log(res);
+          this.snackbar.open(`Success! ${res.message}`, 'Close');
+          this.reset();
         },
-        error => {
-          // console.log(error);
-          alert("Some error occurred. May be you are assigning the assigned course or providing some wrong data.")
-        },
-        () => {
-          this.form.reset();
-          this.department.reset();
+        (error:HttpErrorResponse) => {
+          // console.log(error)
+          this.snackbar.open(`Failed! ${error.error.message}`, 'Close');
+          this.reset();
         }
       );
   }
@@ -107,10 +157,16 @@ export class CourseAssignToTeacherComponent implements OnInit {
       if(permission == true) {
         this.onSubmit();
       } else {
-        this.form.reset();
-        this.department.reset();
+        this.snackbar.open(`Cancelled!`, 'Close');
       }
     });
+  }
+
+  reset() {
+    this.course.reset();
+    this.teacher.reset();
+    this.department.reset();
+    this.form.reset();
   }
 }
 

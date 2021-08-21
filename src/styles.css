@@ -9,11 +9,23 @@ table {
 }
 
 mat-form-field {
-    margin: 7px 0;
+    margin: 5px 0 0 0;
+    padding-bottom: 0;
 }
 
-form {
+.row {
+    margin: 4px 0;
+}
+
+.error-text {
+    margin-top: 0;
+    padding-top: 0;
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+
+form > div.row {
     display: flex;
-    flex-direction: column;
-    width: 300px;
+    align-items: center;
 }

@@ -1,47 +1,85 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="form" (ngSubmit)="form.value.remainingCredit < form.value.courseCredit ? openDialog() : onSubmit()">
-    <mat-form-field>
-        <mat-label>Select Department</mat-label>
-        <mat-select [formControl]="department" name="department" id="department" required>
-            <mat-option *ngFor="let dept of departments" [value]="dept">
-                {{ dept.name }}
-            </mat-option>
-        </mat-select>
-        <mat-error> Please select a department </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Select Teacher</mat-label>
-        <mat-select formControlName="teacherId" name="teacherId" id="teacherId" required>
-            <mat-option *ngFor="let teacher of teachers" [value]="teacher.id">
-                {{ teacher.name }}
-            </mat-option>
-        </mat-select>
-        <mat-error> Please select a teacher </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Credit To Be Taken</mat-label>
-        <input matInput readonly formControlName="creditToBeTaken" [value]="" name="creditToBeTaken" id="creditToBeTaken"> 
-    </mat-form-field>  
-    <mat-form-field>
-        <mat-label>Remaining Credit</mat-label>
-        <input matInput readonly formControlName="remainingCredit" name="remainingCredit" id="remainingCredit"> 
-    </mat-form-field>          
-    <mat-form-field>
-        <mat-label>Select Course</mat-label>
-        <mat-select formControlName="courseCode" name="courseCode" id="courseCode" required>
-            <mat-option *ngFor="let course of courses" [value]="course.code">
-                {{ course.code }}
-            </mat-option>
-        </mat-select>
-        <mat-error> Please select a course </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Course Name</mat-label>
-        <input matInput readonly formControlName="courseName" name="courseName" id="courseName"> 
-    </mat-form-field>          
-    <mat-form-field>
-        <mat-label>Course Credit</mat-label>
-        <input matInput readonly formControlName="courseCredit" name="courseCredit" id="courseCredit"> 
-    </mat-form-field>    
-  <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary" style="width:30px; margin-left: auto;">Save</button>
+<form class="row col-12 col-sm-9 col-md-7 col-lg-5" [formGroup]="form" (ngSubmit)="form.value.remainingCredit < form.value.courseCredit ? openDialog() : onSubmit()">
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Select Department * </label>
+        </div>
+        <div class="col-9">
+            <select class="form-control" formControlName="departmentId" name="departmentId" id="departmentId">
+                <option *ngFor="let dept of departments" [value]="dept.id">
+                    {{ dept.name }}
+                </option>
+            </select>
+            <loading *ngIf="fetchingDepartments"></loading>
+            <p class="error-text" *ngIf="(form.controls.departmentId.dirty || form.controls.departmentId.touched) && form.get('departmentId')?.invalid"> Please select a department </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Select Teacher * </label>
+        </div>
+        <div class="col-9">
+            <select class="form-control" formControlName="teacherId" name="teacherId" id="teacherId">
+                <option *ngFor="let t of teachers" [value]="t.id">
+                    {{ t?.name }}
+                </option>
+            </select>
+            <loading *ngIf="fetchingTeachers"></loading>
+            <p class="error-text" *ngIf="(form.controls.teacherId.touched || form.controls.teacherId.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(form.controls.teacherId.touched || form.controls.teacherId.dirty) && form.get('departmentId')?.valid && form.get('teacherId')?.invalid"> Please select a teacher </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Credit To Be Taken</label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" readonly formControlName="creditToBeTaken" [value]="" name="creditToBeTaken" id="creditToBeTaken"> 
+        </div>
+    </div>  
+    
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Remaining Credit</label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" readonly formControlName="remainingCredit" name="remainingCredit" id="remainingCredit"> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Select Course * </label>
+        </div>
+        <div class="col-9">
+            <select class="form-control" formControlName="courseCode" name="courseCode" id="courseCode">
+                <option *ngFor="let course of courses" [value]="course.code">
+                    {{ course?.code }}
+                </option>
+            </select>
+            <loading *ngIf="fetchingCourses"></loading>
+            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3"><label class="form-label">Course Name</label></div>
+        <div class="col-9"><input class="form-control" readonly formControlName="courseName" name="courseName" id="courseName"></div>
+    </div>   
+
+    <div class="row">
+        <div class="col-3"><label class="form-label">Course Credit</label></div>
+        <div class="col-9"><input class="form-control" readonly formControlName="courseCredit" name="courseCredit" id="courseCredit"></div>
+    </div>    
+
+    <div class="row">
+        <div class="col-9 col-md-10"></div>
+        <div class="col-3 col-md-2">
+            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+        </div>
+    </div>
+
 </form>

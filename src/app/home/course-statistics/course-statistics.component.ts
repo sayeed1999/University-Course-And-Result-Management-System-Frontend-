@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Course } from 'src/app/models/Course.model';
 import { Department } from 'src/app/models/Department.model';
+import { CoursesService } from 'src/app/services/courses.service';
 import { DepartmentService } from 'src/app/services/department.service';
 
 @Component({
@@ -17,30 +19,42 @@ export class CourseStatisticsComponent implements OnInit {
   courses: Course[] = [];
 
   constructor(
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private courseService: CoursesService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.fetchAll();
+    this.fetchDepartments();
     this.onChange();
   }
 
-  fetchAll() {
-    this.departmentService.getAllDepartmentsWithCoursesAndTeachers().subscribe(
+  fetchDepartments() {
+    this.departmentService.GetAll().subscribe(
       res => {
-        // console.log(res);
         this.departments = res.data;
-        // console.log("data", this.departments);
       },
       error => {
-        console.log(error);
+        this.snackbar.open(`Departments fetching failed. Please check your internet connection. :(`, 'Close');
+      }
+    );
+  }
+  fetchCourses(departmentId: number) {
+    this.courseService.GetCoursesByDepartmentIncludingTeachersAndSemisters(departmentId).subscribe(
+      res => {
+        this.courses = res.data;
+      },
+      error => {
+        this.snackbar.open(`Courses fetching failed. Please check your internet connection. :(`, 'Close');
       }
     );
   }
 
   onChange() {
-    this.department.valueChanges.subscribe((val:Department) => {
-      this.courses = val.courses ?? [];
+    this.department.valueChanges.subscribe((val) => {
+      if(val == undefined) return;
+
+      this.fetchCourses(val.id);
     });
   }
 }

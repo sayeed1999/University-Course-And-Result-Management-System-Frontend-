@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Department } from 'src/app/models/Department.model';
 import { DepartmentService } from 'src/app/services/department.service';
 
@@ -13,7 +14,8 @@ export class DepartmentsComponent implements OnInit {
   dataSource: Department[] = [];
 
   constructor(
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -23,12 +25,10 @@ export class DepartmentsComponent implements OnInit {
   fetchAll() {
     this.departmentService.GetAll().subscribe(
       res => {
-        console.log(res);
         this.dataSource = res.data;
-        console.log("data", this.dataSource);
       },
       error => {
-        console.log(error);
+        this.snackbar.open('Data fetching failed! Check your internet connection', 'Çlose');
       }
     );
   }
