@@ -1,1 +1,38 @@
-<p>view-class-schedule works!</p>
+<h1 display="5"> {{ title }} </h1>
+
+<div style="display: flex; justify-content: center;">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Department</mat-label>
+    <mat-select [formControl]="departmentId" name="departmentId">
+        <mat-option  *ngFor="let dept of departments" [value]="dept.id">
+            {{dept.name}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<table mat-table [dataSource]="courses" class="mat-elevation-z8">
+    
+    <!-- Code Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef> Course Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Semister Column -->
+    <ng-container matColumnDef="schedule-info">
+      <th mat-header-cell *matHeaderCellDef> Schedule Info </th>
+      <td mat-cell *matCellDef="let element">
+          <p *ngFor="let s of element.allocateClassrooms"> R. No : {{ s.roomId }}, {{ s.dayId }}, {{ parseDate(s.from) }} - {{ parseDate(s.to) }} </p>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>  
