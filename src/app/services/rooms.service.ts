@@ -22,4 +22,10 @@ export class RoomsService extends RepositoryService {
       data
     );
   }
+
+  UnallocateAll() : Observable<ServiceResponse> {
+    return this.http.delete<ServiceResponse>(
+      `${this.url}/UnallocateAll`
+    );
+  }
 }
