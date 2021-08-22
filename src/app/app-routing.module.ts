@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
   { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
-  { path: '', component: HomeComponent }
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({

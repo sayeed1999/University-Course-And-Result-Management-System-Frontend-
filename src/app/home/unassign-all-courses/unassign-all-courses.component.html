@@ -1,3 +1,3 @@
 <h1 display="4"> {{title}} </h1>
 
-<button mat-flat-button style="background-color: chartreuse; padding: 30px; font-size: medium;" (click)="clicked()"> Unassign <br> Courses </button>
+<button [disabled]="unassigning==true" mat-flat-button style="background-color: chartreuse; padding: 30px; font-size: medium;" (click)="clicked()"> Unassign <br> Courses </button>
