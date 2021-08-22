@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/Course.model';
 import { GradeLetter } from 'src/app/models/GradeLetter.model';
 import { Student } from 'src/app/models/Student.model';
 import { StudentEnrollOrPublishResultInCourse } from 'src/app/models/StudentEnrollOrPublishResult.model';
+import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { GradesService } from 'src/app/services/grades.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -20,8 +21,8 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   mode = '';
   title = "";
   students: Student[] = [];
-  courses: Course[] = [];
   grades: GradeLetter[] = [];
+  studentsCourses: StudentsCourses[] = [];
 
   form = new FormGroup({
     reg: new FormControl('', [ Validators.required, Validators.minLength(11) ]),
@@ -31,9 +32,10 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     courseCode: new FormControl('', Validators.required),
   });
 
+  studentFetching = false;
+
   constructor(
     private studentService: StudentService,
-    private courseService: CoursesService,
     private activatedRoute: ActivatedRoute,
     private gradesService: GradesService,
     private snackbar: MatSnackBar
@@ -42,7 +44,6 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   ngOnInit(): void {
     this.fetchStudents();
     this.onStudentChange();
-    this.onDepartmentChange();
     this.fetchGrades();
 
     this.activatedRoute.data.subscribe(data => {
@@ -64,25 +65,15 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   }
 
   fetchStudents() {
+    this.studentFetching = true;
     this.studentService.GetAll().subscribe(
       res => {
         this.students = res.data;
+        this.studentFetching = false;
       },
       error => {
         this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
-      }
-    );
-  }
-
-  fetchCourses(departmentCode: string) {
-    if(departmentCode == undefined || departmentCode == null || departmentCode=='') this.courses = [];
-
-    else this.courseService.getCoursesByDepartmentCode(departmentCode).subscribe(
-      res => {
-        this.courses = res.data;
-      },
-      error => {
-        this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
+        this.studentFetching = false;
       }
     );
   }
@@ -143,12 +134,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         this.form.controls.email.setValue(student?.email);
         this.form.controls.deptCode.setValue(student?.department?.code);
         this.form.controls.courseCode.setValue('');
-    });
-  }
-
-  onDepartmentChange() {
-    this.form.controls.deptCode.valueChanges.subscribe((val:string) => {
-      this.fetchCourses(val);
+        this.studentsCourses = student?.studentsCourses ?? [];
     });
   }
 

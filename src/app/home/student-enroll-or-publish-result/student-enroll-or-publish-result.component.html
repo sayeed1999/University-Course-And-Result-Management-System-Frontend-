@@ -12,6 +12,7 @@
             </option>
         </select>
         <p class="error-text" *ngIf="(form.controls.reg.dirty || form.controls.reg.touched) && form.controls.reg.invalid"> Please select a student registration number </p>
+        <loading *ngIf="studentFetching"></loading>
       </div>
     </div>  
 
@@ -48,8 +49,8 @@
       </div>
       <div class="col-9">
         <select class="form-control" formControlName="courseCode" name="courseCode">
-          <option *ngFor="let c of courses" [value]="c.code">
-              {{ c.code }}
+          <option *ngFor="let c of studentsCourses" [value]="c.courseCode">
+              {{ c.courseCode }}
           </option>
         </select>
         <p class="error-text" *ngIf="(form.controls.courseCode.dirty || form.controls.courseCode.touched) && form.controls.courseCode.invalid"> Please select a Course </p>
@@ -77,7 +78,7 @@
                     {{ g.grade }}
                 </option>
             </select>
-            <!-- <p class="error-text" *ngIf="(form.controls.grade.dirty || form.controls.courseCode.touched) && form.controls.courseCode.invalid"> Please select a Course </p>             -->
+            <p class="error-text" *ngIf="(form.controls?.grade?.dirty || form.controls?.grade?.touched) && form.controls?.grade?.invalid"> Please select a Grade </p>            
           </div>
         </div>
     </ng-template>
