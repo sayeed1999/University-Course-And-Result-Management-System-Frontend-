@@ -5,6 +5,7 @@ import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
 import { StudentService } from 'src/app/services/student.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-result',
@@ -25,7 +26,8 @@ export class ViewResultComponent implements OnInit {
   displayedColumns = [ 'code', 'name', 'grade' ];
 
   constructor(
-    private studentService: StudentService
+    private studentService: StudentService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,11 @@ export class ViewResultComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  resultGenerate() {
+    // console.log(this.student);
+    this.router.navigate([this.router.url, 'result-sheet-generation'], { state: this.student.value });
   }
 
   exportHtmlToPDF() {

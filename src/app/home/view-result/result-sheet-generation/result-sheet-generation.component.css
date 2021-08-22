@@ -1,0 +1,10 @@
+* {
+    font-size: medium;
+}
+.col-5 {
+    font-weight:500;
+}
+
+.row {
+    margin: 8px 0;
+}

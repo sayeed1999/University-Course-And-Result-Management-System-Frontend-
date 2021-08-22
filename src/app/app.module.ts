@@ -22,6 +22,7 @@ import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
     ViewClassScheduleComponent,
     LoadingComponent,
     RegisteredStudentDialog,
+    ResultSheetGenerationComponent,
   ],
   imports: [
     BrowserModule,

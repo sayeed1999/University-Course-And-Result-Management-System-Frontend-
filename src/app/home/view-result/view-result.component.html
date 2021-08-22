@@ -1,7 +1,7 @@
 <div id="whole-page">
 
   <h1>{{ title }}</h1>
-  <form [formGroup]="form" (ngSubmit)="exportHtmlToPDF()">
+  <form style="display: flex; flex-direction: column; width: 250px" [formGroup]="form" (ngSubmit)="resultGenerate()">
     <mat-form-field>
         <mat-label>Student Registration Number</mat-label>
         <mat-select [formControl]="student" name="student" id="student" required>

@@ -23,6 +23,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   students: Student[] = [];
   grades: GradeLetter[] = [];
   studentsCourses: StudentsCourses[] = [];
+  courses: Course[] = [];
 
   form = new FormGroup({
     reg: new FormControl('', [ Validators.required, Validators.minLength(11) ]),
@@ -38,6 +39,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private gradesService: GradesService,
+    private coursesService: CoursesService,
     private snackbar: MatSnackBar
   ) { }
 
@@ -82,6 +84,18 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     this.gradesService.GetAll().subscribe(
       res => {
         this.grades = res.data;
+      },
+      error => {
+        this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
+      }
+    );
+  }
+
+  fetchCourses(departmentId: number) {
+    this.courses = [];
+    this.coursesService.GetCoursesByDepartment(departmentId).subscribe(
+      res => {
+        this.courses = res.data;
       },
       error => {
         this.snackbar.open('Data fetching error! Check your internet connection', 'Close');
@@ -134,12 +148,14 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         this.form.controls.email.setValue(student?.email);
         this.form.controls.deptCode.setValue(student?.department?.code);
         this.form.controls.courseCode.setValue('');
-        this.studentsCourses = student?.studentsCourses ?? [];
+        if(this.mode=='publish') this.studentsCourses = student?.studentsCourses ?? [];
+        else this.fetchCourses(student?.departmentId ?? 0);
     });
   }
 
 
   reset() {
     this.form.reset();
+    this.form.controls?.date.setValue(new Date());
   }
 }
