@@ -21,6 +21,7 @@
         </div>
         <div class="col-9">
             <select class="form-control" formControlName="courseCode" name="courseCode" id="courseCode" required>
+                <option value="null"> Select Course </option>
                 <option *ngFor="let course of courses" [value]="course.code">
                     {{ course.code }}
                 </option>
