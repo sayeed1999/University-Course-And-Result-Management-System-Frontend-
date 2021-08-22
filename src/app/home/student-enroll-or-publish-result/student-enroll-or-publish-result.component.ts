@@ -128,7 +128,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     else if(this.mode == 'publish') {
       this.studentService.SaveResult(data).subscribe(
         res => {
-          this.snackbar.open('Success! Enrolled succesfully', 'Close');
+          this.snackbar.open(`Success! ${this.mode=='enroll'?'Enrolled succesfully':'Result saved successfully'}`, 'Close');
           this.reset();
         },
         error => {

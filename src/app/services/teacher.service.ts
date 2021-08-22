@@ -16,7 +16,7 @@ export class TeacherService extends RepositoryService {
 
   GetTeachersByDepartment(departmentId: number) {
     return this.http.get<ServiceResponse>(
-      `${this.url}/${departmentId}`
+      `${this.url}/Department/${departmentId}`
     );
   }
 }

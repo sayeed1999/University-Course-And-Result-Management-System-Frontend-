@@ -34,7 +34,8 @@ const routes: Routes = [
   { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
   { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
