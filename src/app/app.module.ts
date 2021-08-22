@@ -23,6 +23,7 @@ import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
+import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-
     LoadingComponent,
     RegisteredStudentDialog,
     ResultSheetGenerationComponent,
+    UnassignAllCoursesComponent,
   ],
   imports: [
     BrowserModule,

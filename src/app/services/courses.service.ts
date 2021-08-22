@@ -56,4 +56,10 @@ export class CoursesService extends RepositoryService {
       `${this.url}/Department/${departmentId}/AllocatedRooms`
     );
   }
+
+  UnassignAll() : Observable<ServiceResponse> {
+    return this.http.delete<ServiceResponse>(
+      `${this.url}/UnassignAll`
+    );
+  }
 }
