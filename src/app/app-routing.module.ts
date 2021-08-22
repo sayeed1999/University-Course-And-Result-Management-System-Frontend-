@@ -14,6 +14,7 @@ import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
+import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
   { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
+  { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
   { path: 'home', component: HomeComponent }
 ];
 
