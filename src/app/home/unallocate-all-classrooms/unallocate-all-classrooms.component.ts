@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RoomsService } from 'src/app/services/rooms.service';
@@ -16,18 +17,25 @@ export class UnallocateAllClassroomsComponent implements OnInit {
   constructor(
     private roomsService: RoomsService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
   }
 
   clicked() {
-    if(confirm("Are you sure to unallocate all classroom infos?")) {
-      this.unallocate();
-    } else {
+    const dialogRef = this.dialog.open(ConfirmUnallocateDialog, {
+      width: '250px'
+    });
 
-    }
+    dialogRef.afterClosed().subscribe(permission => {
+      if(permission == true) {
+        this.unallocate();
+      } else {
+        this.snackbar.open(`Cancelled!`, 'Close');
+      }
+    });
   }
 
   unallocate() {
@@ -40,10 +48,26 @@ export class UnallocateAllClassroomsComponent implements OnInit {
       },
       error => {
         this.router.navigate(['home']);
-        this.snackbar.open(error.error.message ?? "Some error occurred", 'Close');
+        this.snackbar.open(error.error.message ?? "Check your internet connection", 'Close');
         this.unallocating = false;
       }
     );
+  }
+
+}
+
+@Component({
+  selector: 'confirm-unallocate-dialog',
+  templateUrl: 'confirm-unallocate.component.html',
+})
+export class ConfirmUnallocateDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmUnallocateDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

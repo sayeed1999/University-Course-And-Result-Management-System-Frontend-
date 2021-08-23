@@ -24,7 +24,7 @@ import { ViewClassScheduleComponent } from './home/view-class-schedule/view-clas
 import { LoadingComponent } from './shared/loading/loading.component';
 import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 import { ConfirmUnassignDialog, UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
-import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
+import { ConfirmUnallocateDialog, UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
@@ -49,7 +49,8 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     ResultSheetGenerationComponent,
     UnassignAllCoursesComponent,
     UnallocateAllClassroomsComponent,
-    ConfirmUnassignDialog
+    ConfirmUnassignDialog,
+    ConfirmUnallocateDialog,
   ],
   imports: [
     BrowserModule,
