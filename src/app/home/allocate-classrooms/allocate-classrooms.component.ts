@@ -46,6 +46,10 @@ export class AllocateClassroomsComponent implements OnInit {
     this.onChanges();
     this.fetchRooms();
     this.fetchDays();
+
+    this.form.controls.courseCode.valueChanges.subscribe(val => {
+      if(val == "null") this.form.controls.courseCode.setValue(null);
+    })
   }
 
   fetchDepartmentsWithCourses() {
@@ -93,6 +97,7 @@ export class AllocateClassroomsComponent implements OnInit {
   onChanges() {
     this.form.controls.departmentId.valueChanges.subscribe(val => {
       this.courses = [];
+      this.form.controls.courseCode.setValue(null);
       if(val == undefined || val == null ||  val == 0) return;
       const department = this.departments.find(x => x.id == val);
       this.courses = department?.courses ?? [];

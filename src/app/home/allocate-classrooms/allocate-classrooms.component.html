@@ -43,7 +43,7 @@
             </select>
             <loading *ngIf="roomFetching"></loading>
             <p class="error-text" *ngIf="(form.controls.roomId.touched || form.controls.roomId.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="(form.controls.roomId.touched || form.controls.roomId.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a room </p>
+            <p class="error-text" *ngIf="(form.controls.roomId.touched || form.controls.roomId.dirty) && form.get('departmentId')?.valid && form.get('roomId')?.invalid"> Please select a room </p>
         </div>
     </div>
     <div class="row">
@@ -58,7 +58,7 @@
             </select>
             <loading *ngIf="dayFetching"></loading>
             <p class="error-text" *ngIf="(form.controls.dayId.touched || form.controls.dayId.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="(form.controls.dayId.touched || form.controls.dayId.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a room </p>
+            <p class="error-text" *ngIf="(form.controls.dayId.touched || form.controls.dayId.dirty) && form.get('departmentId')?.valid && form.get('dayId')?.invalid"> Please select a room </p>
         </div>
     </div>
     <div class="row">
