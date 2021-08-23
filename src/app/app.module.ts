@@ -25,6 +25,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,9 @@ import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classroo
     HttpClientModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
