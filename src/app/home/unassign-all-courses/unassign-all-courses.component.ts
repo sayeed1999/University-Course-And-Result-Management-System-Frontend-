@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CoursesService } from 'src/app/services/courses.service';
@@ -16,18 +17,26 @@ export class UnassignAllCoursesComponent implements OnInit {
   constructor(
     private courseService: CoursesService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
   }
 
   clicked() {
-    if(confirm("Are you sure to unassign all courses?")) {
-      this.unassign();
-    } else {
+    const dialogRef = this.dialog.open(ConfirmUnassignDialog, {
+      width: '250px'
+    });
 
-    }
+    dialogRef.afterClosed().subscribe(permission => {
+      if(permission == true) {
+        this.unassign();
+      } else {
+        this.snackbar.open(`Cancelled!`, 'Close');
+      }
+    });
+
   }
 
   unassign() {
@@ -40,10 +49,28 @@ export class UnassignAllCoursesComponent implements OnInit {
       },
       error => {
         this.router.navigate(['home']);
-        this.snackbar.open(error.error.message ?? "Some error occurred", 'Close');
+        this.snackbar.open(error.error.message ?? "Check your internet connection", 'Close');
         this.unassigning = false;
       }
     );
+  }
+
+}
+
+
+
+@Component({
+  selector: 'confirm-unassign-dialog',
+  templateUrl: 'confirm-unassign.component.html',
+})
+export class ConfirmUnassignDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmUnassignDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
