@@ -29,3 +29,7 @@ form > div.row {
     display: flex;
     align-items: center;
 }
+
+mat-checkbox {
+    margin-right: 10px;
+}

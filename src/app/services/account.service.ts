@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RegisterDto } from '../models/RegisterDto.model';
 import { RoleDto } from '../models/RoleDto.model';
 import { ServiceResponse } from '../models/ServiceResponse.model';
 
@@ -20,8 +21,17 @@ export class AccountService {
       `${this.url}/Roles`, newRole
     );
   }
+  
+  GetRoles(): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/Roles`
+    );
+  }
 
-  // // RegisterUser(): Observable<ServiceResponse> {
-
-  // }
+  RegisterUser(registerDto: RegisterDto): Observable<ServiceResponse> {
+    return this.http.post<ServiceResponse>(
+      `${this.url}/Register`, registerDto
+    );
+  }
+  
 }
