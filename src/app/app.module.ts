@@ -26,6 +26,9 @@ import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-
 import { ConfirmUnassignDialog, UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 import { ConfirmUnallocateDialog, UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
+import { CreateUserComponent } from './home/account/create-user/create-user.component';
+import { UsersComponent } from './home/account/users/users.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     UnallocateAllClassroomsComponent,
     ConfirmUnassignDialog,
     ConfirmUnallocateDialog,
+    AddRolesComponent,
+    CreateUserComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,

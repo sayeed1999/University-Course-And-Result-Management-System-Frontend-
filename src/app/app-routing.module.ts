@@ -15,6 +15,9 @@ import { ViewClassScheduleComponent } from './home/view-class-schedule/view-clas
 import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
+import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
+import { CreateUserComponent } from './home/account/create-user/create-user.component';
+import { UsersComponent } from './home/account/users/users.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -29,12 +32,17 @@ const routes: Routes = [
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' } },
     { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent },
     { path: 'view-result', component: ViewResultComponent },
-  ] },
+  ]},
   { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
   { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
   { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'account', children: [
+    { path: 'add-roles', component: AddRolesComponent },
+    { path: 'create-user', component: CreateUserComponent },
+    { path: 'list', component: UsersComponent },
+  ]},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
