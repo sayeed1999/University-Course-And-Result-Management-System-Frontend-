@@ -11,13 +11,13 @@ import { AccountService } from 'src/app/services/account.service';
 export class CreateUserComponent implements OnInit {
 
   title = "Register User";
-  availableRoles : string[] = [];//["admin", "manager", "guests"];
+  availableRoles : { role:string, checked:boolean }[] = [];//["admin", "manager", "guests"];
 
   form = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
-    roles: new FormControl([])
+    roles: new FormControl(''),
   });
 
   constructor(
@@ -32,7 +32,7 @@ export class CreateUserComponent implements OnInit {
   fetchRoles() {
     this.accountService.GetRoles().subscribe(
       res => {
-        this.availableRoles = res.data;
+        this.checkboxInit(res.data);
       },
       error => {
         this.snackbar.open(`Role fetching error. Check your internet/database connection.`, 'Close');
@@ -40,22 +40,42 @@ export class CreateUserComponent implements OnInit {
     );
   }
 
-  checked(role: string) {
-    const index = this.form.value.roles.findIndex((x:string) => x == role);
-    if(index == -1) this.form.controls.roles.setValue([...this.form.value.roles, role]);
-    else this.form.controls.roles.setValue( this.form.value.roles.filter((x:string) => x != role) );
+  checked(i:number) {
+    this.availableRoles[i].checked = !this.availableRoles[i].checked;
+  }
+
+  checkboxInit(data: any) {
+    this.availableRoles = [];
+    data.forEach((element:string) => {
+      this.availableRoles.push({
+        role: element,
+        checked: false
+      });
+    });
   }
 
   onSubmit() {
+    var temp : string[] = [];
+    this.availableRoles.forEach(element => {
+      if(element.checked) temp.push( element.role );
+    });
+    const str:string = temp.join(',');
+    this.form.controls.roles.setValue(str);
+
     this.accountService.RegisterUser(this.form.value).subscribe(
       res => {
         this.snackbar.open(res.message, 'Hurrah!');
-        this.form.reset();
+        this.reset();
       },
       error => {
         this.snackbar.open(`${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
-        this.form.reset();
+        this.reset();
       }
     );
+  }
+
+  reset() {
+    this.form.reset();
+    this.fetchRoles();
   }
 }
