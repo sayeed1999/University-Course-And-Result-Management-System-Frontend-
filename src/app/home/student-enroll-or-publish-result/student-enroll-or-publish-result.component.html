@@ -54,6 +54,7 @@
           </option>
         </select>
         <select *ngIf="mode=='publish'" class="form-control" formControlName="courseCode" name="courseCode">
+          <option value=""> Select Course </option>
           <option *ngFor="let c of studentsCourses" [value]="c.courseCode">
               {{ c.courseCode }}
           </option>
