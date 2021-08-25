@@ -11,6 +11,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRippleModule } from '@angular/material/core';
 
 import {
   NgxMatDatetimePickerModule,
@@ -33,7 +37,11 @@ const MaterialComponents : any[] = [
   NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
   NgxMatTimepickerModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatExpansionModule,
+  MatListModule,
+  MatDividerModule,
+  MatRippleModule
 ];
 
 @NgModule({

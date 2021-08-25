@@ -1,80 +1,98 @@
-<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+<div style="position: fixed; top: 10vh; left: 0; width: 100%; height: 90vh; overflow-y: auto;">
 
-    <home-button routerLink="/departments/department-form">
+<mat-expansion-panel style="width: 300px;">
+
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+       Sections
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-list>
+    <mat-list-item matRipple routerLink="/departments/department-form">
         Save Department
-    </home-button>
-
-    <home-button routerLink="/departments">
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/departments">
         View Departments
-    </home-button>
-
-    <home-button routerLink="/course-form">
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/course-form">
         Save Course
-    </home-button>
-
-    <home-button routerLink="/teacher-form">
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/teacher-form">
         Save Teacher
-    </home-button>
-
-    <home-button routerLink="/course-assign-to-teacher">
-        Course Assign <br> 
-         To Teacher
-    </home-button>
-
-    <home-button routerLink="/view-course-statistics">
-        View Course <br> 
-        Statistics
-    </home-button>
-
-    <home-button routerLink="/student/registration">
-        Student <br> 
-        Registration
-    </home-button>
-    
-    <home-button routerLink="/allocate-classrooms">
-        Allocate <br> 
-        Classrooms
-    </home-button>
-
-    <home-button routerLink="/view-class-schedule">
-        View Class <br> 
-        Schedule
-    </home-button>
-
-    <home-button routerLink='/student/enroll-in-course'>
-        Enroll Student <br> 
-          In Course
-    </home-button>
-
-    <home-button routerLink='/student/save-result'>
-        Save Student <br> 
-          Result
-    </home-button>
-
-    <home-button routerLink='/student/view-result'>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/course-assign-to-teacher">
+        Course Assign To Teacher
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/view-course-statistics">
+        View Course Statistics
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/student/registration">
+        Student Registration
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/allocate-classrooms">
+        Allocate Classrooms
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/view-class-schedule">
+        View Class Schedule
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink="/allocate-classrooms">
+        Allocate Classrooms
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink='/student/enroll-in-course'>
+        Enroll Student In Course
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink='/student/save-result'>
+        Save Result
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink='/student/view-result'>
         View Result
-    </home-button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink='/unassign-all-courses'>
+        Unassign All Courses
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item matRipple routerLink='/unallocate-all-classrooms'>
+        Unallocate All Classrooms
+    </mat-list-item>
+  </mat-list>
 
-    <home-button routerLink='/unassign-all-courses'>
-        Unassign All <br>
-        Courses
-    </home-button>
+</mat-expansion-panel>
 
-    <home-button routerLink='/unallocate-all-classrooms'>
-        Unallocate All <br>
-         Classrooms
-    </home-button>
+<mat-expansion-panel style="width: 300px;" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Account
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-    <home-button routerLink='/account/add-roles'>
-        Add Roles
-    </home-button>
-
-    <home-button routerLink='/account/create-user'>
-        Create User
-    </home-button>
-
-    <home-button routerLink='/account/list'>
-        Users List
-    </home-button>
+    <mat-list>
+        <mat-list-item matRipple routerLink='/account/add-roles'>
+            Add Roles
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item matRipple routerLink='/account/create-user'>
+            Create User
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item matRipple routerLink='/account/list'>
+            Users List
+        </mat-list-item>    
+    </mat-list>
+    
+</mat-expansion-panel>
 
 </div>
