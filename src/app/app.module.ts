@@ -27,7 +27,7 @@ import { ConfirmUnassignDialog, UnassignAllCoursesComponent } from './home/unass
 import { ConfirmUnallocateDialog, UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
-import { CreateUserComponent } from './home/account/create-user/create-user.component';
+import { UserFormComponent } from './home/account/user-form/user-form.component';
 import { UsersComponent } from './home/account/users/users.component';
 
 @NgModule({
@@ -55,7 +55,7 @@ import { UsersComponent } from './home/account/users/users.component';
     ConfirmUnassignDialog,
     ConfirmUnallocateDialog,
     AddRolesComponent,
-    CreateUserComponent,
+    UserFormComponent,
     UsersComponent,
   ],
   imports: [

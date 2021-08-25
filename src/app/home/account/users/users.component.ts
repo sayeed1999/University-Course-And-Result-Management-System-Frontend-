@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegisterDto } from 'src/app/models/RegisterDto.model';
 import { UserDto } from 'src/app/models/UserDto.model';
 import { AccountService } from 'src/app/services/account.service';
 
