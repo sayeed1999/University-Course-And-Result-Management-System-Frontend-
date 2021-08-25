@@ -69,7 +69,7 @@ import { UsersComponent } from './home/account/users/users.component';
     MatNativeDateModule,
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 10000}}
   ],
   bootstrap: [AppComponent]
 })

@@ -29,6 +29,7 @@ export class AccountService {
   }
 
   RegisterUser(registerDto: RegisterDto): Observable<ServiceResponse> {
+    console.log(registerDto);
     return this.http.post<ServiceResponse>(
       `${this.url}/Register`, registerDto
     );
