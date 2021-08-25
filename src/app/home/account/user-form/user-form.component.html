@@ -1,0 +1,51 @@
+<h1>{{ title }}</h1>
+<form [formGroup]="form" class="row col-12 col-sm-9 col-md-7 col-lg-5" (ngSubmit)="onSubmit()">
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">First Name</label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="firstName" name="firstName">
+      <p class="error-text form-text" *ngIf="(form.controls.firstName.touched || form.controls.firstName.dirty) && form.controls.firstName.invalid"> First Name is required </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Last Name</label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="lastName" name="lastName">
+      <p class="error-text form-text" *ngIf="(form.controls.lastName.touched || form.controls.lastName.dirty) && form.controls.lastName.invalid"> Last Name is required </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Email</label>
+    </div>
+    <div class="col-9">
+      <input class="form-control" formControlName="email" name="email" placeholder="email should be unique">
+      <p class="error-text form-text" *ngIf="(form.controls.email.touched || form.controls.email.dirty) && form.controls.email.invalid"> A unique email is requird </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <label class="form-label">Roles</label>
+    </div>
+    <div class="col-9">
+      <mat-checkbox *ngFor="let r of availableRoles; let i=index" [checked]="r.checked" (change)="checked(i)"> {{ r.role }} </mat-checkbox>
+      <em *ngIf="availableRoles.length == 0"> No roles available. </em>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-9 col-md-10"></div>
+    <div class="col-3 col-md-2">
+      <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+    </div>
+  </div>
+
+</form>
