@@ -33,3 +33,7 @@ form > div.row {
 mat-checkbox {
     margin-right: 10px;
 }
+
+mat-list-item {
+    cursor: pointer;
+}
