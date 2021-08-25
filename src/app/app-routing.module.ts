@@ -16,7 +16,7 @@ import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-
 import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
-import { CreateUserComponent } from './home/account/create-user/create-user.component';
+import { UserFormComponent } from './home/account/user-form/user-form.component';
 import { UsersComponent } from './home/account/users/users.component';
 
 const routes: Routes = [
@@ -40,7 +40,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account', children: [
     { path: 'add-roles', component: AddRolesComponent },
-    { path: 'create-user', component: CreateUserComponent },
+    { path: 'create-user', component: UserFormComponent, data: { kind: 'create' } },
+    { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
     { path: 'list', component: UsersComponent },
   ]},
   { path: '', redirectTo: '/home', pathMatch: 'full' }

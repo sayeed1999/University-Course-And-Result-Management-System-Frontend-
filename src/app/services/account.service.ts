@@ -54,4 +54,26 @@ export class AccountService {
       })
     );
   }
+
+  GetUserByEmail(email: string): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${email}`
+    ).pipe(
+      map(res => {
+        let obj = new UserDto(res.data.firstName, res.data.lastName, res.data.email, [], res.data.userName);
+        var temp = res.data.roles.split(',');
+        temp.forEach((t:string) => obj.roles.push(new RoleDto(t)));        
+        res.data = obj;
+        return res;
+      })
+    );
+  }
+
+  UpdateUser(registerDto: RegisterDto): Observable<ServiceResponse> {
+    return this.http.put<ServiceResponse>(
+      `${this.url}/${registerDto.email}/Update`,
+      registerDto
+    );
+  }
+
 }
