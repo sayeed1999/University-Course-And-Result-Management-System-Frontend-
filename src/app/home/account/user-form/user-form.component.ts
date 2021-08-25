@@ -54,7 +54,7 @@ export class UserFormComponent implements OnInit {
       let email:string = params.get('email') ?? '';
       this.accountService.GetUserByEmail(email).subscribe(
         res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.form.controls.firstName.setValue(res.data.firstName);
           this.form.controls.lastName.setValue(res.data.lastName);
           //this.form.controls.userName.setValue(res.data.userName);
@@ -75,7 +75,7 @@ export class UserFormComponent implements OnInit {
     this.accountService.GetRoles().subscribe(
       res => {
         this.checkboxInit(res.data);
-        this.fetchUser();
+        if(this.mode == 'update') this.fetchUser();
       },
       error => {
         this.snackbar.open(`Role fetching error. Check your internet/database connection.`, 'Close');
@@ -85,6 +85,7 @@ export class UserFormComponent implements OnInit {
 
   checked(i:number) {
     this.availableRoles[i].checked = !this.availableRoles[i].checked;
+    // console.log(this.availableRoles)
   }
 
   checkboxInit(data: any) {
@@ -105,6 +106,8 @@ export class UserFormComponent implements OnInit {
     const str:string = temp.join(',');
     this.form.controls.roles.setValue(str);
     
+    // console.log(this.form.value)
+
     if(this.mode == 'create')
     {
       this.accountService.RegisterUser(this.form.value).subscribe(
@@ -120,12 +123,9 @@ export class UserFormComponent implements OnInit {
     }
     else
     {
-      console.log(this.form.value)
-      return;
-      
       this.accountService.UpdateUser(this.form.value).subscribe(
         res => {
-          this.router.navigate(['../', '../', 'list']);
+          this.router.navigate(['/account/list']);
           this.snackbar.open(res.message, 'Hurrah!');
         },
         error => {
