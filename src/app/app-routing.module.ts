@@ -6,7 +6,6 @@ import { CourseStatisticsComponent } from './home/course-statistics/course-stati
 import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
 import { DepartmentsComponent } from './home/departments/departments.component';
 import { StudentEnrollOrPublishResultComponent } from './home/student-enroll-or-publish-result/student-enroll-or-publish-result.component';
-import { HomeComponent } from './home/home.component';
 import { StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
 import { ViewResultComponent } from './home/view-result/view-result.component';
@@ -18,7 +17,9 @@ import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classroo
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
 import { UserFormComponent } from './home/account/user-form/user-form.component';
 import { UsersComponent } from './home/account/users/users.component';
-import { AppComponent } from './app.component';
+import { MenusComponent } from './menu/menus/menus.component';
+import { MenuFormComponent } from './menu/menu-form/menu-form.component';
+
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -43,6 +44,11 @@ const routes: Routes = [
     { path: 'create-user', component: UserFormComponent, data: { kind: 'create' } },
     { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
     { path: 'list', component: UsersComponent },
+  ]},
+  { path: 'menu', children: [
+    { path: 'create-menu', component: MenuFormComponent, data: { kind: 'create' } },
+    { path: ':id/update', component: MenuFormComponent, data: { kind: 'update' } },
+    { path: 'list', component: MenusComponent },
   ]},
 ];
 
