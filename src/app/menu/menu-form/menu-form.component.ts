@@ -67,11 +67,11 @@ export class MenuFormComponent implements OnInit {
   }
 
   fetchMenus() {
-    this.menuService.GetAllRootMenus().subscribe(
+    this.menuService.GetAll().subscribe(
       res => {
         this.menus = [];
         this.menus = res.data;
-        this.preload();
+        if(this.mode == "update") this.preload();
       },
       error => {
         this.snackbar.open(`Data fetching error. Check your internet/database connection.`, 'Close');

@@ -28,7 +28,7 @@
     <div class="col-9">
         <select class="form-control" formControlName="parentId" name="parentId">
             <option value="null"> None </option>
-            <option *ngFor="let menu of menus" [value]="menu.id"> {{ menu.name }} </option>
+            <option *ngFor="let menu of menus" [disabled]="menu.parentId != null" [value]="menu.id"> {{ menu.name }} </option>
         </select>
       <p class="error-text form-text" *ngIf="(form.controls.url.touched || form.controls.url.dirty) && form.controls.url.invalid"> URL is required </p>
     </div>
