@@ -31,6 +31,7 @@ import { UserFormComponent } from './home/account/user-form/user-form.component'
 import { UsersComponent } from './home/account/users/users.component';
 import { MenusComponent } from './menu/menus/menus.component';
 import { MenuFormComponent } from './menu/menu-form/menu-form.component';
+import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permission/menu-wise-role-permission.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MenuFormComponent } from './menu/menu-form/menu-form.component';
     UsersComponent,
     MenusComponent,
     MenuFormComponent,
+    MenuWiseRolePermissionComponent,
   ],
   imports: [
     BrowserModule,

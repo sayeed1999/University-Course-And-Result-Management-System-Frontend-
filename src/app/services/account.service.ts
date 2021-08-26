@@ -40,33 +40,13 @@ export class AccountService {
   GetAllUsers(): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
       `${this.url}/AllUsers`
-    ).pipe(
-      map(res => {
-        var obj:UserDto[] = [];
-        res.data.forEach((r:RegisterDto) => {
-          var temp = r.roles.split(',');
-          var roles: RoleDto[] = [];
-          temp.forEach(t => roles.push(new RoleDto(t)));
-          obj.push(new UserDto(r.firstName, r.lastName, r.email, roles, r?.userName));
-        });
-        res.data = obj;
-        return res;
-      })
-    );
+    )
   }
 
   GetUserByEmail(email: string): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
       `${this.url}/${email}`
-    ).pipe(
-      map(res => {
-        let obj = new UserDto(res.data.firstName, res.data.lastName, res.data.email, [], res.data.userName);
-        var temp = res.data.roles.split(',');
-        temp.forEach((t:string) => obj.roles.push(new RoleDto(t)));        
-        res.data = obj;
-        return res;
-      })
-    );
+    )
   }
 
   UpdateUser(registerDto: RegisterDto): Observable<ServiceResponse> {
