@@ -18,6 +18,7 @@ import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classroo
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
 import { UserFormComponent } from './home/account/user-form/user-form.component';
 import { UsersComponent } from './home/account/users/users.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'departments/department-form', component: DepartmentFormComponent },
@@ -37,14 +38,12 @@ const routes: Routes = [
   { path: 'view-class-schedule', component: ViewClassScheduleComponent },
   { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
   { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
-  { path: 'home', component: HomeComponent },
   { path: 'account', children: [
     { path: 'add-roles', component: AddRolesComponent },
     { path: 'create-user', component: UserFormComponent, data: { kind: 'create' } },
     { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
     { path: 'list', component: UsersComponent },
   ]},
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
