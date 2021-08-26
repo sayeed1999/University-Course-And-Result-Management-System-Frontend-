@@ -20,7 +20,7 @@ export class UserFormComponent implements OnInit {
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
-    roles: new FormControl(''),
+    roles: new FormControl([]),
   });
 
   constructor(
@@ -59,8 +59,8 @@ export class UserFormComponent implements OnInit {
           this.form.controls.lastName.setValue(res.data.lastName);
           //this.form.controls.userName.setValue(res.data.userName);
           this.form.controls.email.setValue(res.data.email);
-          res.data.roles.forEach((role:RoleDto) => {
-            const tmp = this.availableRoles.find(x => x.role == role.name);
+          res.data.roles.forEach((role:string) => {
+            const tmp = this.availableRoles.find(x => x.role == role);
             if(tmp) tmp.checked = true;
           });
         },
@@ -103,10 +103,7 @@ export class UserFormComponent implements OnInit {
     this.availableRoles.forEach(element => {
       if(element.checked) temp.push( element.role );
     });
-    const str:string = temp.join(',');
-    this.form.controls.roles.setValue(str);
-    
-    // console.log(this.form.value)
+    this.form.controls.roles.setValue(temp);
 
     if(this.mode == 'create')
     {
