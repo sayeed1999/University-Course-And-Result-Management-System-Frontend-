@@ -1,11 +1,19 @@
-<mat-toolbar color="primary">
-    <span>Welcome To RUET</span>
-    <button style="margin-left:auto" mat-icon-button routerLink="home">
+<mat-toolbar color="primary" style="height: 10vh; position: fixed; top: 0; z-index:2">
+    <span style="font-size: large; font-weight: 400;"> Rajshahi University of Engineering and Technology </span>
+    <button [disabled]="true" style="margin-left:auto" mat-icon-button>
         <span class="material-icons">
             cottage
         </span>
     </button>
 </mat-toolbar>
-<div style="margin: 25px">
-    <router-outlet></router-outlet>
+
+<div style="height: 10vh;"></div>
+
+<div style="display: flex;">
+    <div style="flex-basis: 20%; height: 90vh; overflow-y: auto;">
+        <app-home></app-home>
+    </div>
+    <div style="flex-basis: 80%; padding: 16px 10px 10px; height: 90vh; overflow-y: auto;">
+        <router-outlet></router-outlet>
+    </div>
 </div>

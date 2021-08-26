@@ -148,6 +148,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         this.form.controls.email.setValue(student?.email);
         this.form.controls.deptCode.setValue(student?.department?.code);
         this.form.controls.courseCode.setValue('');
+        this.studentsCourses = [];
         if(this.mode=='publish') this.studentsCourses = student?.studentsCourses ?? [];
         else this.fetchCourses(student?.departmentId ?? 0);
     });
