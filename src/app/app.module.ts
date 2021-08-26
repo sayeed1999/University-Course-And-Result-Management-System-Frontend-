@@ -29,6 +29,8 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
 import { UserFormComponent } from './home/account/user-form/user-form.component';
 import { UsersComponent } from './home/account/users/users.component';
+import { MenusComponent } from './menu/menus/menus.component';
+import { MenuFormComponent } from './menu/menu-form/menu-form.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { UsersComponent } from './home/account/users/users.component';
     AddRolesComponent,
     UserFormComponent,
     UsersComponent,
+    MenusComponent,
+    MenuFormComponent,
   ],
   imports: [
     BrowserModule,
