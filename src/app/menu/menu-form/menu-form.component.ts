@@ -67,7 +67,7 @@ export class MenuFormComponent implements OnInit {
   }
 
   fetchMenus() {
-    this.menuService.GetAll().subscribe(
+    this.menuService.GetAllRootMenus().subscribe(
       res => {
         this.menus = [];
         this.menus = res.data;
