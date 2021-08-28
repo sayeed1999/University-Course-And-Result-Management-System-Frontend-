@@ -1,5 +1,6 @@
 <h1 display="4"> {{ title }} </h1>
 
+<div style="display: flex;">
 <mat-form-field appearance="fill">
   <mat-label> Role </mat-label>
   <mat-select [(ngModel)]="selectedRole" (ngModelChange)="change()">
@@ -8,6 +9,9 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<div style="flex-grow: 1;"></div>
+<button [disabled]="selectedRole==''" mat-raised-button color="warn" (click)="onSubmit()"> Save Changes </button>
+</div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z5">
   

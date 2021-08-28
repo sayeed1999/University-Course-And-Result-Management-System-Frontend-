@@ -79,4 +79,20 @@ export class MenuWiseRolePermissionComponent implements OnInit {
     );
   }
 
+  onSubmit() {
+    const menusIdForRole: number[] = [];
+    this.dataSource.forEach(m => {
+      if(m.checked)
+        menusIdForRole.push(m.id);
+    });
+    this.accountService.GiveMenuPermissions(menusIdForRole, this.selectedRole).subscribe(
+      res => {
+        this.snackbar.open("Successfully saved!", "Close");
+      },
+      error => {
+        this.snackbar.open(`${error.error.message ?? 'Check your internet connection'}`, 'Close'); 
+      }
+    );
+  }
+
 }
