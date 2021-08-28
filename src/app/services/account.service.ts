@@ -56,4 +56,11 @@ export class AccountService {
     );
   }
 
+  GiveMenuPermissions(menuIds: number[], roleName: string): Observable<ServiceResponse> {
+    return this.http.post<ServiceResponse>(
+      `${this.url}/role/${roleName}/permission`,
+      menuIds
+    );
+  }
+
 }

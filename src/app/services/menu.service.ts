@@ -21,4 +21,8 @@ export class MenuService extends RepositoryService {
   GetAllRootMenus() : Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(`${this.url}/Root`);
   }
+
+  GetMenusByRole(role: string) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(`${this.url}/${role}`);
+  }
 }
