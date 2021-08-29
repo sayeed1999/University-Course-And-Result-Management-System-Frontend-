@@ -20,6 +20,7 @@ import { UsersComponent } from './home/account/users/users.component';
 import { MenusComponent } from './menu/menus/menus.component';
 import { MenuFormComponent } from './menu/menu-form/menu-form.component';
 import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permission/menu-wise-role-permission.component';
+import { LoginComponent } from './home/account/login/login.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
   { path: 'account', children: [
     { path: 'add-roles', component: AddRolesComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'create-user', component: UserFormComponent, data: { kind: 'create' } },
     { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
     { path: 'list', component: UsersComponent },
