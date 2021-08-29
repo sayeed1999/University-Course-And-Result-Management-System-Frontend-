@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
         this.dataSource = res.data;
       },
       error => {
+        console.log(error)
         this.snackbar.open(`${error.error.message ?? 'Check your internet connection.'}`, 'Close');
       }
     );

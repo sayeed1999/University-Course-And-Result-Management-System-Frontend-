@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegisterDto } from '../models/RegisterDto.model';
 import { RoleDto } from '../models/RoleDto.model';
 import { ServiceResponse } from '../models/ServiceResponse.model';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { UserDto } from '../models/UserDto.model';
+import { Login } from '../models/Login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +39,13 @@ export class AccountService {
   }
 
   GetAllUsers(): Observable<ServiceResponse> {
+    var tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get<ServiceResponse>(
-      `${this.url}/AllUsers`
-    )
+      `${this.url}/AllUsers`,
+      {
+        headers: tokenHeader
+      }
+    );
   }
 
   GetUserByEmail(email: string): Observable<ServiceResponse> {
@@ -63,4 +68,9 @@ export class AccountService {
     );
   }
 
+  Login(data: Login): Observable<ServiceResponse> {
+    return this.http.post<ServiceResponse>(
+      `${this.url}/login`, data
+    );
+  }
 }
