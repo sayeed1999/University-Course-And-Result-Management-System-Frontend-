@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServiceResponse } from '../models/ServiceResponse.model';
+import { AccountService } from './account.service';
 import { RepositoryService } from './repository.service';
 
 @Injectable({
@@ -10,9 +11,10 @@ import { RepositoryService } from './repository.service';
 export class MenuService extends RepositoryService {
 
   constructor(
-    http: HttpClient
+    http: HttpClient,
+    acc: AccountService
   ) {
-    super(http);
+    super(http, acc);
 
     this.endpoint = 'menu';
     this.url += this.endpoint;

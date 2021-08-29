@@ -4,6 +4,7 @@
         routerLink="user-and-role-management/account/register-user"> Register </button> &nbsp;
     <button *ngIf="!signedIn" mat-flat-button 
         routerLink="user-and-role-management/account/login"> Login </button>
+    <button *ngIf="signedIn" mat-flat-button (click)="logout()"> Logout! </button>
 </mat-toolbar>
 
 <div style="height: 10vh;"></div>

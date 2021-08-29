@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AccountService } from './account.service';
 import { RepositoryService } from './repository.service';
 
 @Injectable({
@@ -7,8 +8,8 @@ import { RepositoryService } from './repository.service';
 })
 export class SemistersService extends RepositoryService {
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(http: HttpClient, acc: AccountService) {
+    super(http, acc);
     this.endpoint = 'semisters';
     this.url += this.endpoint;
   }

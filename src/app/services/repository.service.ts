@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServiceResponse } from '../models/ServiceResponse.model';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,27 @@ export class RepositoryService {
   protected endpoint: string = '';
 
   constructor(
-    protected http: HttpClient
+    protected http: HttpClient,
+    protected acc: AccountService
   ) {}
 
   // C R U D ..
 
   public GetAll(): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      this.url
+      this.url,
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
   public GetById(id: number): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/${id}`
+      `${this.url}/${id}`,
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
@@ -34,7 +42,10 @@ export class RepositoryService {
     
     return this.http.post<ServiceResponse>(
       this.url,
-      item
+      item,
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
@@ -42,7 +53,10 @@ export class RepositoryService {
   {
     return this.http.put<ServiceResponse>(
       this.url, //url
-      item //body
+      item, //body
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
@@ -50,7 +64,10 @@ export class RepositoryService {
   {
     return this.http.put<ServiceResponse>(
       `${this.url}/${id}`, //url
-      item //body
+      item, //body
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
@@ -60,6 +77,7 @@ export class RepositoryService {
       `${this.url}/${id}`,
       {
         params: new HttpParams().set("Id", id),
+        headers: this.acc.tokenHeader,
       }
     );
   }

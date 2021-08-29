@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     this.accountService.Login(this.form.value).subscribe(
       (res: ServiceResponse) => {
         // console.log('token:- ' , res.data);
-        localStorage.setItem('token', res.data);
         this.snackbar.open('Logged in successfully! :)');
         this.form.reset();
       },

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServiceResponse } from '../models/ServiceResponse.model';
+import { AccountService } from './account.service';
 import { RepositoryService } from './repository.service';
 
 @Injectable({
@@ -9,8 +10,11 @@ import { RepositoryService } from './repository.service';
 })
 export class DepartmentService extends RepositoryService {
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(
+    http: HttpClient,
+    acc: AccountService
+  ) {
+    super(http, acc);
     this.endpoint = 'departments';
     this.url += this.endpoint;
   }
@@ -18,14 +22,20 @@ export class DepartmentService extends RepositoryService {
   // path: departments/all
   getAllDepartmentsWithCoursesAndTeachers(): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/all`
+      `${this.url}/all`,
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 
   // path: departments/courses
   getAllDepartmentsWithCourses(): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/courses`
+      `${this.url}/courses`,
+      {
+        headers: this.acc.tokenHeader
+      }
     );
   }
 }

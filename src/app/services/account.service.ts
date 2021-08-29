@@ -4,9 +4,9 @@ import { Observable, Subject } from 'rxjs';
 import { RegisterDto } from '../models/RegisterDto.model';
 import { RoleDto } from '../models/RoleDto.model';
 import { ServiceResponse } from '../models/ServiceResponse.model';
-import { catchError, map, tap } from 'rxjs/operators';
-import { UserDto } from '../models/UserDto.model';
+import { tap } from 'rxjs/operators';
 import { Login } from '../models/Login.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AccountService {
   private url: string = 'https://localhost:5001/Account';
   signedIn: boolean = false;
   subject = new Subject<boolean>();
+  tokenHeader!: HttpHeaders;
 
   constructor(
     private http: HttpClient
@@ -23,61 +24,90 @@ export class AccountService {
 
   AddRole(newRole: RoleDto): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
-      `${this.url}/Roles`, newRole
+      `${this.url}/Roles`, newRole,
+      {
+        headers: this.tokenHeader
+      }
     );
   }
   
   GetRoles(): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/Roles`
+      `${this.url}/Roles`,
+      {
+        headers: this.tokenHeader
+      }
     );
   }
 
   RegisterUser(registerDto: RegisterDto): Observable<ServiceResponse> {
     console.log(registerDto);
     return this.http.post<ServiceResponse>(
-      `${this.url}/Register`, registerDto
+      `${this.url}/Register`, registerDto,
+      {
+        headers: this.tokenHeader
+      }
     );
   }
 
   GetAllUsers(): Observable<ServiceResponse> {
-    var tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get<ServiceResponse>(
       `${this.url}/AllUsers`,
       {
-        headers: tokenHeader
+        headers: this.tokenHeader
       }
     );
   }
 
   GetUserByEmail(email: string): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/${email}`
+      `${this.url}/${email}`,
+      {
+        headers: this.tokenHeader
+      }
     )
   }
 
   UpdateUser(registerDto: RegisterDto): Observable<ServiceResponse> {
     return this.http.put<ServiceResponse>(
       `${this.url}/${registerDto.email}/Update`,
-      registerDto
+      registerDto,
+      {
+        headers: this.tokenHeader
+      }
     );
   }
 
   GiveMenuPermissions(menuIds: number[], roleName: string): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
       `${this.url}/role/${roleName}/permission`,
-      menuIds
+      menuIds,
+      {
+        headers: this.tokenHeader
+      }
     );
   }
 
   Login(data: Login): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
-      `${this.url}/login`, data
+      `${this.url}/login`, data,
+      {
+        headers: this.tokenHeader
+      }
     )
-    .pipe(tap(x => {
+    .pipe(tap(res => {
+      localStorage.setItem('token', res.data);
+      this.tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
       this.signedIn = true;
       this.subject.next(true);
     })
     );
+  }
+
+  Logout(): void {
+    localStorage.removeItem('token');
+    this.tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    this.signedIn = false;
+    this.subject.next(false);
   }
 }
