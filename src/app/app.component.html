@@ -5,6 +5,9 @@
     <button *ngIf="!signedIn" mat-flat-button 
         routerLink="user-and-role-management/account/login"> Login </button>
     <button *ngIf="signedIn" style="margin-left:auto" mat-flat-button (click)="logout()"> Logout! </button>
+    <button mat-icon-button>
+        <span class="material-icons" routerLink=""> home </span>
+    </button>
 </mat-toolbar>
 
 <div style="height: 10vh;"></div>

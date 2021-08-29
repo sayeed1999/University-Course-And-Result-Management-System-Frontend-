@@ -21,14 +21,29 @@ export class MenuService extends RepositoryService {
   }
 
   GetAllMenuInOrder() : Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(`${this.url}/InOrder`);
+    return this.http.get<ServiceResponse>(
+      `${this.url}/InOrder`,
+      {
+        headers: this.acc.tokenHeader
+      }
+    );
   }
 
   GetAllRootMenus() : Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(`${this.url}/Root`);
+    return this.http.get<ServiceResponse>(
+      `${this.url}/Root`,
+      {
+        headers: this.acc.tokenHeader
+      }
+    );
   }
 
   GetMenusByRole(role: string) : Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(`${this.url}/${role}`);
+    return this.http.get<ServiceResponse>(
+      `${this.url}/${role}`,
+      {
+        headers: this.acc.tokenHeader
+      }
+    );
   }
 }

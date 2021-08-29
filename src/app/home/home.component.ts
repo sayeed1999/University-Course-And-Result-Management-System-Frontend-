@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Menu } from '../models/Menu.model';
+import { AccountService } from '../services/account.service';
 import { MenuService } from '../services/menu.service';
 
 @Component({
@@ -9,17 +11,26 @@ import { MenuService } from '../services/menu.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   allMenu: Menu[] = [];
+  toUnsubscribe!: Subscription;
 
   constructor(
     private menuService: MenuService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private acc: AccountService,
   ) {}
 
   ngOnInit(): void {
+    this.fetchMenus();
+    this.toUnsubscribe = this.acc.subject.subscribe(b => {
+      if(b) this.fetchMenus();
+    });
+  }
+
+  fetchMenus() {
     this.menuService.GetAllMenuInOrder().subscribe(
       res => {
         this.allMenu = res.data;
@@ -35,4 +46,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate([route]);
   }
 
+  ngOnDestroy() {
+    this.toUnsubscribe.unsubscribe();
+  }
 }
