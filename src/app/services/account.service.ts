@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { RegisterDto } from '../models/RegisterDto.model';
 import { RoleDto } from '../models/RoleDto.model';
 import { ServiceResponse } from '../models/ServiceResponse.model';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { UserDto } from '../models/UserDto.model';
 import { Login } from '../models/Login.model';
 
@@ -14,6 +14,8 @@ import { Login } from '../models/Login.model';
 export class AccountService {
   
   private url: string = 'https://localhost:5001/Account';
+  signedIn: boolean = false;
+  subject = new Subject<boolean>();
 
   constructor(
     private http: HttpClient
@@ -71,6 +73,11 @@ export class AccountService {
   Login(data: Login): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
       `${this.url}/login`, data
+    )
+    .pipe(tap(x => {
+      this.signedIn = true;
+      this.subject.next(true);
+    })
     );
   }
 }

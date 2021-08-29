@@ -18,6 +18,10 @@ export class MenuService extends RepositoryService {
     this.url += this.endpoint;
   }
 
+  GetAllMenuInOrder() : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(`${this.url}/InOrder`);
+  }
+
   GetAllRootMenus() : Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(`${this.url}/Root`);
   }

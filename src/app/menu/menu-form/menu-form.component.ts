@@ -110,7 +110,7 @@ export class MenuFormComponent implements OnInit {
 
       this.menuService.Update(menu).subscribe(
         res => {
-          this.router.navigate(['/menu/list']);
+          this.router.navigate(['../../../menu-list'], { relativeTo: this.activatedRoute });
           this.snackbar.open(res.message, 'Hurrah!');
         },
         error => {

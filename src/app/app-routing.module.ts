@@ -24,36 +24,41 @@ import { LoginComponent } from './home/account/login/login.component';
 
 
 const routes: Routes = [
-  { path: 'departments/department-form', component: DepartmentFormComponent },
-  { path: 'departments', component: DepartmentsComponent },
-  { path: 'course-form', component: CourseFormComponent },
-  { path: 'teacher-form', component: TeacherFormComponent },
-  { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
-  { path: 'view-course-statistics', component: CourseStatisticsComponent },
-  { path: 'student', children: [
-    { path: 'registration', component: StudentRegistrationComponent },
-    { path: 'enroll-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' } },
+  
+  { path: 'configuration', children: [
+    { path: 'course-form', component: CourseFormComponent },
+    { path: 'teacher-form', component: TeacherFormComponent },  
+    { path: 'view-departments', component: DepartmentsComponent },
+    { path: 'student-registration', component: StudentRegistrationComponent },
+    { path: 'department-form', component: DepartmentFormComponent },
+  ] },
+
+  { path: 'university-management', children: [
+    { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
+    { path: 'view-course-statistics', component: CourseStatisticsComponent },  
+    { path: 'allocate-classroom', component: AllocateClassroomsComponent },
+    { path: 'view-class-schedule', component: ViewClassScheduleComponent },
+    { path: 'enroll-student-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' } },
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' } },
     { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent },
     { path: 'view-result', component: ViewResultComponent },
-  ]},
-  { path: 'allocate-classrooms', component: AllocateClassroomsComponent },
-  { path: 'view-class-schedule', component: ViewClassScheduleComponent },
-  { path: 'unassign-all-courses', component: UnassignAllCoursesComponent },
-  { path: 'unallocate-all-classrooms', component: UnallocateAllClassroomsComponent },
-  { path: 'account', children: [
-    { path: 'add-roles', component: AddRolesComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'create-user', component: UserFormComponent, data: { kind: 'create' } },
-    { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
-    { path: 'list', component: UsersComponent },
-  ]},
-  { path: 'menu', children: [
-    { path: 'create-menu', component: MenuFormComponent, data: { kind: 'create' } },
-    { path: ':id/update', component: MenuFormComponent, data: { kind: 'update' } },
-    { path: 'list', component: MenusComponent },
-    { path: 'menu-wise-role-permission', component: MenuWiseRolePermissionComponent },
-  ]},
+    { path: 'unassign-courses', component: UnassignAllCoursesComponent },
+    { path: 'unallocate-classrooms', component: UnallocateAllClassroomsComponent },  
+  ] },
+
+  { path: 'user-and-role-management', children: [
+    { path: 'role-wise-menu-permission', component: MenuWiseRolePermissionComponent },
+    { path: 'menu-list', component: MenusComponent },
+    { path: 'menu-form', component: MenuFormComponent, data: { kind: 'create' } },
+    { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' } },
+    { path: 'account', children: [
+      { path: 'role-form', component: AddRolesComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register-user', component: UserFormComponent, data: { kind: 'create' } },
+      { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
+      { path: 'user-list', component: UsersComponent },
+    ]}
+  ] },
 ];
 
 @NgModule({

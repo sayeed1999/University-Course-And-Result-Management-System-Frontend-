@@ -1,124 +1,19 @@
-<div>
+<mat-expansion-panel *ngFor="let menu of allMenu">
 
-<mat-expansion-panel>
-
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-       Sections
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-
-  <mat-list>
-    <mat-list-item matRipple routerLink="/departments/department-form">
-        Save Department
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/departments">
-        View Departments
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/course-form">
-        Save Course
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/teacher-form">
-        Save Teacher
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/course-assign-to-teacher">
-        Course Assign To Teacher
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/view-course-statistics">
-        View Course Statistics
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/student/registration">
-        Student Registration
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/allocate-classrooms">
-        Allocate Classrooms
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/view-class-schedule">
-        View Class Schedule
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink="/allocate-classrooms">
-        Allocate Classrooms
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink='/student/enroll-in-course'>
-        Enroll Student In Course
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink='/student/save-result'>
-        Save Result
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink='/student/view-result'>
-        View Result
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink='/unassign-all-courses'>
-        Unassign All Courses
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item matRipple routerLink='/unallocate-all-classrooms'>
-        Unallocate All Classrooms
-    </mat-list-item>
-  </mat-list>
-
-</mat-expansion-panel>
-
-<mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Account
-      </mat-panel-title>
+        <mat-panel-title>
+           {{ menu.name }}
+        </mat-panel-title>
     </mat-expansion-panel-header>
 
     <mat-list>
-        <mat-list-item matRipple routerLink='/account/add-roles'>
-            Add Roles
-        </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item matRipple routerLink='/account/login'>
-            Login
+        <mat-list-item matRipple *ngFor="let child of menu.childMenus"
+            (click)="navigate(menu.url, child.url)"
+        >
+            {{ child.name }}
+            <mat-divider></mat-divider>
         </mat-list-item>
-        <mat-list-item matRipple routerLink='/account/create-user'>
-            Create User
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item matRipple routerLink='/account/list'>
-            Users List
-        </mat-list-item>    
     </mat-list>
-    
+
 </mat-expansion-panel>
-
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Menu
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <mat-list>
-        <mat-list-item matRipple routerLink='/menu/create-menu'>
-            Create Menu
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item matRipple routerLink='/menu/list'>
-            Menu List
-        </mat-list-item> 
-        <mat-divider></mat-divider>
-        <mat-list-item matRipple routerLink='/menu/menu-wise-role-permission'>
-            Role Permission
-        </mat-list-item>    
-    </mat-list>
-    
-</mat-expansion-panel>
-
-</div>

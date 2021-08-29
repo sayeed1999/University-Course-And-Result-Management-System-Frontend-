@@ -1,10 +1,9 @@
 <mat-toolbar color="primary" style="height: 10vh; position: fixed; top: 0; z-index:2">
     <span style="font-size: large; font-weight: 400;"> Rajshahi University of Engineering and Technology </span>
-    <button [disabled]="true" style="margin-left:auto" mat-icon-button>
-        <span class="material-icons">
-            cottage
-        </span>
-    </button>
+    <button *ngIf="!signedIn" style="margin-left:auto" mat-flat-button 
+        routerLink="user-and-role-management/account/register-user"> Register </button> &nbsp;
+    <button *ngIf="!signedIn" mat-flat-button 
+        routerLink="user-and-role-management/account/login"> Login </button>
 </mat-toolbar>
 
 <div style="height: 10vh;"></div>
