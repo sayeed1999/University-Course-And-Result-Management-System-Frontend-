@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
+import { MenuService } from '../services/menu.service';
 
 @Injectable({
   providedIn: 'root'

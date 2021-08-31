@@ -22,46 +22,45 @@ import { MenuFormComponent } from './menu/menu-form/menu-form.component';
 import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permission/menu-wise-role-permission.component';
 import { LoginComponent } from './home/account/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { SignedInGuard } from './auth/signed-in.guard';
 import { WelcomeComponent } from './home/welcome/welcome.component';
+import { PermitGuard } from './auth/permit.guard';
 
 
 const routes: Routes = [
   
   { path: 'configuration', canActivate: [AuthGuard], children: [
-    { path: 'course-form', component: CourseFormComponent },
-    { path: 'teacher-form', component: TeacherFormComponent },  
-    { path: 'view-departments', component: DepartmentsComponent },
-    { path: 'student-registration', component: StudentRegistrationComponent },
-    { path: 'department-form', component: DepartmentFormComponent },
+    { path: 'course-form', component: CourseFormComponent, canActivate: [PermitGuard] },
+    { path: 'teacher-form', component: TeacherFormComponent, canActivate: [PermitGuard] },  
+    { path: 'view-departments', component: DepartmentsComponent, canActivate: [PermitGuard] },
+    { path: 'student-registration', component: StudentRegistrationComponent, canActivate: [PermitGuard] },
+    { path: 'department-form', component: DepartmentFormComponent, canActivate: [PermitGuard] },
   ] },
 
   { path: 'university-management', canActivate: [AuthGuard], children: [
-    { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
-    { path: 'view-course-statistics', component: CourseStatisticsComponent },  
-    { path: 'allocate-classroom', component: AllocateClassroomsComponent },
-    { path: 'view-class-schedule', component: ViewClassScheduleComponent },
-    { path: 'enroll-student-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' } },
-    { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' } },
-    { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent },
-    { path: 'view-result', component: ViewResultComponent },
-    { path: 'unassign-courses', component: UnassignAllCoursesComponent },
-    { path: 'unallocate-classrooms', component: UnallocateAllClassroomsComponent },  
+    { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent, canActivate: [PermitGuard] },
+    { path: 'view-course-statistics', component: CourseStatisticsComponent, canActivate: [PermitGuard] },  
+    { path: 'allocate-classroom', component: AllocateClassroomsComponent, canActivate: [PermitGuard] },
+    { path: 'view-class-schedule', component: ViewClassScheduleComponent, canActivate: [PermitGuard] },
+    { path: 'enroll-student-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' }, canActivate: [PermitGuard] },
+    { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' }, canActivate: [PermitGuard] },
+    { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent, canActivate: [PermitGuard] },
+    { path: 'view-result', component: ViewResultComponent, canActivate: [PermitGuard] },
+    { path: 'unassign-courses', component: UnassignAllCoursesComponent, canActivate: [PermitGuard] },
+    { path: 'unallocate-classrooms', component: UnallocateAllClassroomsComponent, canActivate: [PermitGuard] },  
   ] },
 
   { path: 'user-and-role-management', children: [
-    { path: 'role-wise-menu-permission', component: MenuWiseRolePermissionComponent, canActivate: [AuthGuard] },
-    { path: 'menu-list', component: MenusComponent, canActivate: [AuthGuard] },
-    { path: 'menu-form', component: MenuFormComponent, data: { kind: 'create' }, canActivate: [AuthGuard] },
-    { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
+    { path: 'role-wise-menu-permission', component: MenuWiseRolePermissionComponent, canActivate: [AuthGuard, PermitGuard] },
+    { path: 'menu-list', component: MenusComponent, canActivate: [AuthGuard, PermitGuard] },
+    { path: 'menu-form', component: MenuFormComponent, data: { kind: 'create' }, canActivate: [AuthGuard, PermitGuard] },
+    { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard, PermitGuard] },
     { path: 'account', children: [
-      { path: 'role-form', component: AddRolesComponent, canActivate: [AuthGuard] },
+      { path: 'role-form', component: AddRolesComponent, canActivate: [AuthGuard, PermitGuard] },
       { path: 'login', component: LoginComponent, canActivate: [SignedInGuard] },
       { path: 'register-user', component: UserFormComponent, data: { kind: 'create' }, canActivate: [SignedInGuard] },
-      { path: ':email/update', component: UserFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
-      { path: 'user-list', component: UsersComponent, canActivate: [AuthGuard] },
+      { path: ':email/update', component: UserFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard, PermitGuard] },
+      { path: 'user-list', component: UsersComponent, canActivate: [AuthGuard, PermitGuard] },
     ]}
   ] },
   { path: '', component: WelcomeComponent, pathMatch: 'full', canActivate: [AuthGuard] }
