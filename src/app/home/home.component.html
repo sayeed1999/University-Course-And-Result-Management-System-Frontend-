@@ -1,4 +1,4 @@
-<mat-expansion-panel *ngFor="let menu of allMenu">
+<mat-expansion-panel *ngFor="let menu of allMenu" [hidden]="menu.childMenus?.length === 0">
 
     <mat-expansion-panel-header>
         <mat-panel-title>
