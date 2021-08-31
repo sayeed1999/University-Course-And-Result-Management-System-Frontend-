@@ -87,6 +87,7 @@ export class MenuWiseRolePermissionComponent implements OnInit {
     });
     this.accountService.GiveMenuPermissions(menusIdForRole, this.selectedRole).subscribe(
       res => {
+        this.accountService.subject.next(true);
         this.snackbar.open("Successfully saved!", "Close");
       },
       error => {

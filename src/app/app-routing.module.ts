@@ -21,19 +21,21 @@ import { MenusComponent } from './menu/menus/menus.component';
 import { MenuFormComponent } from './menu/menu-form/menu-form.component';
 import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permission/menu-wise-role-permission.component';
 import { LoginComponent } from './home/account/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AppComponent } from './app.component';
 
 
 const routes: Routes = [
   
   { path: 'configuration', children: [
-    { path: 'course-form', component: CourseFormComponent },
-    { path: 'teacher-form', component: TeacherFormComponent },  
-    { path: 'view-departments', component: DepartmentsComponent },
-    { path: 'student-registration', component: StudentRegistrationComponent },
-    { path: 'department-form', component: DepartmentFormComponent },
+    { path: 'course-form', component: CourseFormComponent, canActivate: [AuthGuard] },
+    { path: 'teacher-form', component: TeacherFormComponent, canActivate: [AuthGuard] },  
+    { path: 'view-departments', component: DepartmentsComponent, canActivate: [AuthGuard] },
+    { path: 'student-registration', component: StudentRegistrationComponent, canActivate: [AuthGuard] },
+    { path: 'department-form', component: DepartmentFormComponent, canActivate: [AuthGuard] },
   ] },
 
-  { path: 'university-management', children: [
+  { path: 'university-management', canActivate: [AuthGuard], children: [
     { path: 'course-assign-to-teacher', component: CourseAssignToTeacherComponent },
     { path: 'view-course-statistics', component: CourseStatisticsComponent },  
     { path: 'allocate-classroom', component: AllocateClassroomsComponent },
@@ -47,18 +49,19 @@ const routes: Routes = [
   ] },
 
   { path: 'user-and-role-management', children: [
-    { path: 'role-wise-menu-permission', component: MenuWiseRolePermissionComponent },
-    { path: 'menu-list', component: MenusComponent },
-    { path: 'menu-form', component: MenuFormComponent, data: { kind: 'create' } },
-    { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' } },
+    { path: 'role-wise-menu-permission', component: MenuWiseRolePermissionComponent, canActivate: [AuthGuard] },
+    { path: 'menu-list', component: MenusComponent, canActivate: [AuthGuard] },
+    { path: 'menu-form', component: MenuFormComponent, data: { kind: 'create' }, canActivate: [AuthGuard] },
+    { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
     { path: 'account', children: [
-      { path: 'role-form', component: AddRolesComponent },
+      { path: 'role-form', component: AddRolesComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'register-user', component: UserFormComponent, data: { kind: 'create' } },
-      { path: ':email/update', component: UserFormComponent, data: { kind: 'update' } },
-      { path: 'user-list', component: UsersComponent },
+      { path: ':email/update', component: UserFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
+      { path: 'user-list', component: UsersComponent, canActivate: [AuthGuard] },
     ]}
   ] },
+  { path: '', component: AppComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

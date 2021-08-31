@@ -76,7 +76,6 @@ export class RepositoryService {
     return this.http.delete<ServiceResponse>(
       `${this.url}/${id}`,
       {
-        params: new HttpParams().set("Id", id),
         headers: this.acc.tokenHeader,
       }
     );

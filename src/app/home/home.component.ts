@@ -26,11 +26,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchMenus();
     this.toUnsubscribe = this.acc.subject.subscribe(b => {
-      if(b) this.fetchMenus();
+      if(b) {
+        this.fetchMenus();
+      } else {
+        this.allMenu = [];
+        this.router.navigateByUrl('user-and-role-management/account/login');
+      }
     });
   }
 
   fetchMenus() {
+    this.allMenu = [];
     this.menuService.GetAllMenuInOrder().subscribe(
       res => {
         this.allMenu = res.data;

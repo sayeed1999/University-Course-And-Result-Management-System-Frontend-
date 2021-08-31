@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Menu } from 'src/app/models/Menu.model';
+import { AccountService } from 'src/app/services/account.service';
 import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class MenuFormComponent implements OnInit {
   title = "New Menu";
   mode = 'create';
   menus: Menu[] = [];
+  id = 0;
 
   form = new FormGroup({
     id: new FormControl(0),
@@ -24,6 +26,7 @@ export class MenuFormComponent implements OnInit {
   });
 
   constructor(
+    private accountService: AccountService,
     private menuService: MenuService,
     private snackbar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
@@ -53,9 +56,9 @@ export class MenuFormComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       let temp = '';
       if(params.get('id') != null) temp = params.get('id') ?? '0';
-      let id = +temp;
+      this.id = +temp;
 
-      const menu = this.menus.find(x => x.id === id);
+      const menu = this.menus.find(x => x.id === this.id);
 
       this.form.controls.id.setValue( menu?.id );
       this.form.controls.name.setValue( menu?.name );
@@ -89,10 +92,12 @@ export class MenuFormComponent implements OnInit {
 
       this.menuService.Add(menu).subscribe(
         res => {
+          this.accountService.subject.next(true);
           this.snackbar.open(res.message, 'Hurrah!');
           this.reset();
         },
         error => {
+          this.accountService.subject.next(true);
           this.snackbar.open(`${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
           this.reset();
         }
@@ -110,12 +115,29 @@ export class MenuFormComponent implements OnInit {
 
       this.menuService.Update(menu).subscribe(
         res => {
+          this.accountService.subject.next(true);
           this.router.navigate(['../../../menu-list'], { relativeTo: this.activatedRoute });
           this.snackbar.open(res.message, 'Hurrah!');
         },
         error => {
           this.snackbar.open(`${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
           
+        }
+      );
+    }
+  }
+
+  delete() {
+    if(confirm("Are you sure want to delete?")) {
+      this.menuService.DeleteById(this.id).subscribe(
+        res => {
+          this.accountService.subject.next(true);
+          this.router.navigate(['../../../menu-list'], { relativeTo: this.activatedRoute });
+          this.snackbar.open('Deleted successfully', 'Okay');
+        },
+        err => {
+          this.router.navigate(['../../../menu-list'], { relativeTo: this.activatedRoute });
+          this.snackbar.open(err.err.message ?? 'Deletion failed', 'Close');
         }
       );
     }
