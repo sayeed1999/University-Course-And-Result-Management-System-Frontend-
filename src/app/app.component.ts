@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AccountService } from './services/account.service';
 
@@ -7,7 +7,7 @@ import { AccountService } from './services/account.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   
   signedIn = false;
   toDestroy!: Subscription;
@@ -15,9 +15,12 @@ export class AppComponent {
   constructor(private account: AccountService) {} 
 
   ngOnInit() {
-    this.toDestroy = this.account.subject.subscribe(b => {
+    this.toDestroy = this.account.subject.subscribe((b:boolean) => {
       this.signedIn = b;
+      console.log(999);
     })
+    
+    this.account.ReactivateAfterRefresh();
   }
 
   logout() {

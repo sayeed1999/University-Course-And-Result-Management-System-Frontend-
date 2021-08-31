@@ -20,7 +20,17 @@ export class AccountService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
+
+  ReactivateAfterRefresh() {
+    const token = localStorage.getItem('token') ?? '';
+    if(token.length > 0) {
+      this.signedIn = true;
+      this.SetTokenHeader();
+      this.subject.next(true);
+    } 
+   } 
 
   AddRole(newRole: RoleDto): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
@@ -88,6 +98,10 @@ export class AccountService {
     );
   }
 
+  SetTokenHeader() {
+    this.tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+  }
+
   Login(data: Login): Observable<ServiceResponse> {
     return this.http.post<ServiceResponse>(
       `${this.url}/login`, data,
@@ -97,7 +111,7 @@ export class AccountService {
     )
     .pipe(tap(res => {
       localStorage.setItem('token', res.data);
-      this.tokenHeader = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      this.SetTokenHeader();
       this.signedIn = true;
       this.subject.next(true);
     })

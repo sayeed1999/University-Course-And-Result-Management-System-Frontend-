@@ -23,16 +23,19 @@ import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permissio
 import { LoginComponent } from './home/account/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { SignedInGuard } from './auth/signed-in.guard';
+import { WelcomeComponent } from './home/welcome/welcome.component';
 
 
 const routes: Routes = [
   
-  { path: 'configuration', children: [
-    { path: 'course-form', component: CourseFormComponent, canActivate: [AuthGuard] },
-    { path: 'teacher-form', component: TeacherFormComponent, canActivate: [AuthGuard] },  
-    { path: 'view-departments', component: DepartmentsComponent, canActivate: [AuthGuard] },
-    { path: 'student-registration', component: StudentRegistrationComponent, canActivate: [AuthGuard] },
-    { path: 'department-form', component: DepartmentFormComponent, canActivate: [AuthGuard] },
+  { path: 'configuration', canActivate: [AuthGuard], children: [
+    { path: 'course-form', component: CourseFormComponent },
+    { path: 'teacher-form', component: TeacherFormComponent },  
+    { path: 'view-departments', component: DepartmentsComponent },
+    { path: 'student-registration', component: StudentRegistrationComponent },
+    { path: 'department-form', component: DepartmentFormComponent },
   ] },
 
   { path: 'university-management', canActivate: [AuthGuard], children: [
@@ -55,13 +58,13 @@ const routes: Routes = [
     { path: 'menu/:id/update', component: MenuFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
     { path: 'account', children: [
       { path: 'role-form', component: AddRolesComponent, canActivate: [AuthGuard] },
-      { path: 'login', component: LoginComponent },
-      { path: 'register-user', component: UserFormComponent, data: { kind: 'create' } },
+      { path: 'login', component: LoginComponent, canActivate: [SignedInGuard] },
+      { path: 'register-user', component: UserFormComponent, data: { kind: 'create' }, canActivate: [SignedInGuard] },
       { path: ':email/update', component: UserFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard] },
       { path: 'user-list', component: UsersComponent, canActivate: [AuthGuard] },
     ]}
   ] },
-  { path: '', component: AppComponent, canActivate: [AuthGuard] }
+  { path: '', component: WelcomeComponent, pathMatch: 'full', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
