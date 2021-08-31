@@ -8,3 +8,13 @@
 .row {
     margin: 8px 0;
 }
+
+#result-sheet {
+    padding: 50px;
+}
+
+img {
+    width: 90px;
+    position: absolute;
+    right: 90px;
+}

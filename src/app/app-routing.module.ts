@@ -44,7 +44,7 @@ const routes: Routes = [
     { path: 'view-class-schedule', component: ViewClassScheduleComponent, canActivate: [PermitGuard] },
     { path: 'enroll-student-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' }, canActivate: [PermitGuard] },
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' }, canActivate: [PermitGuard] },
-    { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent, canActivate: [PermitGuard] },
+    { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent },
     { path: 'view-result', component: ViewResultComponent, canActivate: [PermitGuard] },
     { path: 'unassign-courses', component: UnassignAllCoursesComponent, canActivate: [PermitGuard] },
     { path: 'unallocate-classrooms', component: UnallocateAllClassroomsComponent, canActivate: [PermitGuard] },  

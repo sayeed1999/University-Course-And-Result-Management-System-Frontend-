@@ -32,13 +32,14 @@ export class MenuService extends RepositoryService {
       }
     ).pipe(tap(res => {
       res.data.forEach((rootMenu: Menu) => {
+        this.allowedRoutes = [];
         const rootRoute = rootMenu.url;
         rootMenu.childMenus?.forEach((childMenu: Menu) => {
           const allowedPath = rootRoute + '/' + childMenu.url;
           this.allowedRoutes.push(allowedPath);
         });
       });
-      console.log(this.allowedRoutes);
+      // console.log(this.allowedRoutes);
     }));
   }
 
