@@ -2,16 +2,21 @@
 
   <h1>{{ title }}</h1>
   <form style="display: flex; flex-direction: column; width: 280px" [formGroup]="form" (ngSubmit)="resultGenerate()">
-    <mat-form-field>
-        <mat-label>Student Registration Number</mat-label>
-        <mat-select [formControl]="student" name="student" id="student" required>
-            <mat-option *ngFor="let s of students" [value]="s">
-                {{ s.registrationNumber }}
-            </mat-option>
-        </mat-select>
-        <mat-error> Please select a student </mat-error>
-    </mat-form-field>  
-    <mat-form-field>
+    
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Student Reg. No.</mat-label>
+        <input placeholder="Pick one"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let s of students" [value]="s.registrationNumber">
+            {{ s.registrationNumber }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+      <mat-form-field>
         <mat-label> Name </mat-label>
         <input matInput readonly formControlName="name" name="name" id="name"> 
     </mat-form-field>    
@@ -21,7 +26,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label> Department </mat-label>
-        <input matInput readonly formControlName="deptCode" name="deptCode" id="deptCode"> 
+        <input matInput readonly formControlName="dept" name="dept" id="dept"> 
     </mat-form-field>    
     <button type="submit" [disabled]="form.invalid" mat-flat-button color="warn" style="margin-left: auto;">Make PDF</button>
   </form>

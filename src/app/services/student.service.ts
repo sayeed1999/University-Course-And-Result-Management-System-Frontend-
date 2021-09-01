@@ -17,6 +17,14 @@ export class StudentService extends RepositoryService {
     this.url += this.endpoint;
   }
 
+  GetAll(regNum: string = ''): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}?regNum=${regNum}`,
+      {
+        headers: this.acc.tokenHeader
+      });
+  }
+
   EnrollInCourse(data: StudentEnrollOrPublishResultInCourse) {
     return this.http.post<ServiceResponse>(
       `${this.url}/enroll-in-course`,
@@ -41,6 +49,15 @@ export class StudentService extends RepositoryService {
   ViewResults() : Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
       `${this.url}/results`,
+      {
+        headers: this.acc.tokenHeader
+      });
+  }
+
+  // GET: Students/Results/1
+  ViewResultById(id:number) : Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(
+      `${this.url}/results/${id}`,
       {
         headers: this.acc.tokenHeader
       });

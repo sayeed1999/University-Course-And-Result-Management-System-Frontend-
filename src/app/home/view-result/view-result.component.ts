@@ -3,9 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from 'src/app/models/Student.model';
 import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
 import { StudentService } from 'src/app/services/student.service';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-result',
@@ -16,14 +14,15 @@ export class ViewResultComponent implements OnInit {
 
   title = "View Result";
   students: Student[] = [];
-  student = new FormControl();
+  student!: Student;
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl(''),
-    deptCode: new FormControl(''),
+    dept: new FormControl(''),
   });
   dataSource: StudentsCourses[] = [];
   displayedColumns = [ 'code', 'name', 'grade' ];
+  myControl = new FormControl();
 
   constructor(
     private studentService: StudentService,
@@ -32,18 +31,27 @@ export class ViewResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchStudents();
-    
-    this.student.valueChanges.subscribe((val:Student) => {
-      this.form.controls.name.setValue(val.name);
-      this.form.controls.email.setValue(val.email);
-      this.form.controls.deptCode.setValue(val.department?.code);
-      this.dataSource = val.studentsCourses ?? [];
+
+    this.myControl.valueChanges.subscribe((val:string) => {
+      this.fetchStudents(val);
     });
   }
 
-  fetchStudents() {
-    this.studentService.ViewResults().subscribe(
-      res => this.students = res.data,
+  fetchStudents(regNum:string = '') {
+    this.studentService.GetAll(regNum).subscribe(
+      res => {
+        this.students = res.data;
+        const _student = this.students.find(x => x.registrationNumber === regNum);
+        
+        if(_student != null) {
+          this.student = _student;
+          // console.log(this.student)
+          this.form.controls.name.setValue( this.student.name );
+          this.form.controls.email.setValue( this.student.email );
+          this.form.controls.dept.setValue( this.student.department?.name );
+          this.dataSource = this.student.studentsCourses ?? [];
+        }
+      },
       error => {
         console.log(error);
       }
@@ -51,7 +59,7 @@ export class ViewResultComponent implements OnInit {
   }
 
   resultGenerate() {
-    window.open("https://localhost:5001/Students/Result-Sheet/" + this.student.value.registrationNumber, "_blank");
+    window.open("https://localhost:5001/Students/Result-Sheet/" + this.student.registrationNumber, "_blank");
     // this.studentService.PrintStudentResultByRegNum(this.student.value.registrationNumber).subscribe(res => {});
     // this.router.navigate([this.router.url, 'result-sheet-generation'], { state: this.student.value });
   }
