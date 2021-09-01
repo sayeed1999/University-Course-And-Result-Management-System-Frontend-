@@ -48,6 +48,10 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     this.onStudentChange();
     this.fetchGrades();
 
+    this.form.controls.reg.valueChanges.subscribe((val:string) => {
+      this.fetchStudents(val);
+    })
+
     this.activatedRoute.data.subscribe(data => {
       switch(data.kind) {
         case 'enroll':
@@ -66,9 +70,9 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     });
   }
 
-  fetchStudents() {
+  fetchStudents(regNum:string = '') {
     this.studentFetching = true;
-    this.studentService.GetAll().subscribe(
+    this.studentService.GetAll(regNum).subscribe(
       res => {
         this.students = res.data;
         this.studentFetching = false;

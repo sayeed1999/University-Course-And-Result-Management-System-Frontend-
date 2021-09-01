@@ -6,11 +6,15 @@
         <label class="form-label">Student Reg. No.</label>
       </div>
       <div class="col-9">
-        <select class="form-control" formControlName="reg" name="reg">
-            <option *ngFor="let s of students" [value]="s.registrationNumber">
-                {{ s.registrationNumber }}
-            </option>
-        </select>
+        <input class="form-control"
+            formControlName="reg"
+            [matAutocomplete]="auto">
+        
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let s of students" [value]="s.registrationNumber">
+            {{ s.registrationNumber }}
+          </mat-option>
+        </mat-autocomplete>
         <p class="error-text" *ngIf="(form.controls.reg.dirty || form.controls.reg.touched) && form.controls.reg.invalid"> Please select a student registration number </p>
         <loading *ngIf="studentFetching"></loading>
       </div>
