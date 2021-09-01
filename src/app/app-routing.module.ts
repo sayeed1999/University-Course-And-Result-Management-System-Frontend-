@@ -58,12 +58,14 @@ const routes: Routes = [
     { path: 'account', children: [
       { path: 'role-form', component: AddRolesComponent, canActivate: [AuthGuard, PermitGuard] },
       { path: 'login', component: LoginComponent, canActivate: [SignedInGuard] },
-      { path: 'register-user', component: UserFormComponent, data: { kind: 'create' }, canActivate: [SignedInGuard] },
+      { path: 'register-user', component: UserFormComponent, data: { kind: 'create' }, canActivate: [AuthGuard, PermitGuard] },
       { path: ':email/update', component: UserFormComponent, data: { kind: 'update' }, canActivate: [AuthGuard, PermitGuard] },
       { path: 'user-list', component: UsersComponent, canActivate: [AuthGuard, PermitGuard] },
     ]}
   ] },
-  { path: '', component: WelcomeComponent, pathMatch: 'full', canActivate: [AuthGuard] }
+
+  { path: '', component: WelcomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

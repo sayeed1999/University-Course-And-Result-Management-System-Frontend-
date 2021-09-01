@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { HomeButtonComponent } from './shared/home-button/home-button.component';
 import { HomeComponent } from './home/home.component';
 import { DepartmentsComponent } from './home/departments/departments.component';
 import { DepartmentFormComponent } from './home/departments/department-form/department-form.component';
@@ -38,7 +37,6 @@ import { WelcomeComponent } from './home/welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeButtonComponent,
     HomeComponent,
     DepartmentsComponent,
     DepartmentFormComponent,

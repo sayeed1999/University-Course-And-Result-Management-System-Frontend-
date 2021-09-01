@@ -31,11 +31,11 @@ export class MenuService extends RepositoryService {
         headers: this.acc.tokenHeader
       }
     ).pipe(tap(res => {
+      this.allowedRoutes = [];
       res.data.forEach((rootMenu: Menu) => {
-        this.allowedRoutes = [];
         const rootRoute = rootMenu.url;
         rootMenu.childMenus?.forEach((childMenu: Menu) => {
-          const allowedPath = rootRoute + '/' + childMenu.url;
+          const allowedPath = '/' + rootRoute + '/' + childMenu.url;
           this.allowedRoutes.push(allowedPath);
         });
       });

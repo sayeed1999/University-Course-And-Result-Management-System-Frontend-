@@ -109,7 +109,6 @@ export class UserFormComponent implements OnInit {
     {
       this.accountService.RegisterUser(this.form.value).subscribe(
         res => {
-          this.router.navigateByUrl('../login');
           this.snackbar.open(res.message, 'Hurrah!');
           this.reset();
         },

@@ -13,7 +13,9 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class LoginComponent implements OnInit {
 
-  title = "Login"
+  title = "Login";
+  running: boolean = false;
+
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
@@ -23,23 +25,25 @@ export class LoginComponent implements OnInit {
     private accountService: AccountService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
+    this.running = true;
     this.accountService.Login(this.form.value).subscribe(
       (res: ServiceResponse) => {
         // console.log('token:- ' , res.data);
         this.router.navigateByUrl('');
         this.snackbar.open('Logged in successfully! :)');
         this.form.reset();
+        this.running = false;
       },
       (error: HttpErrorResponse) => {
         this.snackbar.open(error.error.message ?? 'Check your internet connection', 'Close');
         this.form.reset();
+        this.running = false;
       }
     );
   }
