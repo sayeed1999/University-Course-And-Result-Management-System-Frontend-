@@ -45,4 +45,13 @@ export class StudentService extends RepositoryService {
         headers: this.acc.tokenHeader
       });
   }
+
+  PrintStudentResultByRegNum(reg: string) : Observable<any> {
+    return this.http.get<any>(
+      `${this.url}/result-sheet/${reg}`,
+      {
+        headers: this.acc.tokenHeader
+      });
+  }
+  
 }

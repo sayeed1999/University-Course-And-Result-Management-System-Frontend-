@@ -51,8 +51,9 @@ export class ViewResultComponent implements OnInit {
   }
 
   resultGenerate() {
-    // console.log(this.student);
-    this.router.navigate([this.router.url, 'result-sheet-generation'], { state: this.student.value });
+    window.open("https://localhost:5001/Students/Result-Sheet/" + this.student.value.registrationNumber, "_blank");
+    // this.studentService.PrintStudentResultByRegNum(this.student.value.registrationNumber).subscribe(res => {});
+    // this.router.navigate([this.router.url, 'result-sheet-generation'], { state: this.student.value });
   }
 
 }
