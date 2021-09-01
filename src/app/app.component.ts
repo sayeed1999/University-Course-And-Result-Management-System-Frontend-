@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.toDestroy = this.account.subject.subscribe((b:boolean) => {
       this.signedIn = b;
-      console.log(999);
     })
     
     this.account.ReactivateAfterRefresh();
