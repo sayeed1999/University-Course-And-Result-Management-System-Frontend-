@@ -1,6 +1,10 @@
 <div id="whole-page">
 
-  <h1>{{ title }}</h1>
+  <div style="display: flex;">
+    <h1>{{ title }}</h1>
+    <loading style="margin-left: 10px" [hidden]="!fetching"></loading>
+  </div>
+
   <form style="display: flex; flex-direction: column; width: 280px" [formGroup]="form" (ngSubmit)="resultGenerate()">
     
     <mat-form-field class="example-full-width" appearance="fill">

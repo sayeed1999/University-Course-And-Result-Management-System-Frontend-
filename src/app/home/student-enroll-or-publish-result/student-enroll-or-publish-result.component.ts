@@ -60,7 +60,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         setTimeout(() => {
           this.start = false;
           this.fetchStudents(this.searchRegNum);
-        }, 1000);
+        }, 1500);
       }
 
     })

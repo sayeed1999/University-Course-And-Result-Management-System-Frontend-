@@ -27,6 +27,7 @@ export class ViewResultComponent implements OnInit {
 
   start = false;
   searchRegNum = '';
+  fetching = false;
 
   constructor(
     private studentService: StudentService,
@@ -43,12 +44,13 @@ export class ViewResultComponent implements OnInit {
         setTimeout(() => {
           this.start = false;
           this.fetchStudents(this.searchRegNum);
-        }, 2000);
+        }, 1500);
       }
     });
   }
 
   fetchStudents(regNum:string = '') {
+    this.fetching = true;
     this.studentService.GetAll(regNum).subscribe(
       res => {
         this.students = res.data;
@@ -61,9 +63,11 @@ export class ViewResultComponent implements OnInit {
           this.form.controls.dept.setValue( this.student.department?.name );
           this.dataSource = this.student.studentsCourses ?? [];
         }
+        this.fetching = false;
       },
       error => {
         console.log(error);
+        this.fetching = false;
       }
     );
   }
