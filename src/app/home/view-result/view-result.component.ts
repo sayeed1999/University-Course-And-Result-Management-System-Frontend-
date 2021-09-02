@@ -15,6 +15,7 @@ export class ViewResultComponent implements OnInit {
   title = "View Result";
   students: Student[] = [];
   student!: Student;
+
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl(''),
@@ -24,16 +25,26 @@ export class ViewResultComponent implements OnInit {
   displayedColumns = [ 'code', 'name', 'grade' ];
   myControl = new FormControl();
 
+  start = false;
+  searchRegNum = '';
+
   constructor(
     private studentService: StudentService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.fetchStudents();
 
     this.myControl.valueChanges.subscribe((val:string) => {
-      this.fetchStudents(val);
+
+      this.searchRegNum = val;
+      if(!this.start) {
+        this.start = true;
+        setTimeout(() => {
+          this.start = false;
+          this.fetchStudents(this.searchRegNum);
+        }, 2000);
+      }
     });
   }
 
@@ -45,7 +56,6 @@ export class ViewResultComponent implements OnInit {
         
         if(_student != null) {
           this.student = _student;
-          // console.log(this.student)
           this.form.controls.name.setValue( this.student.name );
           this.form.controls.email.setValue( this.student.email );
           this.form.controls.dept.setValue( this.student.department?.name );

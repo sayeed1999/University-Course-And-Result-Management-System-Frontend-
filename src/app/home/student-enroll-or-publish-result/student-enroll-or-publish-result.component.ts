@@ -43,13 +43,26 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     private snackbar: MatSnackBar
   ) { }
 
+  start = false;
+  searchRegNum = '';
+
   ngOnInit(): void {
     this.fetchStudents();
     this.onStudentChange();
     this.fetchGrades();
 
     this.form.controls.reg.valueChanges.subscribe((val:string) => {
-      this.fetchStudents(val);
+
+      this.searchRegNum = val;
+
+      if(!this.start) {
+        this.start = true;
+        setTimeout(() => {
+          this.start = false;
+          this.fetchStudents(this.searchRegNum);
+        }, 1000);
+      }
+
     })
 
     this.activatedRoute.data.subscribe(data => {
