@@ -75,14 +75,26 @@ export class ViewResultComponent implements OnInit {
 
   resultGenerate() {
     this.studentService.PrintStudentResultByRegNum(this.student.registrationNumber).subscribe(
-      (response:Blob) => {
-        console.log(response);
-        //Create blobUrl from blob object.
-        let blobUrl: string = window.URL.createObjectURL(response);
-        //See the url!
-        // console.log(blobUrl);
-        //Open the URL in new window!
-        window.open(blobUrl);
+      (blob:Blob) => {
+        // console.log(response);
+        // let blobUrl: string = window.URL.createObjectURL(response); // Create blobUrl from blob object.
+        // console.log(blobUrl); // See the url!
+        // window.open(blobUrl); // Open the URL in new window!
+
+        const downloadFile = (blob:Blob, fileName:string) => {
+          const link = document.createElement('a');
+          // create a blobURI pointing to our Blob
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          // some browser needs the anchor to be in the doc
+          document.body.append(link);
+          link.click();
+          link.remove();
+          // in case the Blob uses a lot of memory
+          setTimeout(() => URL.revokeObjectURL(link.href), 3500);
+        }; 
+        
+        downloadFile(blob, "result.pdf");
       },
       (error: HttpErrorResponse) => {
         console.log(error);
