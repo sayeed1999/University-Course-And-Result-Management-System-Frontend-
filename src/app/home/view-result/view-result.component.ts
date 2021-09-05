@@ -75,12 +75,14 @@ export class ViewResultComponent implements OnInit {
 
   resultGenerate() {
     this.studentService.PrintStudentResultByRegNum(this.student.registrationNumber).subscribe(
-      (responseText: string) => {
-        // console.log(responseText);
-        var a = window.open();
-        a?.document.write(responseText);
-        a?.document.close();
-        a?.print();
+      (response:Blob) => {
+        console.log(response);
+        //Create blobUrl from blob object.
+        let blobUrl: string = window.URL.createObjectURL(response);
+        //See the url!
+        // console.log(blobUrl);
+        //Open the URL in new window!
+        window.open(blobUrl);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

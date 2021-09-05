@@ -68,7 +68,7 @@ export class StudentService extends RepositoryService {
     return this.http.get<any>(
       `${this.url}/result-sheet/${reg}`, {
         headers: this.acc.tokenHeader,
-        responseType: 'text' as 'json' // 'document' as 'json'
+        responseType: 'blob' as 'json' // 'document' as 'json'
       }
     );
   }
