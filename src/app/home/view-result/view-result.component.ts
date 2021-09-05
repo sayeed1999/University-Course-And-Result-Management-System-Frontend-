@@ -4,6 +4,7 @@ import { Student } from 'src/app/models/Student.model';
 import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
 import { StudentService } from 'src/app/services/student.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-result',
@@ -73,9 +74,18 @@ export class ViewResultComponent implements OnInit {
   }
 
   resultGenerate() {
-    window.open("https://localhost:5001/Students/Result-Sheet/" + this.student.registrationNumber, "_blank");
-    // this.studentService.PrintStudentResultByRegNum(this.student.value.registrationNumber).subscribe(res => {});
-    // this.router.navigate([this.router.url, 'result-sheet-generation'], { state: this.student.value });
+    this.studentService.PrintStudentResultByRegNum(this.student.registrationNumber).subscribe(
+      (responseText: string) => {
+        // console.log(responseText);
+        var a = window.open();
+        a?.document.write(responseText);
+        a?.document.close();
+        a?.print();
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
 }

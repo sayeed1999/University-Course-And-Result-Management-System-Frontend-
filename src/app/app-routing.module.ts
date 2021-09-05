@@ -11,7 +11,6 @@ import { TeacherFormComponent } from './home/teacher-form/teacher-form.component
 import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
-import { ResultSheetGenerationComponent } from './home/view-result/result-sheet-generation/result-sheet-generation.component';
 import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
 import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
@@ -44,7 +43,6 @@ const routes: Routes = [
     { path: 'view-class-schedule', component: ViewClassScheduleComponent, canActivate: [PermitGuard] },
     { path: 'enroll-student-in-course', component: StudentEnrollOrPublishResultComponent, data: { kind: 'enroll' }, canActivate: [PermitGuard] },
     { path: 'save-result', component: StudentEnrollOrPublishResultComponent, data: { kind: 'publish' }, canActivate: [PermitGuard] },
-    { path: 'view-result/result-sheet-generation', component: ResultSheetGenerationComponent },
     { path: 'view-result', component: ViewResultComponent, canActivate: [PermitGuard] },
     { path: 'unassign-courses', component: UnassignAllCoursesComponent, canActivate: [PermitGuard] },
     { path: 'unallocate-classrooms', component: UnallocateAllClassroomsComponent, canActivate: [PermitGuard] },  

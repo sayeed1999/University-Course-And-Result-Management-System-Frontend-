@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ServiceResponse } from '../models/ServiceResponse.model';
 import { StudentEnrollOrPublishResultInCourse } from '../models/StudentEnrollOrPublishResult.model';
 import { AccountService } from './account.service';
@@ -65,10 +66,11 @@ export class StudentService extends RepositoryService {
 
   PrintStudentResultByRegNum(reg: string) : Observable<any> {
     return this.http.get<any>(
-      `${this.url}/result-sheet/${reg}`,
-      {
-        headers: this.acc.tokenHeader
-      });
+      `${this.url}/result-sheet/${reg}`, {
+        headers: this.acc.tokenHeader,
+        responseType: 'text' as 'json' // 'document' as 'json'
+      }
+    );
   }
   
 }
