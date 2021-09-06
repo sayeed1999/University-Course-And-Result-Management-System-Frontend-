@@ -1,4 +1,4 @@
-<div id="whole-page">
+<div [hidden]="pdfSrc.length > 0">
 
   <div style="display: flex;">
     <h1>{{ title }}</h1>
@@ -65,3 +65,12 @@
 
 </div>
 
+<div [hidden]="pdfSrc === ''" style="position: absolute; top: 10vh; right: 0; bottom: 0; left: 20%; z-index: 99;">
+    <button style="float: right; position: absolute; top: 25px; right: 25px; z-index: 100; background-color: silver; color: white;" mat-icon-button (click)="pdfSrc=''"> <span class="material-icons"> close </span> </button>
+    <pdf-viewer 
+      [src]="pdfSrc"
+      [render-text]="true"
+      [original-size]="false"
+      [show-borders]="true"
+    ></pdf-viewer>    
+</div>

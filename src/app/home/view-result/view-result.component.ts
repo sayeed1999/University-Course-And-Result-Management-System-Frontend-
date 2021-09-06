@@ -74,6 +74,7 @@ export class ViewResultComponent implements OnInit {
   }
 
   pdfGenerating = false;
+  pdfSrc="";
 
   resultGenerate() {
     this.pdfGenerating = true;
@@ -88,6 +89,7 @@ export class ViewResultComponent implements OnInit {
           const link = document.createElement('a');
           // create a blobURI pointing to our Blob
           link.href = URL.createObjectURL(blob);
+          this.pdfSrc = link.href;
           link.download = fileName;
           // some browser needs the anchor to be in the doc
           document.body.append(link);

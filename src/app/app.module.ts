@@ -33,6 +33,8 @@ import { MenuWiseRolePermissionComponent } from './menu/menu-wise-role-permissio
 import { LoginComponent } from './home/account/login/login.component';
 import { WelcomeComponent } from './home/welcome/welcome.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +75,7 @@ import { WelcomeComponent } from './home/welcome/welcome.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatNativeDateModule,
+    PdfViewerModule
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 10000}}

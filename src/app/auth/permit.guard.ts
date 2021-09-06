@@ -21,8 +21,7 @@ export class PermitGuard implements CanActivate {
     state: RouterStateSnapshot)
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
-      const fullpath = window.location.pathname;
-      // console.log(fullpath)
+      const fullpath = state.url; // console.log(route.url, state.url)
       
       if( fullpath==='/' || this.menuService.allowedRoutes.includes(fullpath) ) {
         return true;
