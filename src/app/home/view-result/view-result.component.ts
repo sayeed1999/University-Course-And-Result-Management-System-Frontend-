@@ -73,7 +73,10 @@ export class ViewResultComponent implements OnInit {
     );
   }
 
+  pdfGenerating = false;
+
   resultGenerate() {
+    this.pdfGenerating = true;
     this.studentService.PrintStudentResultByRegNum(this.student.registrationNumber).subscribe(
       (blob:Blob) => {
         // console.log(response);
@@ -91,7 +94,10 @@ export class ViewResultComponent implements OnInit {
           link.click();
           link.remove();
           // in case the Blob uses a lot of memory
-          setTimeout(() => URL.revokeObjectURL(link.href), 3500);
+          setTimeout(() => {
+            URL.revokeObjectURL(link.href)
+            this.pdfGenerating = false;
+          }, 3500);
         }; 
         
         downloadFile(blob, "result.pdf");

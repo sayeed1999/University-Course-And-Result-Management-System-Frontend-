@@ -32,7 +32,8 @@
         <mat-label> Department </mat-label>
         <input matInput readonly formControlName="dept" name="dept" id="dept"> 
     </mat-form-field>    
-    <button type="submit" [disabled]="form.invalid" mat-flat-button color="warn" style="margin-left: auto;">Make PDF</button>
+    <button type="submit" [hidden]="pdfGenerating" [disabled]="form.invalid" mat-flat-button color="warn" style="margin-left: auto">Make PDF</button>
+    <loading [hidden]="!pdfGenerating" style="margin-left: auto"></loading>
   </form>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

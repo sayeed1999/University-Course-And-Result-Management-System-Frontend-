@@ -23,12 +23,25 @@ export class AccountService {
   ) {
   }
 
+  private TokenExpired(token: string) {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp; // 'atob' stands for  'ASCII TO Binary'
+    return Math.floor( new Date().getTime() / 1000 ) >= expiry;
+  }
+
   ReactivateAfterRefresh() {
     const token = localStorage.getItem('token') ?? '';
-    if(token.length > 0) {
-      this.signedIn = true;
-      this.SetTokenHeader();
-      this.subject.next(true);
+    if(token.length > 0)
+    {
+      if(this.TokenExpired(token)) 
+      {
+        localStorage.removeItem('token');
+      }
+      else 
+      {
+        this.signedIn = true;
+        this.SetTokenHeader();
+        this.subject.next(true);  
+      }
     } 
    } 
 

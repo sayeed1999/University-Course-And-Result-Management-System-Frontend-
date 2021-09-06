@@ -17,3 +17,8 @@
     </mat-list>
 
 </mat-expansion-panel>
+
+<div *ngIf="fetchingMenu" style="display: flex;" >
+    <h3> Loading... </h3>
+    <loading></loading>
+</div>

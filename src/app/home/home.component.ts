@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   allMenu: Menu[] = [];
   toUnsubscribe!: Subscription;
 
+  fetchingMenu = false;
+
   constructor(
     private menuService: MenuService,
     private snackbar: MatSnackBar,
@@ -36,12 +38,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchMenus() {
+    this.fetchingMenu = true;
     this.allMenu = [];
     this.menuService.GetAllMenuInOrder().subscribe(
       res => {
         this.allMenu = res.data;
+        this.fetchingMenu = false;
       }, error => {
         this.snackbar.open('Couldn\'t fetch menus. Please check your internet connection.');
+        this.fetchingMenu = false;
       }
     );
   }
