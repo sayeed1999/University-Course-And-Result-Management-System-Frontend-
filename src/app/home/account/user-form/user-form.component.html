@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-9 col-md-10"></div>
     <div class="col-3 col-md-2">
-      <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+      <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary"> {{ this.mode === 'create' ? 'Register' : 'Update' }} </button>
     </div>
   </div>
 

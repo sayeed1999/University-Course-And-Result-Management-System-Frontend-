@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.fetchMenus();
+    if(this.acc.signedIn) this.fetchMenus();
     this.toUnsubscribe = this.acc.subject.subscribe(b => {
       if(b) {
         this.fetchMenus();
