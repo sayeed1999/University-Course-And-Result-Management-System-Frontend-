@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseFormComponent } from './home/course-form/course-form.component';
 import { TeacherFormComponent } from './home/teacher-form/teacher-form.component';
-import { ConfirmationDialog, CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
+import { CourseAssignToTeacherComponent } from './home/course-assign-to-teacher/course-assign-to-teacher.component';
 import { RegisteredStudentDialog, StudentRegistrationComponent } from './home/student-registration/student-registration.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CourseStatisticsComponent } from './home/course-statistics/course-statistics.component';
@@ -21,8 +21,8 @@ import { ViewResultComponent } from './home/view-result/view-result.component';
 import { AllocateClassroomsComponent } from './home/allocate-classrooms/allocate-classrooms.component';
 import { ViewClassScheduleComponent } from './home/view-class-schedule/view-class-schedule.component';
 import { LoadingComponent } from './shared/loading/loading.component';
-import { ConfirmUnassignDialog, UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
-import { ConfirmUnallocateDialog, UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
+import { UnassignAllCoursesComponent } from './home/unassign-all-courses/unassign-all-courses.component';
+import { UnallocateAllClassroomsComponent } from './home/unallocate-all-classrooms/unallocate-all-classrooms.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AddRolesComponent } from './home/account/add-roles/add-roles.component';
 import { UserFormComponent } from './home/account/user-form/user-form.component';
@@ -34,6 +34,7 @@ import { LoginComponent } from './home/account/login/login.component';
 import { WelcomeComponent } from './home/welcome/welcome.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AskDialogComponent } from './shared/ask-dialog/ask-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CourseFormComponent,
     TeacherFormComponent,
     CourseAssignToTeacherComponent,
-    ConfirmationDialog,
     CourseStatisticsComponent,
     StudentRegistrationComponent,
     StudentEnrollOrPublishResultComponent,
@@ -55,8 +55,6 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     RegisteredStudentDialog,
     UnassignAllCoursesComponent,
     UnallocateAllClassroomsComponent,
-    ConfirmUnassignDialog,
-    ConfirmUnallocateDialog,
     AddRolesComponent,
     UserFormComponent,
     UsersComponent,
@@ -65,6 +63,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MenuWiseRolePermissionComponent,
     LoginComponent,
     WelcomeComponent,
+    AskDialogComponent,
   ],
   imports: [
     BrowserModule,

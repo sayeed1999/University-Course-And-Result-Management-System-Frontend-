@@ -10,6 +10,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { TeacherService } from 'src/app/services/teacher.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AskDialogComponent } from 'src/app/shared/ask-dialog/ask-dialog.component';
 
 
 @Component({
@@ -144,8 +145,12 @@ export class CourseAssignToTeacherComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      width: '250px'
+    const dialogRef = this.dialog.open(AskDialogComponent, {
+      width: '576px',
+      data: {
+        message: 'Are you sure you want to proceed?',
+        subMessage: 'The teacher will have so many courses hard to manage..'
+      }
     });
 
     dialogRef.afterClosed().subscribe(permission => {
@@ -163,22 +168,4 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.department.reset();
     this.form.reset();
   }
-}
-
-
-
-@Component({
-  selector: 'confirmation-dialog',
-  templateUrl: 'confirmation-dialog.component.html',
-})
-export class ConfirmationDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-    
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }

@@ -24,7 +24,7 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form)
+
     var department = new Department(0, this.code, this.name)
     this.departmentService.Add(department).subscribe(
       res => {
@@ -32,9 +32,7 @@ export class DepartmentFormComponent implements OnInit {
         this.reset(form);
       },
       error => {
-        this.snackbar.open('Failed! Check you internet connection. Don\'t send any duplicate data that are already saved', 'Close');
-        // this.snackbar.open(`Failed! ${error.error.message ?? 'Please checkyour internet connection.'}`, 'Close');
-        this.reset(form);
+        this.snackbar.open(error.error.message ?? 'Check your internet connection', 'Close');
       }
     );
   }

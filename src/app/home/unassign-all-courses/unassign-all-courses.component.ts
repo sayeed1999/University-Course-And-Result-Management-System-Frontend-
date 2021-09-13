@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CoursesService } from 'src/app/services/courses.service';
+import { AskDialogComponent } from 'src/app/shared/ask-dialog/ask-dialog.component';
 
 @Component({
   selector: 'app-unassign-all-courses',
@@ -25,8 +26,12 @@ export class UnassignAllCoursesComponent implements OnInit {
   }
 
   clicked() {
-    const dialogRef = this.dialog.open(ConfirmUnassignDialog, {
-      width: '250px'
+    const dialogRef = this.dialog.open(AskDialogComponent, {
+      width: '576px',
+      data: {
+        message: 'Are you sure to unassign all courses?',
+        subMessage: 'All course-related infos will be unassigned..'
+      }
     });
 
     dialogRef.afterClosed().subscribe(permission => {
@@ -53,24 +58,6 @@ export class UnassignAllCoursesComponent implements OnInit {
         this.unassigning = false;
       }
     );
-  }
-
-}
-
-
-
-@Component({
-  selector: 'confirm-unassign-dialog',
-  templateUrl: 'confirm-unassign.component.html',
-})
-export class ConfirmUnassignDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmUnassignDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-    
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
 }

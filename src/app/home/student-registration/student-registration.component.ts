@@ -19,7 +19,7 @@ export class StudentRegistrationComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    contact: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(14)]),
+    contact: new FormControl(0, [Validators.required]),
     date: new FormControl(new Date(), Validators.required),
     address: new FormControl('', [ Validators.required, Validators.minLength(6)]),
     departmentId: new FormControl(0, [Validators.required, Validators.min(1)])
@@ -62,13 +62,14 @@ export class StudentRegistrationComponent implements OnInit {
 
   openDialog(student: Student): void {
     this.dialog.open(RegisteredStudentDialog, {
-      width: '400px',
+      width: '576px',
       data: student
     });
   }
 
   reset() {
     this.form.reset();
+    this.form.controls.date.setValue(new Date());
   }
 }
 

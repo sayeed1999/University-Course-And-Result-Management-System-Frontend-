@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RoomsService } from 'src/app/services/rooms.service';
+import { AskDialogComponent } from 'src/app/shared/ask-dialog/ask-dialog.component';
 
 @Component({
   selector: 'app-unallocate-all-classrooms',
@@ -25,8 +26,12 @@ export class UnallocateAllClassroomsComponent implements OnInit {
   }
 
   clicked() {
-    const dialogRef = this.dialog.open(ConfirmUnallocateDialog, {
-      width: '250px'
+    const dialogRef = this.dialog.open(AskDialogComponent, {
+      width: '576px',
+      data: {
+        message: 'Are you sure you want to unallocate all classrooms info?',
+        subMessage: 'All classrooms info will be unallocated..'
+      }
     });
 
     dialogRef.afterClosed().subscribe(permission => {
@@ -52,22 +57,6 @@ export class UnallocateAllClassroomsComponent implements OnInit {
         this.unallocating = false;
       }
     );
-  }
-
-}
-
-@Component({
-  selector: 'confirm-unallocate-dialog',
-  templateUrl: 'confirm-unallocate.component.html',
-})
-export class ConfirmUnallocateDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmUnallocateDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-    
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
 }
