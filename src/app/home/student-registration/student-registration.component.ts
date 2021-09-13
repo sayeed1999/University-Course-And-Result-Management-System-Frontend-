@@ -51,12 +51,11 @@ export class StudentRegistrationComponent implements OnInit {
     this.studentService.Add(this.form.value).subscribe(
       res => {
         this.reset();
-        console.log(res.data);
+        // console.log(res.data);
         this.openDialog(res.data);
       },
       error => {
-        this.reset();
-        this.snackBar.open(`Failed! If your internet connection is okay, then may be duplicate data found. Some other student may be using the same email.`, 'Close');
+        this.snackBar.open(error.error.message ?? 'Check your internet connection.', 'Close');
       }
     );
   }

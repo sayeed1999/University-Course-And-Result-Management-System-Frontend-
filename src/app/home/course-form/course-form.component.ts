@@ -16,10 +16,10 @@ export class CourseFormComponent implements OnInit {
 
   title = "Save Course"
   form = new FormGroup({
-    code: new FormControl('', [ Validators.required, Validators.minLength(2), Validators.maxLength(7) ]),
+    code: new FormControl('', [ Validators.required, Validators.minLength(5) ]),
     name: new FormControl('', Validators.required),
     credit: new FormControl('', [ Validators.required, Validators.min(0.5), Validators.max(5) ]),
-    description: new FormControl('', [ Validators.required, Validators.minLength(30) ]),
+    description: new FormControl(''),
     departmentId: new FormControl(null, Validators.required),
     semisterId: new FormControl(null, Validators.required)
   });
@@ -61,8 +61,7 @@ export class CourseFormComponent implements OnInit {
         this.reset();
       },
       error => {
-        this.snackBar.open(`Failed! If your internet connection is okay, may be you saving saved course again.`, 'Close');
-        this.reset();
+        this.snackBar.open(error.error.message ?? 'Check your internet connection', 'Close');
       }
     );
   }

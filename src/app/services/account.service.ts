@@ -34,7 +34,7 @@ export class AccountService {
     {
       if(this.TokenExpired(token)) 
       {
-        localStorage.removeItem('token');
+        this.Logout();
       }
       else 
       {

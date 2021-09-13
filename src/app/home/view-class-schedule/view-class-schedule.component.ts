@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AllocateClassroom } from 'src/app/models/AllocateClassroom.model';
-import { Course } from 'src/app/models/Course.model';
+import { ClassSchedule } from 'src/app/models/ClassSchedule.model';
 import { Department } from 'src/app/models/Department.model';
 import { CoursesService } from 'src/app/services/courses.service';
 import { DepartmentService } from 'src/app/services/department.service';
-import { RoomsService } from 'src/app/services/rooms.service';
 
 @Component({
   selector: 'app-view-class-schedule',
@@ -18,7 +16,7 @@ export class ViewClassScheduleComponent implements OnInit {
   title = "View Class Schedule and Room Allocation Information";
   departmentId = new FormControl(0);
   departments: Department[] = [];
-  courses: Course[] = [];
+  classSchedules: ClassSchedule[] = [];
   displayedColumns = [ 'code', 'name', 'schedule-info' ];
 
   constructor(
@@ -44,15 +42,12 @@ export class ViewClassScheduleComponent implements OnInit {
   }
 
   fetchClassSchedule(departmentId: number) {
-    this.courseService.GetCoursesWithAllocatedRooms(departmentId).subscribe(
+    this.courseService.GetClassScheduleAndRoomAllocationInfo(departmentId).subscribe(
       res => {
-        this.courses = res.data;
-        // console.log(this.courses);
-        // var from = new Date(res.data[1].allocateClassrooms[0].from);
-        // console.log(from);
+        this.classSchedules = res.data;
       },
       error => {
-        this.snackbar.open(`Failed! ${error.error.message ?? 'Check your internet connection.'}`, 'Close');
+        this.snackbar.open(error.error.message ?? 'Check your internet connection.', 'Close');
       }
     );
   }

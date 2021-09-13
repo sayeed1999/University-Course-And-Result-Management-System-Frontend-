@@ -39,7 +39,7 @@ export class RepositoryService {
   }
 
   public Add(item: any) : Observable<ServiceResponse> {
-    
+    // console.log(item)
     return this.http.post<ServiceResponse>(
       this.url,
       item,

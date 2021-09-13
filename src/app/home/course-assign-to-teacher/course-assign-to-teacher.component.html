@@ -54,14 +54,14 @@
             <label class="form-label">Select Course * </label>
         </div>
         <div class="col-9">
-            <select class="form-control" formControlName="courseCode" name="courseCode" id="courseCode">
-                <option *ngFor="let course of courses" [value]="course.code">
+            <select class="form-control" formControlName="courseId" name="courseId">
+                <option *ngFor="let course of courses" [value]="course.id">
                     {{ course?.code }}
                 </option>
             </select>
             <loading *ngIf="fetchingCourses"></loading>
-            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
-            <p class="error-text" *ngIf="(form.controls.courseCode.touched || form.controls.courseCode.dirty) && form.get('departmentId')?.valid && form.get('courseCode')?.invalid"> Please select a course </p>
+            <p class="error-text" *ngIf="(form.controls.courseId.touched || form.controls.courseId.dirty) && form.get('departmentId')?.invalid"> Please select a department first </p>
+            <p class="error-text" *ngIf="(form.controls.courseId.touched || form.controls.courseId.dirty) && form.get('departmentId')?.valid && form.get('courseId')?.invalid"> Please select a course </p>
         </div>
     </div>
 
@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-9 col-md-10"></div>
         <div class="col-3 col-md-2">
-            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary"> Assign </button>
         </div>
     </div>
 

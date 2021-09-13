@@ -16,10 +16,10 @@ export class TeacherFormComponent implements OnInit {
 
   title = "Save Teacher"
   form = new FormGroup({
-    name: new FormControl('', [ Validators.required ]),
-    address: new FormControl('', [ Validators.required ]),
+    name: new FormControl(),
+    address: new FormControl(),
     email: new FormControl('', [ Validators.required, Validators.email ]),
-    contact: new FormControl(0, [ Validators.required, Validators.min(100000), Validators.max(10000000000000) ]),
+    contact: new FormControl(0, Validators.required), // [ Validators.required, Validators.min(100000), Validators.max(10000000000000) ]),
     designationId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
     departmentId: new FormControl(0, [ Validators.required, Validators.min(1) ]),
     creditToBeTaken: new FormControl(0, [ Validators.required, Validators.min(0) ])
@@ -42,7 +42,9 @@ export class TeacherFormComponent implements OnInit {
 
   fetchDepartments() {
     this.departmentService.GetAll().subscribe(
-      res => this.departments = res.data,
+      res => {
+        this.departments = res.data;
+      },
       error => {
         this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close');
       }
@@ -54,7 +56,6 @@ export class TeacherFormComponent implements OnInit {
       res => this.designations = res.data,
       error => {
         this.snackBar.open('Data fetching error! Please check your internet connection.', 'Close');
-        // this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
       }
     );
   }
@@ -62,7 +63,6 @@ export class TeacherFormComponent implements OnInit {
   debug = () => console.log(this.form);
     
   onSubmit() {
-    // console.log(this.form);
     // i assume what data will come will match course model.
     var teacher = this.form.value;
     this.teacherService.Add(teacher).subscribe(
@@ -71,9 +71,7 @@ export class TeacherFormComponent implements OnInit {
         this.reset();
       },
       error => {
-        this.snackBar.open('Failed! If your internet connection is okay, may be you are sending duplicate email address!', 'Close');
-        // this.snackBar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
-        this.reset();
+        this.snackBar.open(error.error.message ?? 'Check your internet connection', 'Close');
       }
     );
   }

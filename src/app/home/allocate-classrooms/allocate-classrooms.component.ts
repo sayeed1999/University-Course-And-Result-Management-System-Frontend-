@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/Course.model';
 import { Day } from 'src/app/models/Day.model';
 import { Department } from 'src/app/models/Department.model';
 import { Room } from 'src/app/models/Room.model';
+import { CoursesService } from 'src/app/services/courses.service';
 import { DaysService } from 'src/app/services/days.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { RoomsService } from 'src/app/services/rooms.service';
@@ -25,9 +26,9 @@ export class AllocateClassroomsComponent implements OnInit {
 
   form = new FormGroup({
     departmentId : new FormControl(0, [Validators.required,Validators.min(1)]),
-    courseCode: new FormControl(null, Validators.required),
-    roomId: new FormControl(null, Validators.required),
-    dayId: new FormControl(null, Validators.required),
+    courseId: new FormControl(0, [Validators.required,Validators.min(1)]),
+    roomId: new FormControl(0, [Validators.required,Validators.min(1)]),
+    dayId: new FormControl(0, [Validators.required,Validators.min(1)]),
     from: new FormControl(new Date(), Validators.required),
     to: new FormControl(new Date(), Validators.required)
   });
@@ -36,25 +37,26 @@ export class AllocateClassroomsComponent implements OnInit {
   
   constructor(
     private departmentService: DepartmentService,
+    private courseService: CoursesService,
     private roomsService: RoomsService,
     private daysService: DaysService,
     private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.fetchDepartmentsWithCourses();
+    this.fetchDepartments();
     this.onChanges();
     this.fetchRooms();
     this.fetchDays();
 
-    this.form.controls.courseCode.valueChanges.subscribe(val => {
-      if(val == "null") this.form.controls.courseCode.setValue(null);
+    this.form.controls.courseId.valueChanges.subscribe(val => {
+      if(val == "null") this.form.controls.courseId.setValue(null);
     })
   }
 
-  fetchDepartmentsWithCourses() {
+  fetchDepartments() {
     this.departmentFetching = true;
-    this.departmentService.getAllDepartmentsWithCourses().subscribe(
+    this.departmentService.GetAll().subscribe(
       res => {
         this.departments = res.data;
         this.departmentFetching = false;
@@ -97,29 +99,55 @@ export class AllocateClassroomsComponent implements OnInit {
   onChanges() {
     this.form.controls.departmentId.valueChanges.subscribe(val => {
       this.courses = [];
-      this.form.controls.courseCode.setValue(null);
+      this.form.controls.courseId.setValue(0);
       if(val == undefined || val == null ||  val == 0) return;
-      const department = this.departments.find(x => x.id == val);
-      this.courses = department?.courses ?? [];
+      this.fetchCourses(val);
     });
   }
 
-  onSubmit() {
-    // console.log(this.form.value);
+  fetchCourses(departmentId: number) {
+    this.courseFetching = true;
+    this.courseService.GetCoursesByDepartment(departmentId).subscribe(
+      res => {
+        this.courses = res.data;
+        this.courseFetching = false;
+      },
+      error => {
+        this.snackbar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
+        this.courseFetching = false;
+      }
+    );
+  }
 
-    if(new Date(this.form.value.from) >= new Date(this.form.value.to)) {
-      alert("Class duration cannot be 0 or less than 0 minutes!");
-      return;
-    }
-    //post:
-    this.roomsService.AllocateClassRoom(this.form.value).subscribe(
+  onSubmit() {
+    
+    var tmp: AllocateClassroom = new AllocateClassroom(
+      0,
+      this.form.value.roomId,
+      this.form.value.departmentId,
+      this.form.value.courseId,
+      this.form.value.dayId,
+      0,
+      0
+    )
+    
+    let temp: Date = this.form.value.from;
+    let tempStr = `${temp.getHours()}.${temp.getMinutes()}`;
+    tmp.from = Number.parseFloat(tempStr);
+    
+    temp = this.form.value.to;
+    tempStr = `${temp.getHours()}.${temp.getMinutes()}`;
+    tmp.to = Number.parseFloat(tempStr);
+    
+    // console.log(tmp); return;
+
+    this.roomsService.AllocateClassRoom(tmp).subscribe(
       res => {
         this.snackbar.open(`Success! ${res.message}`, 'Close');
         this.reset();
       },
       error => {
-        this.snackbar.open(`Failed! ${error.error.message ?? 'Please check your internet connection.'}`, 'Close');
-        this.reset();
+        this.snackbar.open(error.error.message ?? 'Please check your internet connection.', 'Close');
       }
     );
   }

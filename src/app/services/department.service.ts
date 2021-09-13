@@ -19,23 +19,4 @@ export class DepartmentService extends RepositoryService {
     this.url += this.endpoint;
   }
 
-  // path: departments/all
-  getAllDepartmentsWithCoursesAndTeachers(): Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(
-      `${this.url}/all`,
-      {
-        headers: this.acc.tokenHeader
-      }
-    );
-  }
-
-  // path: departments/courses
-  getAllDepartmentsWithCourses(): Observable<ServiceResponse> {
-    return this.http.get<ServiceResponse>(
-      `${this.url}/courses`,
-      {
-        headers: this.acc.tokenHeader
-      }
-    );
-  }
 }

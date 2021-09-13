@@ -6,7 +6,7 @@
     </div>
     <div class="col-9">
       <input class="form-control" formControlName="code" name="code">
-      <p class="error-text form-text" *ngIf="(form.controls.code?.dirty || form.controls.code?.touched) && form.controls.code?.invalid"> Code must be unique and between 2-7 characters long </p>
+      <p class="error-text form-text" *ngIf="(form.controls.code?.dirty || form.controls.code?.touched) && form.controls.code?.invalid"> Code must be unique and atleast 5 characters long </p>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
     </div>
     <div class="col-9">
       <input class="form-control" formControlName="name" name="name"> 
-      <p class="error-text form-text" *ngIf="(form.controls.name?.dirty || form.controls.name?.touched) && form.controls.name?.invalid"> Course name must be unique in the respective department </p>
+      <p class="error-text form-text" *ngIf="(form.controls.name?.dirty || form.controls.name?.touched) && form.controls.name?.invalid"> Name must be unique </p>
     </div>
   </div>
 
@@ -32,11 +32,10 @@
   
   <div class="row">
     <div class="col-3">
-      <label class="form-label">Description * </label>
+      <label class="form-label">Description </label>
     </div>
     <div class="col-9">
      <textarea class="form-control" formControlName="description" name="description"></textarea>
-     <p class="error-text form-text" *ngIf="(form.controls.description.dirty || form.controls.description.touched) && form.controls.description?.invalid"> Description should be minimum 30 characters </p>
     </div>
   </div>
 

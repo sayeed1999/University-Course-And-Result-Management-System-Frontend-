@@ -6,12 +6,12 @@ import { Room } from "./Room.model";
 export class AllocateClassroom {
     constructor(
         public id: number,
-        public roomId: string,
+        public roomId: number,
         public departmentId: number,
-        public courseCode: string,
-        public dayId: string,
-        public from: Date,
-        public to: Date,
+        public courseId: number,
+        public dayId: number,
+        public from: number,
+        public to: number,
         public room?: Room,
         public department?: Department,
         public course?: Course,

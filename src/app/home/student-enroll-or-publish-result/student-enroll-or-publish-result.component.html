@@ -52,18 +52,18 @@
         <label class="form-label">Select Course</label>
       </div>
       <div class="col-9">
-        <select *ngIf="mode=='enroll'" class="form-control" formControlName="courseCode" name="courseCode">
-          <option *ngFor="let c of courses" [value]="c.code">
+        <select *ngIf="mode=='enroll'" class="form-control" formControlName="courseId" name="courseId">
+          <option *ngFor="let c of courses" [value]="c.id">
               {{ c.code }}
           </option>
         </select>
-        <select *ngIf="mode=='publish'" class="form-control" formControlName="courseCode" name="courseCode">
+        <select *ngIf="mode=='publish'" class="form-control" formControlName="courseId" name="courseId">
           <option value=""> Select Course </option>
-          <option *ngFor="let c of studentsCourses" [value]="c.courseCode">
-              {{ c.courseCode }}
+          <option *ngFor="let c of studentsCourses" [value]="c.courseId">
+              {{ c.course?.code }}
           </option>
         </select>
-        <p class="error-text" *ngIf="(form.controls.courseCode.dirty || form.controls.courseCode.touched) && form.controls.courseCode.invalid"> Please select a Course </p>
+        <p class="error-text" *ngIf="(form.controls.courseId.dirty || form.controls.courseId.touched) && form.controls.courseId.invalid"> Please select a Course </p>
       </div>
     </div>
   
@@ -80,12 +80,12 @@
     <ng-template #elseblock>
         <div class="row">
           <div class="col-3">
-            <label class="form-label">Select Grade Letter</label>
+            <label class="form-label">Select Grade</label>
           </div>
           <div class="col-9">
-            <select class="form-control" formControlName="grade" name="grade" id="grade">
-                <option *ngFor="let g of grades" [value]="g.grade">
-                    {{ g.grade }}
+            <select type="number" class="form-control" formControlName="gradeId" name="gradeId">
+                <option *ngFor="let g of grades" [value]="g.id">
+                    {{ g.name }}
                 </option>
             </select>
             <p class="error-text" *ngIf="(form.controls?.grade?.dirty || form.controls?.grade?.touched) && form.controls?.grade?.invalid"> Please select a Grade </p>            
@@ -96,7 +96,7 @@
     <div class="row">
         <div class="col-9 col-md-10"></div>
         <div class="col-3 col-md-2">
-            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary">Save</button>
+            <button type="submit" [disabled]="form.invalid" mat-flat-button color="primary"> {{ this.mode === 'enroll' ? 'Enroll' : 'Save' }} </button>
         </div>
     </div>
 

@@ -55,18 +55,18 @@ export class StudentService extends RepositoryService {
       });
   }
 
-  // GET: Students/Results/1
+  // GET: Students/Results/Student/1
   ViewResultById(id:number) : Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(
-      `${this.url}/results/${id}`,
+      `${this.url}/Results/Student/${id}`,
       {
         headers: this.acc.tokenHeader
       });
   }
 
-  PrintStudentResultByRegNum(reg: string) : Observable<any> {
+  PrintStudentResultByRegNum(id: number) : Observable<any> {
     return this.http.get<any>(
-      `${this.url}/result-sheet/${reg}`, {
+      `${this.url}/Result-Sheet/Student/${id}`, {
         headers: this.acc.tokenHeader,
         responseType: 'blob' as 'json' // 'document' as 'json'
       }

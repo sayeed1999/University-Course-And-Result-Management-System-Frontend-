@@ -1,9 +1,13 @@
+import { Grade } from "./Grade.model";
+
 export class StudentEnrollOrPublishResultInCourse {
     constructor(
+        public id: number,
         public departmentId: number,
-        public courseCode: string,
+        public courseId: number,
         public studentId: number,
         public date: Date,
-        public grade?: string
+        public gradeId: number,
+        public grade?: Grade
     ) {}
 }

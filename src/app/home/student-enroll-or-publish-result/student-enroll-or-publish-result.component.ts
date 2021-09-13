@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/Course.model';
-import { GradeLetter } from 'src/app/models/GradeLetter.model';
+import { Grade } from 'src/app/models/Grade.model';
 import { Student } from 'src/app/models/Student.model';
 import { StudentEnrollOrPublishResultInCourse } from 'src/app/models/StudentEnrollOrPublishResult.model';
 import { StudentsCourses } from 'src/app/models/StudentsCourses.model';
@@ -21,7 +21,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
   mode = '';
   title = "";
   students: Student[] = [];
-  grades: GradeLetter[] = [];
+  grades: Grade[] = [];
   studentsCourses: StudentsCourses[] = [];
   courses: Course[] = [];
 
@@ -30,7 +30,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     name: new FormControl(''),
     email: new FormControl(''),
     deptCode: new FormControl(''),
-    courseCode: new FormControl('', Validators.required),
+    courseId: new FormControl(0, Validators.required),
   });
 
   studentFetching = false;
@@ -74,7 +74,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
           break;
         case 'publish':
           this.mode = 'publish';
-          this.form.setControl('grade', new FormControl(null, Validators.required));
+          this.form.setControl('gradeId', new FormControl(0, [Validators.required, Validators.min(1)]));
           this.title = "Save Student Result";
           break;
         default:
@@ -124,33 +124,33 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
     const student = this.students.find(x => x.registrationNumber == this.form.value.reg);
     
     var data = new StudentEnrollOrPublishResultInCourse(
+      0,
       student?.departmentId ?? 0,
-      this.form.value.courseCode,
+      this.form.value.courseId,
       student?.id ?? 0,
-      this.form.value.date,
-      this.form.value?.grade
+      this.form.value.date ?? new Date(),
+      this.form.value?.gradeId
     );
+
     if(this.mode == 'enroll') {
       this.studentService.EnrollInCourse(data).subscribe(
         res => {
-          this.snackbar.open('Success! Enrolled succesfully', 'Close');
+          this.snackbar.open(res.message, 'Close');
           this.reset();
         },
         error => {
-          this.snackbar.open(`Failed! A student can be enrolled only once. If you are not enrolling twice, then check your internet connection.`, 'Close');
-          this.reset();
+          this.snackbar.open(error.error.message ?? 'Check your internet connection.', 'Close');
         }
       );
     }
     else if(this.mode == 'publish') {
       this.studentService.SaveResult(data).subscribe(
         res => {
-          this.snackbar.open(`Success! ${this.mode=='enroll'?'Enrolled succesfully':'Result saved successfully'}`, 'Close');
+          this.snackbar.open(res.message, 'Close');
           this.reset();
         },
         error => {
-          this.snackbar.open(`Failed! ${ error.error.message ?? 'Please check your internet connection' }`, 'Close');
-          this.reset();
+          this.snackbar.open(error.error.message ?? 'Please check your internet connection', 'Close');
         }
       );
     }
@@ -164,7 +164,7 @@ export class StudentEnrollOrPublishResultComponent implements OnInit {
         this.form.controls.name.setValue(student?.name);
         this.form.controls.email.setValue(student?.email);
         this.form.controls.deptCode.setValue(student?.department?.code);
-        this.form.controls.courseCode.setValue('');
+        this.form.controls.courseId.setValue(0);
         this.studentsCourses = [];
         if(this.mode=='publish') this.studentsCourses = student?.studentsCourses ?? [];
         else this.fetchCourses(student?.departmentId ?? 0);

@@ -2,7 +2,7 @@ import { AllocateClassroom } from "./AllocateClassroom.model";
 
 export class Day {
     constructor(
-        public name: string,
-        public allocateClassrooms?: AllocateClassroom[]
+        public id: number,
+        public name: string
     ) {}
 }

@@ -26,7 +26,6 @@ export class DepartmentFormComponent implements OnInit {
   onSubmit(form: NgForm) {
     console.log(form)
     var department = new Department(0, this.code, this.name)
-    console.log(department);
     this.departmentService.Add(department).subscribe(
       res => {
         this.snackbar.open('Success! ' + res.message, 'Close');

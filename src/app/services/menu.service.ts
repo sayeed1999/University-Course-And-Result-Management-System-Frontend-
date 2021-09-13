@@ -34,6 +34,7 @@ export class MenuService extends RepositoryService {
       this.allowedRoutes = [];
       res.data.forEach((rootMenu: Menu) => {
         const rootRoute = rootMenu.url;
+        this.allowedRoutes.push('/' + rootMenu.url);
         rootMenu.childMenus?.forEach((childMenu: Menu) => {
           const allowedPath = '/' + rootRoute + '/' + childMenu.url;
           this.allowedRoutes.push(allowedPath);

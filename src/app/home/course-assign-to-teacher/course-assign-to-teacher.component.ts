@@ -32,7 +32,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
     teacherId: new FormControl(0, [Validators.required,Validators.min(1)]),
     creditToBeTaken: new FormControl(),
     remainingCredit: new FormControl(),
-    courseCode: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(7)]),
+    courseId: new FormControl(0, [Validators.required, Validators.min(1)]),
     courseName: new FormControl(),
     courseCredit: new FormControl(),
   });
@@ -100,7 +100,7 @@ export class CourseAssignToTeacherComponent implements OnInit {
     {
       // console.log(val);
       this.form.controls.teacherId.setValue(null);
-      this.form.controls.courseCode.setValue(null);
+      this.form.controls.courseId.setValue(null);
       this.teachers = [];
       this.courses = [];
 
@@ -113,7 +113,6 @@ export class CourseAssignToTeacherComponent implements OnInit {
     this.form.controls.teacherId.valueChanges.subscribe(
       val => {
       // console.log(val);
-
       if(val == undefined || val == null || val == 0) return;
 
       const teacher = this.teachers.find(x => x.id == val);
@@ -121,29 +120,25 @@ export class CourseAssignToTeacherComponent implements OnInit {
       this.form.controls.remainingCredit.setValue(teacher?.remainingCredit);
     });
 
-    this.form.controls.courseCode.valueChanges.subscribe(
+    this.form.controls.courseId.valueChanges.subscribe(
       val => {
       // console.log(val);
-
       if(val == undefined || val == null || val == '') return;
 
-      const course = this.courses.find(x => x.code == val);
+      const course = this.courses.find(x => x.id == val);
       this.form.controls.courseName.setValue(course?.name);
       this.form.controls.courseCredit.setValue(course?.credit);
     });
   }
   onSubmit() {
-    this.courseService.courseAssignToTeacher(+this.form.value.departmentId, +this.form.value.teacherId, this.form.value.courseCode)
+    this.courseService.courseAssignToTeacher(+this.form.value.departmentId, +this.form.value.teacherId, this.form.value.courseId)
       .subscribe(
         res => {
-          // console.log(res);
           this.snackbar.open(`Success! ${res.message}`, 'Close');
           this.reset();
         },
         (error:HttpErrorResponse) => {
-          // console.log(error)
-          this.snackbar.open(`Failed! ${error.error.message}`, 'Close');
-          this.reset();
+          this.snackbar.open(error.error.message ?? 'Check your internet connection.', 'Close');
         }
       );
   }

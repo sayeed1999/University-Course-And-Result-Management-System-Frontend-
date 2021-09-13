@@ -16,7 +16,7 @@
     </div>
     <div class="col-9">
       <input class="form-control" [(ngModel)]="name" name="name" id="name" required>
-      <p class="error-text form-text" *ngIf="(form.controls.name?.touched || form.controls.name?.dirty) && form.controls.name?.invalid"> Department Name must be provided </p>
+      <p class="error-text form-text" *ngIf="(form.controls.name?.touched || form.controls.name?.dirty) && form.controls.name?.invalid"> Name must be unique </p>
     </div>
   </div>
   

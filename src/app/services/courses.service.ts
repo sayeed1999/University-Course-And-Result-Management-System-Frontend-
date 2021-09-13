@@ -19,18 +19,18 @@ export class CoursesService extends RepositoryService {
     this.url += this.endpoint;
   }
 
-  GetCoursesByDepartmentIncludingTeachersAndSemisters(departmentId: number) {
+  GetClassScheduleAndRoomAllocationInfo(departmentId: number) {
     return this.http.get<ServiceResponse>(
-      `${this.url}/IncludeTeachersAndSemisters/Department/${departmentId}`,
+      `${this.url}/Department/${departmentId}/ClassSchedule`,
       {
         headers: this.acc.tokenHeader
       }
     );
   }
 
-  GetCoursesByDepartmentIncludingTeachers(departmentId: number) {
+  GetCoursesByDepartmentIncludingTeachersAndSemisters(departmentId: number) {
     return this.http.get<ServiceResponse>(
-      `${this.url}/IncludeTeachers/Department/${departmentId}`,
+      `${this.url}/IncludeTeachersAndSemisters/Department/${departmentId}`,
       {
         headers: this.acc.tokenHeader
       }
@@ -46,14 +46,14 @@ export class CoursesService extends RepositoryService {
     );
   }
 
-  courseAssignToTeacher(departmentId: number, teacherId: number, courseCode: string) : Observable<ServiceResponse> {
-    // console.log(departmentId, teacherId, courseCode)
+  courseAssignToTeacher(departmentId: number, teacherId: number, courseId: string) : Observable<ServiceResponse> {
+    // console.log(departmentId, teacherId, courseId)
     return this.http.post<ServiceResponse>(
       `${this.url}/CourseAssignToTeacher`,
       {
         departmentId,
         teacherId,
-        courseCode
+        courseId
       },
       {
         headers: this.acc.tokenHeader

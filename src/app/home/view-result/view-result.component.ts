@@ -32,30 +32,26 @@ export class ViewResultComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
-
     this.myControl.valueChanges.subscribe((val:string) => {
-
-      this.searchRegNum = val;
       if(!this.start) {
         this.start = true;
         setTimeout(() => {
           this.start = false;
-          this.fetchStudents(this.searchRegNum);
+          this.fetchStudents();
         }, 1500);
       }
     });
   }
 
-  fetchStudents(regNum:string = '') {
+  fetchStudents() {
     this.fetching = true;
-    this.studentService.GetAll(regNum).subscribe(
+    this.studentService.GetAll(this.myControl.value).subscribe(
       res => {
         this.students = res.data;
-        const _student = this.students.find(x => x.registrationNumber === regNum);
+        const _student = this.students.find(x => x.registrationNumber === this.myControl.value);
         
         if(_student != null) {
           this.student = _student;
@@ -78,7 +74,7 @@ export class ViewResultComponent implements OnInit {
 
   resultGenerate() {
     this.pdfGenerating = true;
-    this.studentService.PrintStudentResultByRegNum(this.student.registrationNumber).subscribe(
+    this.studentService.PrintStudentResultByRegNum(this.student.id).subscribe(
       (blob:Blob) => {
         // console.log(response);
         // let blobUrl: string = window.URL.createObjectURL(response); // Create blobUrl from blob object.
