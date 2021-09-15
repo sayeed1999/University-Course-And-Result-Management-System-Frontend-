@@ -99,9 +99,8 @@ export class CourseAssignToTeacherComponent implements OnInit {
 
     this.form.get('departmentId')?.valueChanges.subscribe(val => 
     {
-      // console.log(val);
-      this.form.controls.teacherId.setValue(null);
-      this.form.controls.courseId.setValue(null);
+      this.form.controls.teacherId.setValue(0);
+      this.form.controls.courseId.setValue(0);
       this.teachers = [];
       this.courses = [];
 
@@ -113,22 +112,16 @@ export class CourseAssignToTeacherComponent implements OnInit {
 
     this.form.controls.teacherId.valueChanges.subscribe(
       val => {
-      // console.log(val);
-      if(val == undefined || val == null || val == 0) return;
-
       const teacher = this.teachers.find(x => x.id == val);
-      this.form.controls.creditToBeTaken.setValue(teacher?.creditToBeTaken);
-      this.form.controls.remainingCredit.setValue(teacher?.remainingCredit);
+      this.form.controls.creditToBeTaken.setValue(teacher?.creditToBeTaken ?? null);
+      this.form.controls.remainingCredit.setValue(teacher?.remainingCredit ?? null);
     });
 
     this.form.controls.courseId.valueChanges.subscribe(
       val => {
-      // console.log(val);
-      if(val == undefined || val == null || val == '') return;
-
       const course = this.courses.find(x => x.id == val);
-      this.form.controls.courseName.setValue(course?.name);
-      this.form.controls.courseCredit.setValue(course?.credit);
+      this.form.controls.courseName.setValue(course?.name ?? null);
+      this.form.controls.courseCredit.setValue(course?.credit ?? null);
     });
   }
   onSubmit() {
